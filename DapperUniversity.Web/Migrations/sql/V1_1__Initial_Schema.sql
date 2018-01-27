@@ -42,41 +42,41 @@ CREATE TABLE person (
 
 ALTER TABLE course
   ADD CONSTRAINT fk_course_department
-  FOREIGN KEY (departmentId) 
-  REFERENCES department(departmentId)
+  FOREIGN KEY (department_id) 
+  REFERENCES department(department_id)
   ON DELETE CASCADE;
 
 ALTER TABLE course_instructor
   ADD CONSTRAINT fk_course_instructor_course
-  FOREIGN KEY (courseId) 
-  REFERENCES course(courseId)
+  FOREIGN KEY (course_id) 
+  REFERENCES course(course_id)
   ON DELETE CASCADE;
 
 ALTER TABLE course_instructor
   ADD CONSTRAINT fk_course_instructor_instructor
-  FOREIGN KEY (instructorId) 
+  FOREIGN KEY (instructor_id) 
   REFERENCES person(id)
   ON DELETE CASCADE;
 
 ALTER TABLE department
   ADD CONSTRAINT fk_department_instructor
-  FOREIGN KEY (instructorId) 
+  FOREIGN KEY (instructor_id) 
   REFERENCES person(id)
   ON DELETE CASCADE;
 
 ALTER TABLE enrollment
   ADD CONSTRAINT fk_enrollment_course
-  FOREIGN KEY (courseId) 
-  REFERENCES course(courseId)
+  FOREIGN KEY (course_id) 
+  REFERENCES course(course_id)
   ON DELETE CASCADE;
 
 ALTER TABLE enrollment
   ADD CONSTRAINT fk_enrollment_student
-  FOREIGN KEY (studentId) 
+  FOREIGN KEY (student_id) 
   REFERENCES person(id)
   ON DELETE CASCADE;
 
 ALTER TABLE office_assignment
   ADD CONSTRAINT fk_office_assignment_instructor
-  FOREIGN KEY (instructorId) 
+  FOREIGN KEY (instructor_id) 
   REFERENCES person(id);
