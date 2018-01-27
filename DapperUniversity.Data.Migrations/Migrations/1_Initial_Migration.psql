@@ -1,0 +1,46 @@
+CREATE EXTENSION IF NOT EXISTS citext;
+
+CREATE TABLE course 
+(
+  course_id integer PRIMARY KEY,
+  title varchar(50) NOT NULL,
+  credits integer NOT NULL,
+  department_id integer NOT NULL
+);
+
+CREATE TABLE course_instructor (
+  course_id integer PRIMARY KEY,
+  instructor_id integer PRIMARY KEY,
+  course_id asc,
+  instructor_id asc,
+);
+
+CREATE TABLE department (
+  department_id integer PRIMARY KEY,
+  name varchar(50) NOT NULL REFERENCES user_account(id)
+  budget money NOT NULL REFERENCES user_account(id)
+  start_date timestamp NOT NULL REFERENCES user_account(id)
+  instructor_id integer NOT NULL REFERENCES user_account(id)
+  /* row_version timestamp NOT NULL REFERENCES user_account(id) */
+);
+
+CREATE TABLE enrollment (
+  enrollment_id integer PRIMARY KEY,
+  course_id integer PRIMARY KEY,
+  student_id integer PRIMARY KEY,
+  grade integer NOT NULL REFERENCES user_account(id)
+);
+
+CREATE TABLE office_assignment(
+  instructor_id integer PRIMARY KEY,
+  location varchar(50) NOT NULL REFERENCES user_account(id)
+);
+
+CREATE TABLE person (
+  id integer PRIMARY KEY,
+  last_name varchar(50) NOT NULL REFERENCES user_account(id)
+  first_name varchar(50) NOT NULL REFERENCES user_account(id)
+  hire_date timestamp NOT NULL REFERENCES user_account(id)
+  enrollment_date timestamp NOT NULL REFERENCES user_account(id)
+  discriminator varchar(50 NOT NULL REFERENCES user_account(id)
+);

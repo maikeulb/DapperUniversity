@@ -1,0 +1,12 @@
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/bin/Debug/netcoreapp2.0/app.db
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/bin/Debug/netcoreapp2.0/DapperUniversity.Web.deps.json
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/bin/Debug/netcoreapp2.0/DapperUniversity.Web.runtimeconfig.json
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/bin/Debug/netcoreapp2.0/DapperUniversity.Web.runtimeconfig.dev.json
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/bin/Debug/netcoreapp2.0/DapperUniversity.Web.dll
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/bin/Debug/netcoreapp2.0/DapperUniversity.Web.pdb
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/obj/Debug/netcoreapp2.0/DapperUniversity.Web.csproj.CoreCompileInputs.cache
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/obj/Debug/netcoreapp2.0/UserSecretsAssemblyInfo.cs
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/obj/Debug/netcoreapp2.0/DapperUniversity.Web.AssemblyInfoInputs.cache
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/obj/Debug/netcoreapp2.0/DapperUniversity.Web.AssemblyInfo.cs
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/obj/Debug/netcoreapp2.0/DapperUniversity.Web.dll
+/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity.Web/obj/Debug/netcoreapp2.0/DapperUniversity.Web.pdb
