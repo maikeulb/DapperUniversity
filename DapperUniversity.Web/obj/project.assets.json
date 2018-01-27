@@ -2,6 +2,68 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "AutoMapper/6.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "NETStandard.Library": "1.6.1",
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Linq.Queryable": "4.3.0",
+          "System.Reflection.Emit": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "6.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
+          "Microsoft.Extensions.DependencyModel": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "FluentValidation/7.2.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.0/FluentValidation.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/FluentValidation.dll": {}
+        }
+      },
+      "FluentValidation.AspNetCore/7.2.1": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "7.2.1",
+          "Microsoft.AspNetCore.Mvc": "1.1.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/FluentValidation.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/FluentValidation.AspNetCore.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -40,6 +102,31 @@
             "assetType": "native",
             "rid": "win-x86"
           }
+        }
+      },
+      "MediatR/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "lib/netstandard1.1/MediatR.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/MediatR.dll": {}
+        }
+      },
+      "MediatR.Extensions.Microsoft.DependencyInjection/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "MediatR": "3.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/2.4.0": {
@@ -1690,6 +1777,18 @@
           "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {}
         }
       },
+      "Microsoft.DotNet.Watcher.Tools/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.App": "2.0.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/dotnet-watch.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/dotnet-watch.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore/2.0.1": {
         "type": "package",
         "dependencies": {
@@ -2870,6 +2969,34 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "Npgsql/3.2.5": {
+        "type": "package",
+        "dependencies": {
+          "System.Threading.Tasks.Extensions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Npgsql.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Npgsql.dll": {}
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.0.0",
+          "Microsoft.EntityFrameworkCore.Relational": "2.0.0",
+          "Microsoft.Extensions.DependencyInjection": "2.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
+          "Npgsql": "3.2.5"
+        },
+        "compile": {
+          "lib/netstandard2.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
+        }
+      },
       "NuGet.Frameworks/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -2880,6 +3007,20 @@
         },
         "runtime": {
           "lib/netstandard1.3/NuGet.Frameworks.dll": {}
+        }
+      },
+      "OdeToCode.AddFeatureFolders/1.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Razor": "1.0.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.2",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "lib/netstandard1.6/OdeToCode.AddFeatureFolders.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/OdeToCode.AddFeatureFolders.dll": {}
         }
       },
       "Remotion.Linq/2.1.1": {
@@ -3894,17 +4035,17 @@
           "lib/netstandard1.3/System.Linq.Parallel.dll": {}
         }
       },
-      "System.Linq.Queryable/4.0.1": {
+      "System.Linq.Queryable/4.3.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.11",
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.Linq": "4.1.0",
-          "System.Linq.Expressions": "4.1.0",
-          "System.Reflection": "4.1.0",
-          "System.Reflection.Extensions": "4.0.1",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0"
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.0/System.Linq.Queryable.dll": {}
@@ -5032,6 +5173,59 @@
     }
   },
   "libraries": {
+    "AutoMapper/6.2.1": {
+      "sha512": "ZD9he/2wsNQbfnZJMc7Ijvz0hf2Lc6R8Tk97k8Q741flowTHd/YPxG8d5P0BVOJAPLVXjjX6IZ8l0u0A2l+K2g==",
+      "type": "package",
+      "path": "automapper/6.2.1",
+      "files": [
+        "automapper.6.2.1.nupkg.sha512",
+        "automapper.nuspec",
+        "lib/net40/AutoMapper.dll",
+        "lib/net40/AutoMapper.xml",
+        "lib/net45/AutoMapper.dll",
+        "lib/net45/AutoMapper.xml",
+        "lib/netstandard1.1/AutoMapper.dll",
+        "lib/netstandard1.1/AutoMapper.xml",
+        "lib/netstandard1.3/AutoMapper.dll",
+        "lib/netstandard1.3/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/3.2.0": {
+      "sha512": "528nEpAwniNn8Z6Ae9qTiM/kN4f0BxmWE9mDMEkqKKGxbuElmv6Kj9DVvTXECJkIt6ARerb9+vYbOifNpcwvXQ==",
+      "type": "package",
+      "path": "automapper.extensions.microsoft.dependencyinjection/3.2.0",
+      "files": [
+        "automapper.extensions.microsoft.dependencyinjection.3.2.0.nupkg.sha512",
+        "automapper.extensions.microsoft.dependencyinjection.nuspec",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "FluentValidation/7.2.1": {
+      "sha512": "cQza24pZdc1aPziHNPOazZzg2/5l8S1zbnIpjKMBq8kopRAGj+YXqGyP8Xo4OIqV16SccmzU1hhKV3Q7FyXglg==",
+      "type": "package",
+      "path": "fluentvalidation/7.2.1",
+      "files": [
+        "fluentvalidation.7.2.1.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net45/FluentValidation.dll",
+        "lib/net45/FluentValidation.xml",
+        "lib/netstandard1.0/FluentValidation.dll",
+        "lib/netstandard1.0/FluentValidation.xml"
+      ]
+    },
+    "FluentValidation.AspNetCore/7.2.1": {
+      "sha512": "l5NME8hnSMs61vIQez0nEqmB5YBa88j+o+Q8ar9/ALaNKeVgyDtnjIIGy24N44Lwwd0LUMg/6hEwK+51T+iAoQ==",
+      "type": "package",
+      "path": "fluentvalidation.aspnetcore/7.2.1",
+      "files": [
+        "fluentvalidation.aspnetcore.7.2.1.nupkg.sha512",
+        "fluentvalidation.aspnetcore.nuspec",
+        "lib/net451/FluentValidation.AspNetCore.dll",
+        "lib/net451/FluentValidation.AspNetCore.xml",
+        "lib/netstandard1.6/FluentValidation.AspNetCore.dll",
+        "lib/netstandard1.6/FluentValidation.AspNetCore.xml"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -5048,6 +5242,27 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "MediatR/3.0.0": {
+      "sha512": "/y6D/9sj1LvVZq7CXDPa81ZrHQeoEyqkrdwm1xj+0+1Vj5CBqelYRpfyOCwXpDOzKsj176zan/roosAANC/+Sw==",
+      "type": "package",
+      "path": "mediatr/3.0.0",
+      "files": [
+        "lib/net45/MediatR.dll",
+        "lib/netstandard1.1/MediatR.dll",
+        "mediatr.3.0.0.nupkg.sha512",
+        "mediatr.nuspec"
+      ]
+    },
+    "MediatR.Extensions.Microsoft.DependencyInjection/3.0.0": {
+      "sha512": "M+M877+biBRKrcMW1RdWBsxExnxIjFeM6ufOmV2IQYTl2bevoaxD1oGUD2I6U7X/YPlzdErZ/albOIds/4fRGQ==",
+      "type": "package",
+      "path": "mediatr.extensions.microsoft.dependencyinjection/3.0.0",
+      "files": [
+        "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll",
+        "mediatr.extensions.microsoft.dependencyinjection.3.0.0.nupkg.sha512",
+        "mediatr.extensions.microsoft.dependencyinjection.nuspec"
       ]
     },
     "Microsoft.ApplicationInsights/2.4.0": {
@@ -6365,6 +6580,21 @@
         "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll",
         "microsoft.dotnet.platformabstractions.2.0.3.nupkg.sha512",
         "microsoft.dotnet.platformabstractions.nuspec"
+      ]
+    },
+    "Microsoft.DotNet.Watcher.Tools/2.0.0": {
+      "sha512": "//UgdKyy1W4PHxC77HzhxEG/drLu9UplJe0UBa0161DH947quz+EJ0AEVCjDlFC7FnJKXfr5yDIYcuZUn5ux4Q==",
+      "type": "package",
+      "path": "microsoft.dotnet.watcher.tools/2.0.0",
+      "files": [
+        "lib/netcoreapp2.0/dotnet-watch.dll",
+        "lib/netcoreapp2.0/dotnet-watch.runtimeconfig.json",
+        "microsoft.dotnet.watcher.tools.2.0.0.nupkg.sha512",
+        "microsoft.dotnet.watcher.tools.nuspec",
+        "prefercliruntime",
+        "toolassets/DotNetWatchCommon.targets",
+        "toolassets/DotNetWatchInner.targets",
+        "toolassets/DotNetWatchOuter.targets"
       ]
     },
     "Microsoft.EntityFrameworkCore/2.0.1": {
@@ -8000,6 +8230,33 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
+    "Npgsql/3.2.5": {
+      "sha512": "89z5pHuLuwjkHz/cQLuM/YxlepR/0NKJP+Cvu8z1cAMv7AdKZnN5leQqV6HxIQDR245Xal1w5OH7kDb9hDRupg==",
+      "type": "package",
+      "path": "npgsql/3.2.5",
+      "files": [
+        "lib/net45/Npgsql.dll",
+        "lib/net45/Npgsql.xml",
+        "lib/net451/Npgsql.dll",
+        "lib/net451/Npgsql.xml",
+        "lib/netstandard1.3/Npgsql.dll",
+        "lib/netstandard1.3/Npgsql.xml",
+        "lib/netstandard2.0/Npgsql.dll",
+        "lib/netstandard2.0/Npgsql.xml",
+        "npgsql.3.2.5.nupkg.sha512",
+        "npgsql.nuspec"
+      ]
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/2.0.0": {
+      "sha512": "saKCNK8A5OW3sUhL/tvYqNyKUK7AbIQlZUVmjn4Fw9wstyopECeF/9Er1fexRLpWev0/H9fUzFclTrXm+omsag==",
+      "type": "package",
+      "path": "npgsql.entityframeworkcore.postgresql/2.0.0",
+      "files": [
+        "lib/netstandard2.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll",
+        "npgsql.entityframeworkcore.postgresql.2.0.0.nupkg.sha512",
+        "npgsql.entityframeworkcore.postgresql.nuspec"
+      ]
+    },
     "NuGet.Frameworks/4.0.0": {
       "sha512": "WCkN68c8q+USG+Ot1MmBDH+9DUo5dk7UB0QDMiwCYhrH7ZoFLKFGGNzJ8C3LTR1DvB1LW9BOxKeznnZznKiCTA==",
       "type": "package",
@@ -8013,6 +8270,17 @@
         "lib/netstandard1.3/NuGet.Frameworks.xml",
         "nuget.frameworks.4.0.0.nupkg.sha512",
         "nuget.frameworks.nuspec"
+      ]
+    },
+    "OdeToCode.AddFeatureFolders/1.0.8": {
+      "sha512": "EgOJkfVM2vbTm9x8ZtR3M+cr60B/BVNF6MtSe/FrE2GHKCIFp9Z0omqyQOGwb0qtfBkcJlMf0f0p03fgLIG0Ig==",
+      "type": "package",
+      "path": "odetocode.addfeaturefolders/1.0.8",
+      "files": [
+        "lib/net452/OdeToCode.AddFeatureFolders.dll",
+        "lib/netstandard1.6/OdeToCode.AddFeatureFolders.dll",
+        "odetocode.addfeaturefolders.1.0.8.nupkg.sha512",
+        "odetocode.addfeaturefolders.nuspec"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -10182,10 +10450,10 @@
         "system.linq.parallel.nuspec"
       ]
     },
-    "System.Linq.Queryable/4.0.1": {
-      "sha512": "J7fXtOCvvEhdtUPsWWM3UWqpoVe7JUFSIJxVGxsqsqiS3zmqcm98RlUmkGX3gMjIauJQ6M0jiWA/3Q/Csm3n4Q==",
+    "System.Linq.Queryable/4.3.0": {
+      "sha512": "In1Bmmvl/j52yPu3xgakQSI0YIckPUr870w4K5+Lak3JCCa8hl+my65lABOuKfYs4ugmZy25ScFerC4nz8+b6g==",
       "type": "package",
-      "path": "system.linq.queryable/4.0.1",
+      "path": "system.linq.queryable/4.3.0",
       "files": [
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -10235,7 +10503,7 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.linq.queryable.4.0.1.nupkg.sha512",
+        "system.linq.queryable.4.3.0.nupkg.sha512",
         "system.linq.queryable.nuspec"
       ]
     },
@@ -13117,10 +13385,18 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "AutoMapper >= 6.2.1",
+      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 3.2.0",
+      "FluentValidation.AspNetCore >= 7.2.1",
+      "MediatR.Extensions.Microsoft.DependencyInjection >= 3.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
+      "Microsoft.DotNet.Watcher.Tools >= 2.0.0",
+      "Microsoft.EntityFrameworkCore.Relational >= 2.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2",
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 2.0.0",
+      "OdeToCode.AddFeatureFolders >= 1.0.8"
     ]
   },
   "packageFolders": {
@@ -13162,9 +13438,33 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[6.2.1, )"
+          },
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+            "target": "Package",
+            "version": "[3.2.0, )"
+          },
+          "FluentValidation.AspNetCore": {
+            "target": "Package",
+            "version": "[7.2.1, )"
+          },
+          "MediatR.Extensions.Microsoft.DependencyInjection": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "[2.0.5, )"
+          },
+          "Microsoft.DotNet.Watcher.Tools": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "Microsoft.EntityFrameworkCore.Relational": {
+            "target": "Package",
+            "version": "[2.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
@@ -13180,6 +13480,14 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.2, )"
+          },
+          "Npgsql.EntityFrameworkCore.PostgreSQL": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "OdeToCode.AddFeatureFolders": {
+            "target": "Package",
+            "version": "[1.0.8, )"
           }
         },
         "imports": [

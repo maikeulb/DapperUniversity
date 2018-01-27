@@ -5,11 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DapperUniversity.Web.Models;
+using Dapper;
 
 namespace DapperUniversity.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IConfiguration _config;
+
+        public HomeController(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
         public IActionResult Index()
         {
             return View();
