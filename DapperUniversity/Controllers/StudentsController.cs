@@ -17,14 +17,29 @@ namespace DapperUniversity.Controllers
         public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
 
         [HttpGet]
-        public async Task<IEnumerable<Student>> Index(string sortOrder, string searchString)
+        public async Task<IEnumerable<Student>> Index(
+            string sortOrder, 
+            string currentFilter,
+            string searchString,
+            int? page)
         {
-
-            /* var sql = "SELECT last_name, first_name, enrollment_date FROM student"; */
 
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            /* var sql = "SELECT last_name, first_name, enrollment_date FROM student"; */
 
             IEnumerable<Student> students = Enumerable.Empty<Student>(); 
             using (DbContext _context = new DbContext(DatabaseConnectionString))
@@ -32,9 +47,11 @@ namespace DapperUniversity.Controllers
               students = await _context.GetConnection().GetAllAsync<Student>();
             }
 
-           students = students.Where(s => s.LastName.Contains(searchString)
+            if (!String.IsNullOrEmpty(searchString))
+            {
+             students = students.Where(s => s.LastName.Contains(searchString)
                                    || s.FirstName.Contains(searchString));
-
+            }
             switch (sortOrder)
             {
                 case "name_desc":
@@ -52,8 +69,10 @@ namespace DapperUniversity.Controllers
                     students = students.OrderBy(s => s.LastName);
                     break;
             }
+            int pageSize = 3;
+            var pageNumber = (page ?? 1);
 
-            return students;
+            return await PaginatedList<Student>.CreateAsync(students.AsQueryable(), pageNumber, pageSize);
         }
 
         [HttpGet]
