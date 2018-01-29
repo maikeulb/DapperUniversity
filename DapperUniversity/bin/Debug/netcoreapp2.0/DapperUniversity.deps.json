@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "b7242a2e5a34542826af62bd850e6d90ba8261e2"
+    "signature": "eef133066565310262736ad644b8330570b5c304"
   },
   "compilationOptions": {
     "defines": [
@@ -27,6 +27,7 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "3.2.0",
           "Dapper": "1.50.4",
           "Dapper.FluentMap": "1.6.0",
+          "Dommel": "1.9.0",
           "FluentValidation.AspNetCore": "7.2.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "3.0.0",
           "Microsoft.AspNetCore.All": "2.0.5",
@@ -102,6 +103,19 @@
         },
         "compile": {
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        }
+      },
+      "Dommel/1.9.0": {
+        "dependencies": {
+          "Dapper": "1.50.4",
+          "NETStandard.Library": "2.0.0",
+          "System.ComponentModel.Annotations": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Dommel.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Dommel.dll": {}
         }
       },
       "FluentValidation/7.2.1": {
@@ -4426,6 +4440,13 @@
       "sha512": "sha512-niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
       "path": "dapper.fluentmap/1.6.0",
       "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
+    },
+    "Dommel/1.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bW9EPU16NvD2ZVjLk5BsaQOHZWUpl0y5M6nmi47vV+xInBTh5Y6k1YQVXgGTbMD0i3twQ1iiVwvVlQWEdB/ZVw==",
+      "path": "dommel/1.9.0",
+      "hashPath": "dommel.1.9.0.nupkg.sha512"
     },
     "FluentValidation/7.2.1": {
       "type": "package",

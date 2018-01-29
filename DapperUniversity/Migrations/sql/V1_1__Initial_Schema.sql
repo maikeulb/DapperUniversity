@@ -16,7 +16,7 @@ CREATE TABLE department (
   name varchar(50) NOT NULL,
   budget money NOT NULL,
   start_date timestamp NOT NULL,
-  instructor_id integer NOT NULL 
+  instructor_id integer NULL 
 );
 
 CREATE TABLE office_assignment(
@@ -31,8 +31,8 @@ CREATE TABLE enrollment (
   grade integer NOT NULL
 );
 
-CREATE TABLE person (
-  id serial PRIMARY KEY,
+CREATE TABLE student (
+  student_id serial PRIMARY KEY,
   last_name varchar(50) NOT NULL,
   first_name varchar(50) NOT NULL,
   hire_date timestamp NOT NULL,
@@ -55,13 +55,7 @@ ALTER TABLE course_instructor
 ALTER TABLE course_instructor
   ADD CONSTRAINT fk_course_instructor_instructor
   FOREIGN KEY (instructor_id) 
-  REFERENCES person(id)
-  ON DELETE CASCADE;
-
-ALTER TABLE department
-  ADD CONSTRAINT fk_department_instructor
-  FOREIGN KEY (instructor_id) 
-  REFERENCES person(id)
+  REFERENCES student(student_id)
   ON DELETE CASCADE;
 
 ALTER TABLE enrollment
@@ -73,10 +67,10 @@ ALTER TABLE enrollment
 ALTER TABLE enrollment
   ADD CONSTRAINT fk_enrollment_student
   FOREIGN KEY (student_id) 
-  REFERENCES person(id)
+  REFERENCES student(student_id)
   ON DELETE CASCADE;
 
 ALTER TABLE office_assignment
   ADD CONSTRAINT fk_office_assignment_instructor
   FOREIGN KEY (instructor_id) 
-  REFERENCES person(id);
+  REFERENCES student(student_id);

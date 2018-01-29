@@ -4,7 +4,7 @@ namespace DapperUniversity.Models
 {
     public class Course
     {
-        public int CourseID { get; set; }
+        public int CourseId { get; set; }
         public string Title { get; set; }
         public int Credits { get; set; }
 

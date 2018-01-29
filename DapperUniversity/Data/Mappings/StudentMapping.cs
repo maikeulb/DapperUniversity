@@ -8,7 +8,7 @@ namespace DapperUniversity.Data
         public StudentMap()
         {
             Map(p => p.StudentId)
-                .ToColumn("id");
+                .ToColumn("student_id");
             Map(p => p.LastName)
                 .ToColumn("last_name");
             Map(p => p.FirstName)

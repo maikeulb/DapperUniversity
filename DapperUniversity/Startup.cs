@@ -43,6 +43,8 @@ namespace DapperUniversity
             FluentMapper.Initialize(config =>
                 {
                    config.AddMap(new StudentMap());
+                   config.AddMap(new CourseMap());
+                   config.AddMap(new EnrollmentMap());
                 });
 
         }
