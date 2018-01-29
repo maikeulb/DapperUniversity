@@ -14,12 +14,13 @@ namespace DapperUniversity.Controllers
     {
         public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
 
-        private readonly DbContext _context = new DbContext(DatabaseConnectionString);
-
         [HttpGet]
-        public async Task<IEnumerable<person>> Get()
+        public async Task<IEnumerable<Student>> Get()
         {
-            return await _context.GetConnection().GetListAsync<person>();
+            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            {
+              return await _context.GetConnection().QueryAsync<Student>("SELECT * FROM  person");
+            }
         }
    }
 }

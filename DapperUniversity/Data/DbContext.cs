@@ -12,7 +12,6 @@ namespace DapperUniversity.Data
         public DbContext(string connectionString)
         {
             _connection = new NpgsqlConnection(connectionString);
-            SimpleCRUD.SetDialect(SimpleCRUD.Dialect.PostgreSQL);
         }
 
         internal IDbConnection GetConnection()
