@@ -17,20 +17,24 @@ namespace DapperUniversity.Controllers
         public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
 
         [HttpGet]
-        public async Task<IEnumerable<Student>> Index(string sortOrder)
+        public async Task<IEnumerable<Student>> Index(string sortOrder, string searchString)
         {
 
             /* var sql = "SELECT last_name, first_name, enrollment_date FROM student"; */
 
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
 
             IEnumerable<Student> students = Enumerable.Empty<Student>(); 
             using (DbContext _context = new DbContext(DatabaseConnectionString))
             {
               students = await _context.GetConnection().GetAllAsync<Student>();
             }
-            
+
+           students = students.Where(s => s.LastName.Contains(searchString)
+                                   || s.FirstName.Contains(searchString));
+
             switch (sortOrder)
             {
                 case "name_desc":
