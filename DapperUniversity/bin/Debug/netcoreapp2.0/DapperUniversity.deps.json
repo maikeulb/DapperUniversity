@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "17defd897ddad9dcf346cc588b9a54959bd43d5b"
+    "signature": "b7242a2e5a34542826af62bd850e6d90ba8261e2"
   },
   "compilationOptions": {
     "defines": [
@@ -26,6 +26,7 @@
           "AutoMapper": "6.2.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "3.2.0",
           "Dapper": "1.50.4",
+          "Dapper.FluentMap": "1.6.0",
           "FluentValidation.AspNetCore": "7.2.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "3.0.0",
           "Microsoft.AspNetCore.All": "2.0.5",
@@ -89,6 +90,18 @@
         },
         "compile": {
           "lib/netstandard2.0/Dapper.dll": {}
+        }
+      },
+      "Dapper.FluentMap/1.6.0": {
+        "dependencies": {
+          "Dapper": "1.50.4",
+          "NETStandard.Library": "2.0.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Dapper.FluentMap.dll": {}
         }
       },
       "FluentValidation/7.2.1": {
@@ -4406,6 +4419,13 @@
       "sha512": "sha512-t5DMz+1aEkBcyCgkj+6hJHNsUq3k/d67lVMTNzICEhVjPUI3Gt2kgotSK8S4SpziIbFPphnOEn8M6Q75ED5hRQ==",
       "path": "dapper/1.50.4",
       "hashPath": "dapper.1.50.4.nupkg.sha512"
+    },
+    "Dapper.FluentMap/1.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
+      "path": "dapper.fluentmap/1.6.0",
+      "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
     },
     "FluentValidation/7.2.1": {
       "type": "package",

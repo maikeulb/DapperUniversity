@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
 using DapperUniversity.Services;
+using Dapper.FluentMap;
 
 namespace DapperUniversity
 {
@@ -38,6 +39,12 @@ namespace DapperUniversity
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            FluentMapper.Initialize(config =>
+                {
+                   config.AddMap(new StudentMap());
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

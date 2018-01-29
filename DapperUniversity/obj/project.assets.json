@@ -52,6 +52,19 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
+      "Dapper.FluentMap/1.6.0": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "1.50.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        }
+      },
       "FluentValidation/7.2.1": {
         "type": "package",
         "dependencies": {
@@ -5223,6 +5236,21 @@
         "lib/netstandard1.3/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "Dapper.FluentMap/1.6.0": {
+      "sha512": "niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
+      "type": "package",
+      "path": "dapper.fluentmap/1.6.0",
+      "files": [
+        "dapper.fluentmap.1.6.0.nupkg.sha512",
+        "dapper.fluentmap.nuspec",
+        "lib/net45/Dapper.FluentMap.dll",
+        "lib/net45/Dapper.FluentMap.xml",
+        "lib/net451/Dapper.FluentMap.dll",
+        "lib/net451/Dapper.FluentMap.xml",
+        "lib/netstandard1.3/Dapper.FluentMap.dll",
+        "lib/netstandard1.3/Dapper.FluentMap.xml"
       ]
     },
     "FluentValidation/7.2.1": {
@@ -13423,6 +13451,7 @@
       "AutoMapper >= 6.2.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 3.2.0",
       "Dapper >= 1.50.4",
+      "Dapper.FluentMap >= 1.6.0",
       "FluentValidation.AspNetCore >= 7.2.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 3.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
@@ -13485,6 +13514,10 @@
           "Dapper": {
             "target": "Package",
             "version": "[1.50.4, )"
+          },
+          "Dapper.FluentMap": {
+            "target": "Package",
+            "version": "[1.6.0, )"
           },
           "FluentValidation.AspNetCore": {
             "target": "Package",
