@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using DapperUniversity.Models;
 using DapperUniversity.Data;
 using Dapper;
+using Dapper.Contrib.Extensions;
+using Npgsql;
 
 namespace DapperUniversity.Controllers
 {
@@ -49,7 +51,17 @@ namespace DapperUniversity.Controllers
               }
 
               return student;
+            }
+        }
 
+        [HttpPost]
+        public async Task Create([Bind("EnrollmentDate,FirstName,LastName")] Student student)
+        {
+
+            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            {
+              await _context.GetConnection().InsertAsync(student);
+              return;
             }
         }
     }
