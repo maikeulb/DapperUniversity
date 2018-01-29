@@ -2,7 +2,12 @@ using System;
 using System.Data;
 using Dapper;
 using Npgsql;
-
+//
+//
+//https://codereview.stackexchange.com/questions/87608/manage-connection-without-using-statement
+//impliment connection factory
+//
+//
 namespace DapperUniversity.Data
 {
     public class DbContext : IDisposable
