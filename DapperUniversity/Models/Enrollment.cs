@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace DapperUniversity.Models
 {
     public enum Grade
@@ -10,6 +12,8 @@ namespace DapperUniversity.Models
         public int EnrollmentId { get; set; }
         public int CourseId { get; set; }
         public int StudentId { get; set; }
+
+        [DisplayFormat(NullDisplayText = "No grade")]
         public Grade? Grade { get; set; }
 
         public Course Course { get; set; }
