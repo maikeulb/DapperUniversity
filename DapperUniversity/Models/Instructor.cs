@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,18 +18,6 @@ namespace DapperUniversity.Models
         public IEnumerable<CourseAssignment> CourseAssignments { get; set; }
 
         [Display(Name = "Full Name")]
-        public string FullName => Lastname + ", " + FirstMidName;
-    }
-
-    public sealed class InstructorMapper : ClassMapper<Instructor>
-    {
-        public StudentMapper()
-        {
-            Table("Instructor");
-            Map(s => s.StudentId).Key(KeyType.Identity);
-            Map(s => s.FullName).Ignore();
-            Map(s => s.Enrollments).Ignore();
-            AutoMap();
-        }
+        public string FullName => LastName + ", " + FirstName;
     }
 }

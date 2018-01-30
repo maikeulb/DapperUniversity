@@ -13,6 +13,6 @@ namespace DapperUniversity.Models
 
         public Department Department { get; set; }
         public IEnumerable<Enrollment> Enrollments { get; set; }
-        public IEnumerable<CourseAassignment> CourseAssignments { get; set; }
+        public IEnumerable<CourseAssignment> CourseAssignments { get; set; }
     }
 }

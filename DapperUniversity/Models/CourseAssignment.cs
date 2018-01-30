@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DapperUniversity.Models
 {
-    public class Instructor
+    public class CourseAssignment
     {
         public int InstructorId { get; set; }
         public int CourseId { get; set; }

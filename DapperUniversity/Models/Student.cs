@@ -17,6 +17,6 @@ namespace DapperUniversity.Models
 
         public IEnumerable<Enrollment> Enrollments { get; set; }
         [Display(Name = "Full Name")]
-        public string FullName => Lastname + ", " + FirstMidName;
+        public string FullName => LastName + ", " + FirstName;
     }
 }
