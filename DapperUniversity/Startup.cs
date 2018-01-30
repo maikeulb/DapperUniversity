@@ -40,6 +40,9 @@ namespace DapperUniversity
 
             services.AddMvc();
 
+//http://dontcodetired.com/blog/post/NET-Document-Databases-with-Marten
+//http://www.qappdesign.com/using-mongodb-with-net-core-webapi/
+
             FluentMapper.Initialize(config =>
                 {
                    config.AddMap(new StudentMap());

@@ -39,9 +39,8 @@ namespace DapperUniversity.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            /* var sql = "SELECT last_name, first_name, enrollment_date FROM student"; */
-
             IEnumerable<Student> students = Enumerable.Empty<Student>(); 
+
             using (DbContext _context = new DbContext(DatabaseConnectionString))
             {
               students = await _context.GetConnection().GetAllAsync<Student>();
