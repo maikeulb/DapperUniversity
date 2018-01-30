@@ -43,7 +43,7 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext(DatabaseConnectionString))
             {
-              students = await _context.GetConnection().GetAllAsync<Student>();
+                students = await _context.GetConnection().GetAllAsync<Student>();
             }
 
             if (!String.IsNullOrEmpty(searchString))
@@ -91,7 +91,7 @@ namespace DapperUniversity.Controllers
 
               foreach (var enrollment in student.Enrollments)
               {
-                enrollment.Course = courses.Where(c=>c.CourseId == enrollment.CourseId).Single();
+                  enrollment.Course = courses.Where(c=>c.CourseId == enrollment.CourseId).Single();
               }
 
               return student;
