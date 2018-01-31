@@ -35,13 +35,14 @@ namespace DapperUniversity
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
+
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
 
-//http://dontcodetired.com/blog/post/NET-Document-Databases-with-Marten
-//http://www.qappdesign.com/using-mongodb-with-net-core-webapi/
+            string connectionString = Configuration.GetConnectionString("ConnectionStrings:DapperUniversity");
+            if (connectionString == null)
+              throw new ArgumentNullException("Connection string cannot be null");
 
             FluentMapper.Initialize(config =>
                 {

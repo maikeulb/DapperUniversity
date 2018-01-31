@@ -14,17 +14,23 @@ namespace DapperUniversity.Controllers
 {
     public class CoursesController : Controller
     {
-        public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
+        private readonly string _connectionString;
+
+        public CoursesController(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         [HttpGet]
         public async Task<IEnumerable<Course>> Index(int? id, int? courseId)
         {
-            var query = @"SELECT * 
-                      FROM course INNER JOIN department 
-                      ON course.department_id = department.department_id;";
-            // string builder?
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            var query = @"SELECT * 
+                          FROM course 
+                            INNER JOIN department 
+                            ON course.department_id = department.department_id;";
+
+            using (DbContext _context = new DbContext(_connectionString))
             {
                 courses  = await _context.GetConnection().QueryAsync<Course> (query);
             }

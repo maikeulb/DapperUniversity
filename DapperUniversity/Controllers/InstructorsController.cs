@@ -9,13 +9,17 @@ using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Npgsql;
-using ExtensionMethods;
 
 namespace DapperUniversity.Controllers
 {
     public class InstructorsController : Controller
     {
-        public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
+        private readonly string _connectionString;
+
+        public InstructorsController(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         [HttpGet]
         public async Task<InstructorIndexData> Index(int? id, int? courseId)
@@ -29,9 +33,9 @@ namespace DapperUniversity.Controllers
                         LEFT JOIN office_assignment oa 
                         ON oa.instructor_id = i.instructor_id;";
 
-            using (DbContext _connection = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
-                viewModel.Instructors = await _connection.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
+                viewModel.Instructors = await _context.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
                     ((instructor, assignment) =>
                     {
                         instructor.OfficeAssignment = assignment;
@@ -62,9 +66,9 @@ namespace DapperUniversity.Controllers
                             ON ci.course_id = c.course_id 
                           WHERE ci.instructor_id = @id";
 
-            using (DbContext _connection = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
-                viewModel.Courses = await _connection.GetConnection().QueryAsync<Course, Department, Course> (query,
+                viewModel.Courses = await _context.GetConnection().QueryAsync<Course, Department, Course> (query,
                     ((course, department) =>
                     {
                         course.Department = department;
@@ -85,9 +89,9 @@ namespace DapperUniversity.Controllers
                             ON s.student_id = e.student_id 
                           WHERE e.course_id = @courseId";
 
-            using (DbContext _connection = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
-                viewModel.Enrollments = await _connection.GetConnection().QueryAsync<Enrollment, Student, Enrollment>(query,
+                viewModel.Enrollments = await _context.GetConnection().QueryAsync<Enrollment, Student, Enrollment>(query,
                     ((enrollment, student) =>
                     {
                         enrollment.Student = student;
@@ -112,9 +116,9 @@ namespace DapperUniversity.Controllers
                               ON ci.course_id = c.CourseId
                             WHERE ci.instructor_id = @id";
 
-            using (DbContext _connection = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
-                courses = _connection.GetConnection().Query<Course, CourseAssignment, Course> (query,
+                courses = _context.GetConnection().Query<Course, CourseAssignment, Course> (query,
                     ((course, courseAssignment) => course), 
                     new { id }, 
                     splitOn: "department_id");
@@ -148,9 +152,9 @@ namespace DapperUniversity.Controllers
                                ON i.instructor_id = o.instructor_id 
                              WHERE i.instructor_id = @id";
 
-            using (DbContext _connection = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
-                instructors = await _connection.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
+                instructors = await _context.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
                     ((instruct, assignment) =>
                     {
                         instruct.OfficeAssignment = assignment;
@@ -175,18 +179,4 @@ namespace DapperUniversity.Models
         public IEnumerable<Enrollment> Enrollments { get; set; }
     }
 
-}
-
-namespace ExtensionMethods
-{
-    public static class MyExtensions
-    {
-        public static async Task ForEachAsync<T>(this List<T> list, Func<T, Task> func)
-        {
-            foreach (var value in list)
-            {
-                await func(value);
-            }
-        }
-    }   
 }

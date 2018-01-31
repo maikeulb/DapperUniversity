@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,7 +15,12 @@ namespace DapperUniversity.Controllers
 {
     public class StudentsController : Controller
     {
-        public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
+        private readonly string _connectionString;
+
+        public StudentsController(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         [HttpGet]
         public async Task<IEnumerable<Student>> Index(
@@ -41,7 +47,7 @@ namespace DapperUniversity.Controllers
 
             IEnumerable<Student> students = Enumerable.Empty<Student>(); 
 
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
                 students = await _context.GetConnection().GetAllAsync<Student>();
             }
@@ -81,7 +87,7 @@ namespace DapperUniversity.Controllers
             var sql2 = "SELECT * from enrollment WHERE student_id in ( SELECT student_id from student where student_id = @id)";
             var sql3 = "SELECT * FROM course WHERE course_id in (SELECT course_id from enrollment where student_id = @id)";
 
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
               var student = await _context.GetConnection().GetAsync<Student>(id);
               var enrollments = await _context.GetConnection().QueryAsync<Enrollment> (sql2, new {id} );
@@ -101,7 +107,7 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task Create([Bind("EnrollmentDate,FirstName,LastName")] Student student)
         {
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
               await _context.GetConnection().InsertAsync(student);
               return;
@@ -111,7 +117,7 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task Edit(int? id)
         {
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
               var studentToUpdate = await _context.GetConnection().GetAsync<Student>(id);
               await _context.GetConnection().UpdateAsync(studentToUpdate);
@@ -122,7 +128,7 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task Delete(int? id)
         {
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
               var studentToDelete = await _context.GetConnection().GetAsync<Student>(id);
               await _context.GetConnection().DeleteAsync(studentToDelete);
