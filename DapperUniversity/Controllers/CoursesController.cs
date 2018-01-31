@@ -25,14 +25,20 @@ namespace DapperUniversity.Controllers
         public async Task<IEnumerable<Course>> Index(int? id, int? courseId)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
-            var query = @"SELECT * 
-                          FROM course 
+            var query = @"SELECT c.*, d.name 
+                          FROM course c 
                             INNER JOIN department 
-                            ON course.department_id = department.department_id;";
+                            ON d.department_id = c.department_id;";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-                courses  = await _context.GetConnection().QueryAsync<Course> (query);
+                courses  = await _context.GetConnection().QueryAsync<Course, Department, Course> (query,
+                    (courseItem, deparment) =>
+                    {
+                        courseItem.Department = deparment;
+                        return courseItem;
+                    },
+                        splitOn: "department_id");
             }
 
             return courses;
