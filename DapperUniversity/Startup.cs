@@ -24,7 +24,6 @@ namespace DapperUniversity
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -34,7 +33,6 @@ namespace DapperUniversity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
 
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -50,10 +48,8 @@ namespace DapperUniversity
                    config.AddMap(new CourseMap());
                    config.AddMap(new EnrollmentMap());
                 });
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

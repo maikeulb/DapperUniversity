@@ -43,12 +43,6 @@ namespace DapperUniversity.Controllers
                     }), splitOn: "instructor_id");
             }
 
-            /* IEnumerable<Course> courses = Enumerable.Empty<Course>(); */
-            /* var tasks = viewModel.Instructors.ToList().Select(s => */ 
-                /* GetInstructorCourse(s.InstructorId)); */
-            /* var courses = await Task.WhenAll(tasks); */
-
-
             viewModel.Instructors.ToList().ForEach(s =>
             {
                 GetInstructorCourse(s.InstructorId).ToList().ForEach(s.AddCourse);
@@ -108,7 +102,6 @@ namespace DapperUniversity.Controllers
         private IEnumerable<Course> GetInstructorCourse(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
-            /* List<Course> courses = new List<Course>(); */
 
             string query =@"SELECT c.* 
                             FROM course c
@@ -143,8 +136,7 @@ namespace DapperUniversity.Controllers
 
         private async Task<Instructor> GetInstructor(int? id)
         {
-            /* Instructor instructor = new Instructor(); */
-            IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();// hacky, for some reason queryfirst isn't working
+            IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();
 
             string query = @"SELECT i.*, o.location 
                              FROM instructor i 
@@ -155,10 +147,10 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 instructors = await _context.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
-                    ((instruct, assignment) =>
+                    ((instructorItem, assignment) =>
                     {
-                        instruct.OfficeAssignment = assignment;
-                        return instruct;
+                        instructorItem.OfficeAssignment = assignment;
+                        return instructorItem;
                     }),
                     new { id },
                     splitOn: "Location");

@@ -98,6 +98,7 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext(_connectionString))
             {
+                var students = _context.GetConnection().QueryMultiple(enrollmentQuery, new { id });
                 student = await _context.GetConnection().GetAsync<Student>(id);
                 var enrollments = await _context.GetConnection().QueryAsync<Enrollment> (enrollmentQuery, new {id} );
                 var courses = await _context.GetConnection().QueryAsync<Course> (courseQuery, new {id} );
