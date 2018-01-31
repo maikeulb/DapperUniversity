@@ -6,7 +6,7 @@ namespace DapperUniversity.Models
 {
     public sealed class Department
     {
-        public int DepartmentId { get; set; }
+        public int Id { get; set; }
         public int? InstructorId { get; set; }
         public string Name { get; set; }
         public decimal Budget { get; set; } 

@@ -62,11 +62,9 @@ namespace DapperUniversity.Controllers
                 case "Date":
                     students = students.OrderBy(s => s.EnrollmentDate);
                     break;
-
                 case "date_desc":
                     students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
-
                 default:
                     students = students.OrderBy(s => s.LastName);
                     break;
@@ -85,13 +83,13 @@ namespace DapperUniversity.Controllers
             string enrollmentQuery = @"SELECT * 
                                        FROM enrollment
                                        WHERE student_id 
-                                       IN (SELECT student_id 
-                                         FROM student 
-                                         WHERE student_id = @id)";
+                                       IN (SELECT id 
+                                         FROM student
+                                         WHERE id = @id)";
 
             string courseQuery = @"SELECT * 
-                                   FROM course 
-                                   WHERE course_id 
+                                   FROM course
+                                   WHERE id 
                                    IN (SELECT course_id 
                                      FROM enrollment 
                                      WHERE student_id = @id)";
@@ -103,11 +101,11 @@ namespace DapperUniversity.Controllers
                 var enrollments = await _context.GetConnection().QueryAsync<Enrollment> (enrollmentQuery, new {id} );
                 var courses = await _context.GetConnection().QueryAsync<Course> (courseQuery, new {id} );
   
-                student.Enrollments = enrollments.Where(e=>e.StudentId == student.StudentId).ToList();  
+                student.Enrollments = enrollments.Where(e=>e.StudentId == student.Id).ToList();  
 
                 foreach (var enrollment in student.Enrollments)
                 {
-                    enrollment.Course = courses.Where(c=>c.CourseId == enrollment.CourseId).Single();
+                    enrollment.Course = courses.Where(c=>c.Id == enrollment.CourseId).Single();
                 }
 
             }

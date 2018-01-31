@@ -29,8 +29,8 @@ namespace DapperUniversity.Controllers
             InstructorIndexData viewModel = new InstructorIndexData();
 
             query = @"SELECT i.* oa.location 
-                      FROM location instuctor i
-                        LEFT JOIN office_assignment oa 
+                      FROM instuctor AS i
+                        LEFT JOIN office_assignment AS oa 
                         ON oa.instructor_id = i.instructor_id;";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -40,24 +40,24 @@ namespace DapperUniversity.Controllers
                     {
                         instructor.OfficeAssignment = assignment;
                         return instructor;
-                    }), splitOn: "instructor_id");
+                    }), splitOn: "id");
             }
 
-            viewModel.Instructors.ToList().ForEach(s =>
+            viewModel.Instructors.ToList().ForEach(i =>
             {
-                GetInstructorCourse(s.InstructorId).ToList().ForEach(s.AddCourse);
+                GetInstructorCourse(i.Id).ToList().ForEach(i.AddCourse);
             });
 
             if (id != null)
             {
                 ViewBag.InstructorId = id.Value;
 
-                query = @"SELECT c.course_id, c.title, d.name 
-                          FROM course c 
-                            INNER JOIN department d 
+                query = @"SELECT c.id, c.title, d.name 
+                          FROM course AS c 
+                            INNER JOIN department AS d 
                             ON d.department_id = c.department_id 
-                            INNER JOIN course+instructor ci 
-                            ON ci.course_id = c.course_id 
+                            INNER JOIN course_instructor AS ci 
+                            ON ci.course_id = c.id 
                           WHERE ci.instructor_id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -69,7 +69,7 @@ namespace DapperUniversity.Controllers
                         return course;
                     }),
                     new { id },
-                    splitOn: "department_id");
+                    splitOn: "id");
             }
             }
 
@@ -78,9 +78,9 @@ namespace DapperUniversity.Controllers
                 ViewBag.CourseId = courseId.Value;
 
                 query = @"SELECT e.grade, s.last_name, s.first_name 
-                          FROM enrollment e 
-                            INNER JOIN student s 
-                            ON s.student_id = e.student_id 
+                          FROM enrollment AS e 
+                            INNER JOIN student AS s 
+                            ON s.id = e.student_id 
                           WHERE e.course_id = @courseId";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -92,7 +92,7 @@ namespace DapperUniversity.Controllers
                         return enrollment;
                     }),
                     new { courseId },
-                    splitOn: "student_id");
+                    splitOn: "id");
             }
             }
 
@@ -106,7 +106,7 @@ namespace DapperUniversity.Controllers
             string query =@"SELECT c.* 
                             FROM course c
                               INNER JOIN course_instructor ci 
-                              ON ci.course_id = c.CourseId
+                              ON ci.course_id = c.Id
                             WHERE ci.instructor_id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -114,7 +114,7 @@ namespace DapperUniversity.Controllers
                 courses = _context.GetConnection().Query<Course, CourseAssignment, Course> (query,
                     ((course, courseAssignment) => course), 
                     new { id }, 
-                    splitOn: "department_id");
+                    splitOn: "id");
              }
 
             return courses;
@@ -138,11 +138,11 @@ namespace DapperUniversity.Controllers
         {
             IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();
 
-            string query = @"SELECT i.*, o.location 
-                             FROM instructor i 
-                               LEFT JOIN office_assignment o 
-                               ON i.instructor_id = o.instructor_id 
-                             WHERE i.instructor_id = @id";
+            string query = @"SELECT i.*, oa.location 
+                             FROM instructor AS i 
+                               LEFT JOIN office_assignment AS oa 
+                               ON i.id = oa.instructor_id 
+                             WHERE i.id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -153,7 +153,7 @@ namespace DapperUniversity.Controllers
                         return instructorItem;
                     }),
                     new { id },
-                    splitOn: "Location");
+                    splitOn: "id");
             }
 
             return instructors.First();

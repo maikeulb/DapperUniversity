@@ -7,7 +7,7 @@ namespace DapperUniversity.Models
 {
     public class Student
     {
-        public int StudentId { get; set; }
+        public int Id { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]

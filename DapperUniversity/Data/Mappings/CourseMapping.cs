@@ -7,11 +7,11 @@ namespace DapperUniversity.Data
     {
         public CourseMap()
         {
-            Map(p => p.CourseId)
-                .ToColumn("course_id");
-            Map(p => p.Title)
+            Map(c => c.Id)
+                .ToColumn("id");
+            Map(c => c.Title)
                 .ToColumn("title");
-            Map(p => p.Credits)
+            Map(c => c.Credits)
                 .ToColumn("credit");
         }
     }

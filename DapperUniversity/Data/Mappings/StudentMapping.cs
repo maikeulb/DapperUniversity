@@ -7,13 +7,13 @@ namespace DapperUniversity.Data
     {
         public StudentMap()
         {
-            Map(p => p.StudentId)
-                .ToColumn("student_id");
-            Map(p => p.LastName)
+            Map(s => s.Id)
+                .ToColumn("id");
+            Map(s => s.LastName)
                 .ToColumn("last_name");
-            Map(p => p.FirstName)
+            Map(s => s.FirstName)
                 .ToColumn("first_name");
-            Map(p => p.EnrollmentDate)
+            Map(s => s.EnrollmentDate)
                 .ToColumn("enrollment_date");
         }
     }

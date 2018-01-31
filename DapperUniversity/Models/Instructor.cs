@@ -8,7 +8,7 @@ namespace DapperUniversity.Models
     {
         private readonly List<Course> _courses = new List<Course> ();
 
-        public int InstructorId { get; set; }
+        public int Id { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]

@@ -6,7 +6,7 @@ namespace DapperUniversity.Models
     public class Course
     {
         [Display(Name = "Number")]
-        public int CourseId { get; set; }
+        public int Id { get; set; }
         public int DepartmentId { get; set; }
         public string Title { get; set; }
         public int Credits { get; set; }

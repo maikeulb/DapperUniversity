@@ -26,9 +26,9 @@ namespace DapperUniversity.Controllers
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
             var query = @"SELECT c.*, d.name 
-                          FROM course c 
-                            INNER JOIN department 
-                            ON d.department_id = c.department_id;";
+                          FROM course AS c 
+                            INNER JOIN department AS d
+                            ON d.id = c.department_id;";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -38,7 +38,7 @@ namespace DapperUniversity.Controllers
                         courseItem.Department = deparment;
                         return courseItem;
                     },
-                        splitOn: "department_id");
+                        splitOn: "id");
             }
 
             return courses;
