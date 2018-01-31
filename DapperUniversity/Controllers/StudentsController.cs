@@ -50,11 +50,10 @@ namespace DapperUniversity.Controllers
             }
 
             if (!String.IsNullOrEmpty(searchString))
-            {
-             students = students.Where(s => 
+               students = students.Where(s => 
                      s.LastName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0
                   || s.FirstName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >=0 );
-            }
+
             switch (sortOrder)
             {
                 case "name_desc":
@@ -73,7 +72,7 @@ namespace DapperUniversity.Controllers
                     break;
             }
             int pageSize = 3;
-            var pageNumber = (page ?? 1);
+            int pageNumber = (page ?? 1);
 
             return await PaginatedList<Student>.CreateAsync(students.AsQueryable(), pageNumber, pageSize);
         }
@@ -81,57 +80,79 @@ namespace DapperUniversity.Controllers
         [HttpGet]
         public async Task<Student> Details(int? id)
         {
+            Student student = new Student();
 
-            var sql2 = "SELECT * from enrollment WHERE student_id in ( SELECT student_id from student where student_id = @id)";
-            var sql3 = "SELECT * FROM course WHERE course_id in (SELECT course_id from enrollment where student_id = @id)";
+            string enrollmentQuery = @"SELECT * 
+                                       FROM enrollment
+                                       WHERE student_id 
+                                       IN (SELECT student_id 
+                                         FROM student 
+                                         WHERE student_id = @id)";
+
+            string courseQuery = @"SELECT * 
+                                   FROM course 
+                                   WHERE course_id 
+                                   IN (SELECT course_id 
+                                     FROM enrollment 
+                                     WHERE student_id = @id)";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-              var student = await _context.GetConnection().GetAsync<Student>(id);
-              var enrollments = await _context.GetConnection().QueryAsync<Enrollment> (sql2, new {id} );
-              var courses = await _context.GetConnection().QueryAsync<Course> (sql3, new {id} );
+                student = await _context.GetConnection().GetAsync<Student>(id);
+                var enrollments = await _context.GetConnection().QueryAsync<Enrollment> (enrollmentQuery, new {id} );
+                var courses = await _context.GetConnection().QueryAsync<Course> (courseQuery, new {id} );
+  
+                student.Enrollments = enrollments.Where(e=>e.StudentId == student.StudentId).ToList();  
 
-              student.Enrollments = enrollments.Where(e=>e.StudentId == student.StudentId).ToList();  //takes constructs enrollment in student graph
+                foreach (var enrollment in student.Enrollments)
+                {
+                    enrollment.Course = courses.Where(c=>c.CourseId == enrollment.CourseId).Single();
+                }
 
-              foreach (var enrollment in student.Enrollments)
-              {
-                  enrollment.Course = courses.Where(c=>c.CourseId == enrollment.CourseId).Single();
-              }
-
-              return student;
             }
+          return student;
         }
 
         [HttpPost]
-        public async Task Create([Bind("EnrollmentDate,FirstName,LastName")] Student student)
+        public async Task Create ([Bind("EnrollmentDate,FirstName,LastName")] Student student)
         {
             using (DbContext _context = new DbContext(_connectionString))
             {
-              await _context.GetConnection().InsertAsync(student);
-              return;
+                await _context.GetConnection().InsertAsync(student);
             }
+            return; 
         }
 
         [HttpPost]
-        public async Task Edit(int? id)
+        public async Task Edit (int? id)
         {
+            if (id == null)
+                return;
+
             using (DbContext _context = new DbContext(_connectionString))
             {
-              var studentToUpdate = await _context.GetConnection().GetAsync<Student>(id);
+              var studentToUpdate= await _context.GetConnection().GetAsync<Student>(id);
+              if (studentToUpdate == null)
+                  return;
               await _context.GetConnection().UpdateAsync(studentToUpdate);
-              return;
             }
+            return; 
         }
 
         [HttpPost]
         public async Task Delete(int? id)
         {
+            if (id == null)
+                return;
+
             using (DbContext _context = new DbContext(_connectionString))
             {
               var studentToDelete = await _context.GetConnection().GetAsync<Student>(id);
+              if (studentToDelete == null)
+                  return;
               await _context.GetConnection().DeleteAsync(studentToDelete);
-              return;
             }
+            return; 
         }
     }
 }
