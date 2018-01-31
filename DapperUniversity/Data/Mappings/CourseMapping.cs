@@ -12,7 +12,7 @@ namespace DapperUniversity.Data
             Map(c => c.Title)
                 .ToColumn("title");
             Map(c => c.Credits)
-                .ToColumn("credit");
+                .ToColumn("credits");
         }
     }
 }
