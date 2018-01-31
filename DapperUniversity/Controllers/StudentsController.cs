@@ -29,10 +29,10 @@ namespace DapperUniversity.Controllers
             string searchString,
             int? page)
         {
+            IEnumerable<Student> students = Enumerable.Empty<Student>(); 
 
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewData["CurrentFilter"] = searchString;
 
             if (searchString != null)
             {
@@ -42,10 +42,7 @@ namespace DapperUniversity.Controllers
             {
                 searchString = currentFilter;
             }
-
             ViewData["CurrentFilter"] = searchString;
-
-            IEnumerable<Student> students = Enumerable.Empty<Student>(); 
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -54,8 +51,9 @@ namespace DapperUniversity.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-             students = students.Where(s => s.LastName.Contains(searchString)
-                                   || s.FirstName.Contains(searchString));
+             students = students.Where(s => 
+                     s.LastName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0
+                  || s.FirstName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >=0 );
             }
             switch (sortOrder)
             {
