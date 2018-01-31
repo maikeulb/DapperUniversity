@@ -17,7 +17,7 @@ namespace DapperUniversity.Controllers
         public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
 
         [HttpGet]
-        public async Task<IEnumerable<Course>> Index()
+        public async Task<IEnumerable<Course>> Index(int? id, int? courseId)
         {
             var query = @"SELECT * 
                       FROM course INNER JOIN department 
@@ -32,15 +32,5 @@ namespace DapperUniversity.Controllers
             return courses;
         }
 
-    }
-}
-
-namespace ContosoUniversity.Models.SchoolViewModels
-{
-    public class InstructorIndexData
-    {
-        public IEnumerable<Instructor> Instructors { get; set; }
-        public IEnumerable<Course> Courses { get; set; }
-        public IEnumerable<Enrollment> Enrollments { get; set; }
     }
 }

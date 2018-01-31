@@ -6,6 +6,8 @@ namespace DapperUniversity.Models
 {
     public class Instructor
     {
+        private readonly List<Course> _courses = new List<Course> ();
+
         public int InstructorId { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -19,5 +21,8 @@ namespace DapperUniversity.Models
 
         [Display(Name = "Full Name")]
         public string FullName => LastName + ", " + FirstName;
+
+        public void AddCourse (Course course) => _courses.Add (course);
+
     }
 }
