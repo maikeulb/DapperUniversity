@@ -158,6 +158,17 @@ namespace DapperUniversity.Controllers
             }
         }
 
+        public async Task<Instructor> Delete(int? id)
+        {
+            return await GetInstructorWithCourse(id);
+        }
+
+        [HttpPost]
+        public async Task Delete(int id)
+        {
+            throw new NotImplementedException(); 
+        } 
+
         private IEnumerable<Course> GetInstructorCourse(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
