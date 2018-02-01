@@ -122,6 +122,42 @@ namespace DapperUniversity.Controllers
             return; 
         }
 
+        [HttpGet]
+        public async Task<Instructor> Edit(int? id)
+        {
+            var instructors = await GetInstructor(id);
+            await PopulateAssignedCourseData(instructors);
+            return instructors;
+        }
+
+        [HttpPost]
+        public async Task EditPost(int? id, string[] selectedCourses)
+        {
+            var instructorToUpdate = await GetInstructor(id);
+
+            var courses = GetInstructorCourse(id);
+
+            courses.ToList().ForEach(instructorToUpdate.AddCourse);
+
+            instructorToUpdate.OfficeAssignment.InstructorId = instructorToUpdate.Id;
+
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                var checkOffice =await  _context.GetConnection().GetAsync<OfficeAssignment>(id);
+                if (checkOffice != null)
+                {
+                    await _context.GetConnection().UpdateAsync(instructorToUpdate.OfficeAssignment);
+                }
+                else
+                {
+                    await _context.GetConnection().InsertAsync(instructorToUpdate.OfficeAssignment);
+                }
+
+                instructorToUpdate.UpdateInstructorCourses(selectedCourses, courses.ToList());
+                await _context.GetConnection().UpdateAsync(instructorToUpdate);
+            }
+        }
+
         private IEnumerable<Course> GetInstructorCourse(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();

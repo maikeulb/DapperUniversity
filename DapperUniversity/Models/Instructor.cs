@@ -18,14 +18,14 @@ namespace DapperUniversity.Models
         public DateTime HireDate { get; set; }
 
         public OfficeAssignment OfficeAssignment { get; set; }
-        public ICollection<CourseAssignment> CourseAssignments { get; private set; } = new List<CourseAssignment>();
+        public ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();
 
         [Display(Name = "Full Name")]
         public string FullName => LastName + ", " + FirstName;
 
         public void AddCourse (Course course) => _courses.Add (course);
 
-        private void UpdateInstructorCourses(string[] selectedCourses, IEnumerable<Course> courses)
+        public void UpdateInstructorCourses(string[] selectedCourses, IEnumerable<Course> courses)
         {
             if (selectedCourses == null)
             {
