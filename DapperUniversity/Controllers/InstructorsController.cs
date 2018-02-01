@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using DapperUniversity.Models;
 using DapperUniversity.Data;
@@ -177,7 +178,6 @@ namespace DapperUniversity.Controllers
         }
 
     }
-
 }
 
 namespace DapperUniversity.Models

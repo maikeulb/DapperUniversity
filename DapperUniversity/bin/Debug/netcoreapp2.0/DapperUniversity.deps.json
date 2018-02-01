@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "cd4aa910adf418316a23baa06db3f0f18f3db3d3"
+    "signature": "2a2010472b1db6d09fc0ca82d3261ecc3cae060d"
   },
   "compilationOptions": {
     "defines": [
@@ -38,6 +38,7 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "2.0.0",
           "OdeToCode.AddFeatureFolders": "1.0.8",
+          "DapperExtensions": "1.6.3",
           "Npgsql": "3.2.6"
         },
         "runtime": {
@@ -117,6 +118,17 @@
         },
         "compile": {
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        }
+      },
+      "DapperExtensions/1.6.3": {
+        "dependencies": {
+          "Dapper": "1.50.4"
+        },
+        "runtime": {
+          "lib/net45/DapperExtensions.dll": {}
+        },
+        "compile": {
+          "lib/net45/DapperExtensions.dll": {}
         }
       },
       "FluentValidation/7.2.1": {
@@ -4448,6 +4460,13 @@
       "sha512": "sha512-niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
       "path": "dapper.fluentmap/1.6.0",
       "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
+    },
+    "DapperExtensions/1.6.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KrmiZVbSu8NcjcdteDfuLKEES8ZA/HOHyDO4n5Gvc2CuSxulaRaEPofr0zCH7LM/yevi2gSnA5GlOGYj8Ayd6w==",
+      "path": "dapperextensions/1.6.3",
+      "hashPath": "dapperextensions.1.6.3.nupkg.sha512"
     },
     "FluentValidation/7.2.1": {
       "type": "package",
