@@ -158,6 +158,24 @@ namespace DapperUniversity.Controllers
 
             return instructors.First();
         }
+
+        private async Task PopulateAssignedCourseData(Instructor instructor)
+        {
+            IEnumerable<Course> allCourses = Enumerable.Empty<Course>();
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                allCourses = await _context.GetConnection().GetAllAsync<Course>();
+            }
+            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(s => s.CourseId));
+            var viewModel = allCourses.Select(course => new AssignedCourseData
+            {
+                CourseId = course.Id,
+                Title = course.Title,
+                Assigned = instructorCourses.Contains(course.Id)
+            }).ToList();
+            ViewBag.AssignedCourses = viewModel;
+        }
+
     }
 
 }
@@ -171,4 +189,10 @@ namespace DapperUniversity.Models
         public IEnumerable<Enrollment> Enrollments { get; set; }
     }
 
+    public class AssignedCourseData
+    {
+        public int CourseId { get; set; }
+        public string Title { get; set; }
+        public bool Assigned { get; set; }
+    }
 }
