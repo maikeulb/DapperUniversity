@@ -148,10 +148,10 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-              var studentToUpdate= await _context.GetConnection().GetAsync<Student>(id);
-              if (studentToUpdate == null)
-                  return;
-              await _context.GetConnection().UpdateAsync(studentToUpdate);
+                var studentToUpdate= await _context.GetConnection().GetAsync<Student>(id);
+                if (studentToUpdate == null)
+                    return;
+                await _context.GetConnection().UpdateAsync(studentToUpdate);
             }
             return; 
         }
@@ -163,8 +163,9 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-              student = await _context.GetConnection().GetAsync<Student>(id);
+                student = await _context.GetConnection().GetAsync<Student>(id);
             }
+
             return student; 
         }
 
@@ -176,13 +177,12 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-              var studentToDelete = await _context.GetConnection().GetAsync<Student>(id);
-              if (studentToDelete == null)
-                  return;
-              await _context.GetConnection().DeleteAsync(studentToDelete);
+                var studentToDelete = await _context.GetConnection().GetAsync<Student>(id);
+                if (studentToDelete == null)
+                    return;
+                await _context.GetConnection().DeleteAsync(studentToDelete);
             }
             return; 
         }
-
     }
 }

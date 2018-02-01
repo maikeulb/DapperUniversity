@@ -115,6 +115,7 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task Create ([Bind("LastName,FirstName,HireDate")] Instructor instructor)
         {
+
             using (DbContext _context = new DbContext(_connectionString))
             {
                 await _context.GetConnection().InsertAsync(instructor);
