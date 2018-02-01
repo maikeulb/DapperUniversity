@@ -28,7 +28,7 @@ namespace DapperUniversity
         {
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql (Configuration.GetConnectionString ("Identity")));
+                options.UseNpgsql (Configuration.GetConnectionString ("ConnectionStrings:Identity")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

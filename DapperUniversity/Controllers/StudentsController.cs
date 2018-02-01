@@ -107,9 +107,15 @@ namespace DapperUniversity.Controllers
                 {
                     enrollment.Course = courses.Where(c=>c.Id == enrollment.CourseId).Single();
                 }
-
             }
+
           return student;
+        }
+
+        [HttpGet]
+        public void Create()
+        {
+            return;
         }
 
         [HttpPost]
@@ -122,8 +128,20 @@ namespace DapperUniversity.Controllers
             return; 
         }
 
+        [HttpGet]
+        public async Task<Student> Edit(int? id)
+        {
+            Student student = new Student();
+
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                student = await _context.GetConnection().GetAsync<Student>(id);
+            }
+            return student;
+        }
+
         [HttpPost]
-        public async Task Edit (int? id)
+        public async Task EditPost (int? id)
         {
             if (id == null)
                 return;
@@ -138,8 +156,20 @@ namespace DapperUniversity.Controllers
             return; 
         }
 
+        [HttpGet]
+        public async Task<Student> Delete (int? id)
+        {
+            Student student = new Student();
+
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+              student = await _context.GetConnection().GetAsync<Student>(id);
+            }
+            return student; 
+        }
+
         [HttpPost]
-        public async Task Delete(int? id)
+        public async Task DeletePost (int? id)
         {
             if (id == null)
                 return;
@@ -153,5 +183,6 @@ namespace DapperUniversity.Controllers
             }
             return; 
         }
+
     }
 }

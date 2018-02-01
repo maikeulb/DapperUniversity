@@ -9,28 +9,26 @@
   </ItemGroup>
 
   <ItemGroup>
-                <PackageReference Include="AutoMapper" Version="6.2.1" />
-                <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
-                <PackageReference Include="Dapper" Version="1.50.4" />
-                <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
-                <PackageReference Include="Dapper.FluentMap" Version="1.6.0" />
-                <PackageReference Include="Dommel" Version="1.9.0" />
-                <PackageReference Include="npgsql" Version="3.2.6" />
-                <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />
-                <PackageReference Include="FluentValidation.AspNetCore" Version="7.2.1" />
-                <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="3.0.0" />
-                <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
-                <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
-                <PackageReference Include="OdeToCode.AddFeatureFolders" Version="1.0.8" />
+    <PackageReference Include="AutoMapper" Version="6.2.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
+    <PackageReference Include="Dapper.FluentMap" Version="1.6.0" />
+    <PackageReference Include="npgsql" Version="3.2.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.2.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" PrivateAssets="All" />
+    <PackageReference Include="OdeToCode.AddFeatureFolders" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
-                <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
 

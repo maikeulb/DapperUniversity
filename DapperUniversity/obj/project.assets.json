@@ -79,20 +79,6 @@
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
         }
       },
-      "Dommel/1.9.0": {
-        "type": "package",
-        "dependencies": {
-          "Dapper": "1.50.2",
-          "NETStandard.Library": "1.6.1",
-          "System.ComponentModel.Annotations": "4.4.0"
-        },
-        "compile": {
-          "lib/netstandard1.3/Dommel.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Dommel.dll": {}
-        }
-      },
       "FluentValidation/7.2.1": {
         "type": "package",
         "dependencies": {
@@ -5294,21 +5280,6 @@
         "lib/net451/Dapper.FluentMap.xml",
         "lib/netstandard1.3/Dapper.FluentMap.dll",
         "lib/netstandard1.3/Dapper.FluentMap.xml"
-      ]
-    },
-    "Dommel/1.9.0": {
-      "sha512": "bW9EPU16NvD2ZVjLk5BsaQOHZWUpl0y5M6nmi47vV+xInBTh5Y6k1YQVXgGTbMD0i3twQ1iiVwvVlQWEdB/ZVw==",
-      "type": "package",
-      "path": "dommel/1.9.0",
-      "files": [
-        "dommel.1.9.0.nupkg.sha512",
-        "dommel.nuspec",
-        "lib/net45/Dommel.dll",
-        "lib/net45/Dommel.xml",
-        "lib/net451/Dommel.dll",
-        "lib/net451/Dommel.xml",
-        "lib/netstandard1.3/Dommel.dll",
-        "lib/netstandard1.3/Dommel.xml"
       ]
     },
     "FluentValidation/7.2.1": {
@@ -13511,7 +13482,6 @@
       "Dapper >= 1.50.4",
       "Dapper.Contrib >= 1.50.4",
       "Dapper.FluentMap >= 1.6.0",
-      "Dommel >= 1.9.0",
       "FluentValidation.AspNetCore >= 7.2.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 3.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
@@ -13583,10 +13553,6 @@
           "Dapper.FluentMap": {
             "target": "Package",
             "version": "[1.6.0, )"
-          },
-          "Dommel": {
-            "target": "Package",
-            "version": "[1.9.0, )"
           },
           "FluentValidation.AspNetCore": {
             "target": "Package",
