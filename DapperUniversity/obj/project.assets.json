@@ -145,10 +145,10 @@
           }
         }
       },
-      "MediatR/3.0.0": {
+      "MediatR/4.0.1": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0"
+          "NETStandard.Library": "1.6.1"
         },
         "compile": {
           "lib/netstandard1.1/MediatR.dll": {}
@@ -157,10 +157,10 @@
           "lib/netstandard1.1/MediatR.dll": {}
         }
       },
-      "MediatR.Extensions.Microsoft.DependencyInjection/3.0.0": {
+      "MediatR.Extensions.Microsoft.DependencyInjection/4.0.0": {
         "type": "package",
         "dependencies": {
-          "MediatR": "3.0.0",
+          "MediatR": "4.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
         },
         "compile": {
@@ -5326,24 +5326,24 @@
         "runtimes/win-x86/native/libuv.dll"
       ]
     },
-    "MediatR/3.0.0": {
-      "sha512": "/y6D/9sj1LvVZq7CXDPa81ZrHQeoEyqkrdwm1xj+0+1Vj5CBqelYRpfyOCwXpDOzKsj176zan/roosAANC/+Sw==",
+    "MediatR/4.0.1": {
+      "sha512": "nIgiOuD10aSrariE29T3/NdWKfwqOfyJhuuqdSD6RJa8vvYUxLAsWZ64UwYm7pF7yPIjM36M+3W0hpyPTAj4Gg==",
       "type": "package",
-      "path": "mediatr/3.0.0",
+      "path": "mediatr/4.0.1",
       "files": [
         "lib/net45/MediatR.dll",
         "lib/netstandard1.1/MediatR.dll",
-        "mediatr.3.0.0.nupkg.sha512",
+        "mediatr.4.0.1.nupkg.sha512",
         "mediatr.nuspec"
       ]
     },
-    "MediatR.Extensions.Microsoft.DependencyInjection/3.0.0": {
-      "sha512": "M+M877+biBRKrcMW1RdWBsxExnxIjFeM6ufOmV2IQYTl2bevoaxD1oGUD2I6U7X/YPlzdErZ/albOIds/4fRGQ==",
+    "MediatR.Extensions.Microsoft.DependencyInjection/4.0.0": {
+      "sha512": "GKll1eMzYdLw3GbIQcnHqRO4CLpvFwpiL3r8e2KhxL6K+s/xcjmGCbtIrltbTnBDj1ZXBQoNJa9eAX4UrhZ6iA==",
       "type": "package",
-      "path": "mediatr.extensions.microsoft.dependencyinjection/3.0.0",
+      "path": "mediatr.extensions.microsoft.dependencyinjection/4.0.0",
       "files": [
         "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll",
-        "mediatr.extensions.microsoft.dependencyinjection.3.0.0.nupkg.sha512",
+        "mediatr.extensions.microsoft.dependencyinjection.4.0.0.nupkg.sha512",
         "mediatr.extensions.microsoft.dependencyinjection.nuspec"
       ]
     },
@@ -13483,7 +13483,7 @@
       "Dapper.Contrib >= 1.50.4",
       "Dapper.FluentMap >= 1.6.0",
       "FluentValidation.AspNetCore >= 7.2.1",
-      "MediatR.Extensions.Microsoft.DependencyInjection >= 3.0.0",
+      "MediatR.Extensions.Microsoft.DependencyInjection >= 4.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
       "Microsoft.DotNet.Watcher.Tools >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Relational >= 2.0.1",
@@ -13492,6 +13492,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 2.0.0",
       "OdeToCode.AddFeatureFolders >= 1.0.8",
+      "mediatr >= 4.0.1",
       "npgsql >= 3.2.6"
     ]
   },
@@ -13560,7 +13561,7 @@
           },
           "MediatR.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
-            "version": "[3.0.0, )"
+            "version": "[4.0.0, )"
           },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
@@ -13596,6 +13597,10 @@
           "OdeToCode.AddFeatureFolders": {
             "target": "Package",
             "version": "[1.0.8, )"
+          },
+          "mediatr": {
+            "target": "Package",
+            "version": "[4.0.1, )"
           },
           "npgsql": {
             "target": "Package",

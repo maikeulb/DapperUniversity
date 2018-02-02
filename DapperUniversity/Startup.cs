@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using DapperUniversity.Data;
 using DapperUniversity.Models;
 using DapperUniversity.Services;
 using Dapper.FluentMap;
+using MediatR;
+using FluentValidation.AspNetCore;
 
 namespace DapperUniversity
 {
@@ -34,9 +37,12 @@ namespace DapperUniversity
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddAutoMapper();
 
-            services.AddMvc();
+            services.AddMediatR();
+
+            services.AddMvc()
+                .AddFeatureFolders();
 
             string connectionString = Configuration.GetConnectionString("ConnectionStrings:DapperUniversity");
             if (connectionString == null)

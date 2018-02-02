@@ -10,6 +10,7 @@ using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Npgsql;
+using MediatR;
 
 namespace DapperUniversity.Controllers
 {
@@ -26,6 +27,7 @@ namespace DapperUniversity.Controllers
         public async Task<IEnumerable<Course>> Index(int? id, int? courseId)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
+
             var query = @"SELECT c.*, d.name 
                           FROM course AS c 
                             INNER JOIN department AS d
@@ -42,6 +44,7 @@ namespace DapperUniversity.Controllers
                         splitOn: "id");
             }
             return courses;
+
         }
 
         [HttpGet]
