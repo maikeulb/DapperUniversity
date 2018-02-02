@@ -115,7 +115,7 @@ namespace DapperUniversity.Controllers
             {
                 var _connection = _context.GetConnection();
                 /* await _connection.OpenAsync(); */
-                await _connection.Open();
+                _connection.Open();
                 var courseToDelete = await _connection.GetAsync<Course>(id);
                 await _connection.DeleteAsync(courseToDelete);
             }
