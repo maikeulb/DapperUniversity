@@ -72,6 +72,57 @@ namespace DapperUniversity.Controllers
             return departments.FirstOrDefault();
         }
 
+        [HttpGet]
+        public void Create()
+        {
+            return;
+        }
+
+
+        [HttpPost]
+        public async Task Create([Bind("Name, Budget, InstructorId, StartDate")]Department department)
+        {
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                 await _context.GetConnection().InsertAsync(department);
+            }
+            return; 
+        }
+
+        [HttpGet]
+        public async Task<Department> Edit(int? id)
+        {
+            Department department = new Department();
+
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                department = await _context.GetConnection().GetAsync<Department>(id);
+            }
+
+            PopulateInstructorDepartmentList(department.Id);
+
+            return department;
+        }
+
+        [HttpPost]
+        public void EditPost (int? id)
+        {
+            throw new NotImplementedException(); 
+        }
+
+
+        [HttpGet]
+        public void Delete(int id)
+        {
+            return;
+        }
+
+        [HttpPost]
+        public void DeletePost(int id)
+        {
+            throw new NotImplementedException(); 
+        }
+
         private void PopulateInstructorDepartmentList(object selectedInstructor = null)
         {
             IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();

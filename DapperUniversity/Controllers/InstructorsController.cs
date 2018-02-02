@@ -165,7 +165,7 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpPost]
-        public async Task Delete(int id)
+        public void Delete(int id)
         {
             throw new NotImplementedException(); 
         } 
