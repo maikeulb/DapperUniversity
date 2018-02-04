@@ -1,38 +1,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
 using DapperUniversity.Models;
 using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using Npgsql;
 using MediatR;
 
 namespace DapperUniversity.Features.Courses
 {
     public class Index
     {
-        public class Query : IRequest<Result>
+        public class Query : IRequest<Model>
         {
             public Department SelectedDepartment { get; set; }
         }
 
-        public class Result
+        public class Model
         {
-            public Department SelectedDepartment { get; set; }
             public IEnumerable<Course> Courses { get; set; }
-
-            public class Course
-            {
-                public int Id { get; set; }
-                public string Title { get; set; }
-                public int Credits { get; set; }
-                public string DepartmentName { get; set; }
-            }
+            public Department SelectedDepartment { get; set; }
         }
 
-        public class Handler : AsyncRequestHandler<Query, Result>
+        public class Handler : AsyncRequestHandler<Query, Model>
         {
 
             private readonly string _connectionString;
@@ -42,7 +32,7 @@ namespace DapperUniversity.Features.Courses
                 _connectionString = connectionString;
             }
 
-            protected override  async Task<Result> HandleCore(Query message)
+            protected override async Task<Model> HandleCore(Query message)
             {
                 int? departmentID = message.SelectedDepartment?.Id;
 
@@ -64,9 +54,9 @@ namespace DapperUniversity.Features.Courses
                             splitOn: "id");
                 }
 
-                return new Result
+                return new Model
                 {
-                    Courses = courses.Cast<Result.Course>(),
+                    Courses = courses,
                     SelectedDepartment = message.SelectedDepartment
                 };
             }

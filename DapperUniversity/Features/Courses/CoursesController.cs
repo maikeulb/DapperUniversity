@@ -144,7 +144,6 @@ namespace DapperUniversity.Controllers
         private async Task<Course> GetCourseDepartment(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
-
             var query = @"SELECT c.*, d.name FROM course c
                       INNER JOIN department d ON d.id = c.departmentId
                       WHERE c.id = @id";
@@ -162,6 +161,7 @@ namespace DapperUniversity.Controllers
             }
             return courses.First();
         }
+
     }
 }
 
