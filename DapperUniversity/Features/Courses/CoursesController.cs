@@ -76,7 +76,6 @@ namespace DapperUniversity.Controllers
         [HttpGet]
         public async Task<CourseEditViewModel> Edit(int? id)
         {
-
             var model = new CourseEditViewModel();
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -88,6 +87,7 @@ namespace DapperUniversity.Controllers
 
         [HttpPost]
         public async Task EditPost(int? id)
+
         {  
             CourseEditViewModel model = new CourseEditViewModel();
             using (DbContext _context = new DbContext(_connectionString))
@@ -167,10 +167,12 @@ namespace DapperUniversity.Controllers
 
 namespace DapperUniversity.Models
 {
+
     public class CourseEditViewModel
     {
         public int? SelectedItemId { get; set; }
         public SelectList Department { get; set; }
         public Course Course { get; set; }
     }
+
 }
