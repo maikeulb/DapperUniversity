@@ -1,0 +1,55 @@
+﻿@model ContosoUniversity.Models.Course
+@{
+    ViewBag.Title = "Course";
+}
+<h2>Delete</h2>
+<p class="field-validation-error">@ViewBag.ErrorMessage</p>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Department
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(s => s.Department.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(s => s.CourseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(s => s.CourseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

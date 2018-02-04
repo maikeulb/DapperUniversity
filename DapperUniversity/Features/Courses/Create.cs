@@ -10,7 +10,7 @@ using Dapper;
 using Dapper.Contrib.Extensions;
 using MediatR;
 
-namespace DapperUniversityCore.Features.Courses
+namespace DapperUniversity.Features.Courses
 {
     public class Create
     {
