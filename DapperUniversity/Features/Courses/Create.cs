@@ -8,7 +8,6 @@ using DapperUniversity.Models;
 using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using Npgsql;
 using MediatR;
 
 namespace DapperUniversityCore.Features.Courses
@@ -24,7 +23,7 @@ namespace DapperUniversityCore.Features.Courses
             public Department Department { get; set; }
         }
 
-        public class Handler : RequestHandler<Command>
+        public class Handler : AsyncRequestHandler<Command>
         {
             private readonly string _connectionString;
 
@@ -33,16 +32,15 @@ namespace DapperUniversityCore.Features.Courses
                 _connectionString = connectionString;
             }
 
-            protected override void HandleCore(Command message)
+            protected async override Task HandleCore(Command message)
             {
                 var course = Mapper.Map<Command, Course>(message);
                 course.Id = message.Number;
 
                 using (DbContext _context = new DbContext(_connectionString))
                 {
-                    _context.GetConnection().Insert(course);
+                    await _context.GetConnection().InsertAsync(course);
                 }
-                return;
             }
         }
     }
