@@ -29,9 +29,8 @@ namespace DapperUniversity
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql (Configuration.GetConnectionString ("ConnectionStrings:Identity")));
+                options.UseNpgsql (Configuration.GetConnectionString ("Identity")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -41,10 +40,10 @@ namespace DapperUniversity
 
             services.AddMediatR();
 
-            services.AddMvc()
-                .AddFeatureFolders();
+            services.AddMvc();
 
-            string connectionString = Configuration.GetConnectionString("ConnectionStrings:DapperUniversity");
+            string connectionString = Configuration.GetConnectionString ("DapperUniversity");
+
             if (connectionString == null)
               throw new ArgumentNullException("Connection string cannot be null");
 

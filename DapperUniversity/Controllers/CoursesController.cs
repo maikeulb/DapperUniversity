@@ -18,19 +18,19 @@ namespace DapperUniversity.Controllers
     {
         private readonly string _connectionString;
 
-        public CoursesController(string connectionString)
+        public CoursesController()
         {
-            _connectionString = connectionString;
+            _connectionString = "Server=172.17.0.3;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Course>> Index(int? id, int? courseId)
+        public async Task<ActionResult> Index()
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
 
             var query = @"SELECT c.*, d.name 
-                          FROM course AS c 
-                            INNER JOIN department AS d
+                          FROM courses AS c 
+                            INNER JOIN departments AS d
                             ON d.id = c.department_id;";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -40,11 +40,9 @@ namespace DapperUniversity.Controllers
                     {
                         courseItem.Department = deparment;
                         return courseItem;
-                    },
-                        splitOn: "id");
+                    });
             }
-            return courses;
-
+            return View(courses);
         }
 
         [HttpGet]
@@ -54,13 +52,13 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public CourseEditViewModel Create()
+        public ActionResult Create()
         {
-            CourseEditViewModel  model = new CourseEditViewModel();
+            CourseEditViewModel model = new CourseEditViewModel();
 
             PopulateDropDownList(model);
 
-            return model;
+            return View(model);
         }
 
         [HttpPost]
@@ -167,7 +165,6 @@ namespace DapperUniversity.Controllers
 
 namespace DapperUniversity.Models
 {
-
     public class CourseEditViewModel
     {
         public int? SelectedItemId { get; set; }

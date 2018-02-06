@@ -17,9 +17,9 @@ namespace DapperUniversity.Controllers
     {
         private readonly string _connectionString;
 
-        public StudentsController(string connectionString)
+        public StudentsController()
         {
-            _connectionString = connectionString;
+            _connectionString = "Server=172.17.0.3;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
         [HttpGet]
@@ -76,7 +76,7 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<Student> Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             Student student = new Student();
 
@@ -109,23 +109,23 @@ namespace DapperUniversity.Controllers
                 }
             }
 
-          return student;
+        return View(student);
         }
 
         [HttpGet]
-        public void Create()
+        public ActionResult Create()
         {
-            return;
+            return View();
         }
 
         [HttpPost]
-        public async Task Create ([Bind("EnrollmentDate,FirstName,LastName")] Student student)
+        public async Task<ActionResult> Create ([Bind("EnrollmentDate,FirstName,LastName")] Student student)
         {
             using (DbContext _context = new DbContext(_connectionString))
             {
                 await _context.GetConnection().InsertAsync(student);
             }
-            return; 
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
