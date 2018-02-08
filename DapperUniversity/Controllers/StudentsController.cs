@@ -23,7 +23,7 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Student>> Index(
+        public async Task<ActionResult> Index(
             string sortOrder, 
             string currentFilter,
             string searchString,
@@ -72,7 +72,7 @@ namespace DapperUniversity.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
-            return await PaginatedList<Student>.CreateAsync(students.AsQueryable(), pageNumber, pageSize);
+            return View(students);
         }
 
         [HttpGet]
