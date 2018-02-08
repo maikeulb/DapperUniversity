@@ -9,10 +9,10 @@ namespace DapperUniversity.Data
         {
             Map(s => s.Id)
                 .ToColumn("id");
-            Map(s => s.LastName)
-                .ToColumn("last_name");
             Map(s => s.FirstName)
                 .ToColumn("first_name");
+            Map(s => s.LastName)
+                .ToColumn("last_name");
             Map(s => s.EnrollmentDate)
                 .ToColumn("enrollment_date");
         }

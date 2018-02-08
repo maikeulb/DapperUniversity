@@ -19,7 +19,7 @@ namespace DapperUniversity.Controllers
 
         public StudentsController()
         {
-            _connectionString = "Server=172.17.0.3;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
+            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
         [HttpGet]
@@ -121,9 +121,10 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task<ActionResult> Create ([Bind("EnrollmentDate,FirstName,LastName")] Student student)
         {
+
             using (DbContext _context = new DbContext(_connectionString))
             {
-                await _context.GetConnection().InsertAsync(student);
+                await _context.GetConnection().ExecuteAsync("INSERT INTO students (enrollment_date, first_name, last_name) VALUES(@EnrollmentDate, @FirstName, @LastName)", student);
             }
             return RedirectToAction("Index");
         }

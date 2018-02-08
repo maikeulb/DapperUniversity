@@ -20,7 +20,7 @@ namespace DapperUniversity.Controllers
 
         public CoursesController()
         {
-            _connectionString = "Server=172.17.0.3;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
+            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
         [HttpGet]

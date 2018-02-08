@@ -1,0 +1,87 @@
+CREATE TABLE "Courses" (
+  "Id" integer PRIMARY KEY,
+  "Title" varchar(50) NOT NULL,
+  "Credits" integer NOT NULL,
+  "DepartmentId" integer NOT NULL
+);
+
+CREATE TABLE "CourseAssignments" (
+  "CourseId" integer NOT NULL,
+  "InstructorId" integer NOT NULL,
+  PRIMARY KEY ("CourseId", "InstructorId")
+);
+
+CREATE TABLE "Departments" (
+  "Id" serial PRIMARY KEY,
+  "Name" varchar(50) NOT NULL,
+  "Budget" money NOT NULL,
+  "StartDate" timestamp NOT NULL,
+  "InstructorId" integer NOT NULL 
+);
+
+CREATE TABLE "Enrollments" (
+  "Id" serial PRIMARY KEY,
+  "CourseId" integer NOT NULL,
+  "StudentId" integer NOT NULL,
+  "Grade" integer NOT NULL
+);
+
+CREATE TABLE "Instructors" (
+  "Id" serial PRIMARY KEY,
+  "LastName" varchar(50) NOT NULL,
+  "FirstName" varchar(50) NOT NULL,
+  "HireDate" timestamp NOT NULL
+);
+
+CREATE TABLE "OfficeAssignments" (
+  "InstructorId" serial PRIMARY KEY,
+  "Location" varchar(50) NOT NULL
+);
+
+CREATE TABLE "Students" (
+  "Id" serial PRIMARY KEY,
+  "LastName" varchar(50) NOT NULL,
+  "FirstName" varchar(50) NOT NULL,
+  "EnrollmentDate" timestamp NOT NULL
+);
+
+ALTER TABLE "Courses"
+  ADD CONSTRAINT fk_course_department
+  FOREIGN KEY ("DepartmentId") 
+  REFERENCES "Departments"("Id")
+  ON DELETE CASCADE;
+
+ALTER TABLE "CourseAssignments"
+  ADD CONSTRAINT fk_instructor_course
+  FOREIGN KEY ("CourseId") 
+  REFERENCES "Courses"("Id")
+  ON DELETE CASCADE;
+
+ALTER TABLE "CourseAssignments"
+  ADD CONSTRAINT fk_instructor_assignment
+  FOREIGN KEY ("InstructorId") 
+  REFERENCES "Instructors"("Id")
+  ON DELETE CASCADE;
+
+ALTER TABLE "Departments"
+  ADD CONSTRAINT fk_instructor_assignment
+  FOREIGN KEY ("InstructorId") 
+  REFERENCES "Instructors"("Id")
+  ON DELETE CASCADE;
+
+ALTER TABLE "Enrollments"
+  ADD CONSTRAINT fk_enrollment_course
+  FOREIGN KEY ("CourseId") 
+  REFERENCES "Courses"("Id")
+  ON DELETE CASCADE;
+
+ALTER TABLE "Enrollments"
+  ADD CONSTRAINT fk_enrollment_student
+  FOREIGN KEY ("StudentId") 
+  REFERENCES "Students"("Id")
+  ON DELETE CASCADE;
+
+ALTER TABLE "OfficeAssignments"
+  ADD CONSTRAINT fk_office_assignment_instructor
+  FOREIGN KEY ("InstructorId") 
+  REFERENCES "Instructors"("Id");
