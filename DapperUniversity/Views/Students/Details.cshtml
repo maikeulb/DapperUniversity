@@ -1,5 +1,4 @@
-@model ContosoUniversity.Data.Entities.Student
-
+@model DapperUniversity.Models.Student
 @{
     ViewData["Title"] = "Details";
 }
@@ -54,6 +53,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

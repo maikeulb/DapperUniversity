@@ -69,8 +69,6 @@ namespace DapperUniversity.Controllers
                     students = students.OrderBy(s => s.LastName);
                     break;
             }
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
 
             return View(students);
         }
@@ -81,17 +79,17 @@ namespace DapperUniversity.Controllers
             Student student = new Student();
 
             string enrollmentQuery = @"SELECT * 
-                                       FROM enrollment
+                                       FROM enrollments
                                        WHERE student_id 
                                        IN (SELECT id 
-                                         FROM student
+                                         FROM students
                                          WHERE id = @id)";
 
             string courseQuery = @"SELECT * 
-                                   FROM course
+                                   FROM courses
                                    WHERE id 
                                    IN (SELECT course_id 
-                                     FROM enrollment 
+                                     FROM enrollments 
                                      WHERE student_id = @id)";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -121,16 +119,18 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task<ActionResult> Create ([Bind("EnrollmentDate,FirstName,LastName")] Student student)
         {
+            string command = @"INSERT INTO students (enrollment_date, first_name, last_name) 
+                               VALUES(@EnrollmentDate, @FirstName, @LastName)";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-                await _context.GetConnection().ExecuteAsync("INSERT INTO students (enrollment_date, first_name, last_name) VALUES(@EnrollmentDate, @FirstName, @LastName)", student);
+                await _context.GetConnection().ExecuteAsync(command, student);
             }
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<Student> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             Student student = new Student();
 
@@ -138,27 +138,29 @@ namespace DapperUniversity.Controllers
             {
                 student = await _context.GetConnection().GetAsync<Student>(id);
             }
-            return student;
+            return View(student);
         }
 
-        [HttpPost]
-        public async Task EditPost (int? id)
+        [HttpPost, ActionName("Edit")]
+        public async Task<ActionResult> EditPost (int? id)
         {
-            if (id == null)
-                return;
+            Student student = new Student();
 
+            string command = @"UPDATE students 
+                               SET enrollment_date = @EnrollmentDate, 
+                                   first_name = @FirstName,
+                                   last_name = @LastName";
             using (DbContext _context = new DbContext(_connectionString))
             {
-                var studentToUpdate= await _context.GetConnection().GetAsync<Student>(id);
-                if (studentToUpdate == null)
-                    return;
-                await _context.GetConnection().UpdateAsync(studentToUpdate);
+                student = await _context.GetConnection().GetAsync<Student>(id);
+                await _context.GetConnection().ExecuteAsync(command, student);
+                return RedirectToAction("Index");
             }
-            return; 
+            return View(student); 
         }
 
         [HttpGet]
-        public async Task<Student> Delete (int? id)
+        public async Task<ActionResult> Delete (int? id)
         {
             Student student = new Student();
 
@@ -167,23 +169,18 @@ namespace DapperUniversity.Controllers
                 student = await _context.GetConnection().GetAsync<Student>(id);
             }
 
-            return student; 
+            return View(student); 
         }
 
         [HttpPost]
-        public async Task DeletePost (int? id)
+        public async Task<ActionResult> DeletePost (int? id)
         {
-            if (id == null)
-                return;
-
             using (DbContext _context = new DbContext(_connectionString))
             {
                 var studentToDelete = await _context.GetConnection().GetAsync<Student>(id);
-                if (studentToDelete == null)
-                    return;
                 await _context.GetConnection().DeleteAsync(studentToDelete);
             }
-            return; 
+            return RedirectToAction("Index"); 
         }
     }
 }
