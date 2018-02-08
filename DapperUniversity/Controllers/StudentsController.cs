@@ -149,11 +149,13 @@ namespace DapperUniversity.Controllers
             string command = @"UPDATE students 
                                SET enrollment_date = @EnrollmentDate, 
                                    first_name = @FirstName,
-                                   last_name = @LastName";
+                                   last_name = @LastName
+                               WHERE id = @id";
+
             using (DbContext _context = new DbContext(_connectionString))
             {
                 student = await _context.GetConnection().GetAsync<Student>(id);
-                await _context.GetConnection().ExecuteAsync(command, student);
+                await _context.GetConnection().ExecuteAsync(command, new {student, id});
                 return RedirectToAction("Index");
             }
             return View(student); 

@@ -17,21 +17,21 @@ namespace DapperUniversity.Controllers
     {
         private readonly string _connectionString;
 
-        public DepartmentsController(string connectionString)
+        public DepartmentsController()
         {
-            _connectionString = connectionString;
+            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
-        public async Task<IEnumerable<Department>> Index()
+        public async Task<ActionResult> Index()
         {
 
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
             IEnumerable<Department> departments = Enumerable.Empty<Department>();
 
-            var query = @"SELECT d.*, i.first_name, i.last_name 
-                      FROM department d
-                        INNER JOIN instructor i 
-                        ON i.id = d.instructor_id";
+            string query = @"SELECT d.*, i.first_name, i.last_name 
+                             FROM departments d
+                               INNER JOIN instructors i 
+                               ON i.id = d.instructor_id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -43,19 +43,19 @@ namespace DapperUniversity.Controllers
                 {
                     department.Instructor = instructor;
                     return department;
-                }), splitOn: "id");
+                }));
             }
 
-            return departments.ToList();
+            return View(departments.ToList());
         }
 
-        public async Task<Department> Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
-            var query = @"SELECT d.*, i.last_name, i.first_name 
-                          FROM department d
-                          INNER JOIN instructor i 
-                            ON i.id = d.instructor_id
-                            WHERE d.id = @id";
+            string query = @"SELECT d.*, i.last_name, i.first_name 
+                             FROM departments d
+                             INNER JOIN instructors i 
+                               ON i.id = d.instructor_id
+                               WHERE d.id = @id";
 
             IEnumerable<Department> departments = Enumerable.Empty<Department>();
             using (DbContext _context = new DbContext(_connectionString))
@@ -65,28 +65,29 @@ namespace DapperUniversity.Controllers
                 {
                     department.Instructor = instructor;
                     return department;
-                }), new {id},
-                splitOn: "id");
+                }));
             }
 
-            return departments.FirstOrDefault();
+            return View(departments.FirstOrDefault());
         }
 
-        [HttpGet]
-        public void Create()
+        public ActionResult Create()
         {
-            return;
+            PopulateInstructorDepartmentList();
+            return View();
         }
-
 
         [HttpPost]
-        public async Task Create([Bind("Name, Budget, InstructorId, StartDate")]Department department)
+        public async Task<ActionResult> Create([Bind("Name, Budget, InstructorId, StartDate")]Department department)
         {
+            string command = @"INSERT INTO departments (name, budget, instructor_id, start_date) 
+                               VALUES(@Name, @Budget, @InstructorId, @StartDate)";
+
             using (DbContext _context = new DbContext(_connectionString))
             {
-                 await _context.GetConnection().InsertAsync(department);
+                await _context.GetConnection().ExecuteAsync(command, department);
             }
-            return; 
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -130,7 +131,7 @@ namespace DapperUniversity.Controllers
             {
                 instructors = _context.GetConnection().GetAll<Instructor>().OrderBy(s => s.LastName).Select(s => s);
             }
-            ViewBag.InstructorId = new SelectList(instructors, "InstructorId", "FullName", selectedInstructor);
+            ViewBag.InstructorId = new SelectList(instructors, "Id", "FullName", selectedInstructor);
         }
     }
 }
