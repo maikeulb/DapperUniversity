@@ -15,10 +15,11 @@ namespace DapperUniversity.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-
         public DateTime HireDate { get; set; }
+
         public OfficeAssignment OfficeAssignment { get; set; }
-        public ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();
+        public ICollection<CourseAssignment> CourseAssignments { get; set; }
+        public ICollection<Course> Courses => _courses.AsReadOnly ();
 
         [Display(Name = "Full Name")]
         public string FullName => LastName + ", " + FirstName;

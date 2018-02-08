@@ -10,29 +10,32 @@ using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Npgsql;
+using Microsoft.Extensions.Logging;
 
 namespace DapperUniversity.Controllers
 {
     public class InstructorsController : Controller
     {
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
-        public InstructorsController()
+        public InstructorsController(
+            ILogger<InstructorsController> logger
+                )
         {
             _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<ActionResult> Index(int? id, int? courseId)
         {
-            string query = string.Empty;
-
             InstructorIndexData viewModel = new InstructorIndexData();
 
-            query = @"SELECT i.* oa.*
-                      FROM instructors AS i
-                        LEFT JOIN office_assignments AS oa 
-                        ON oa.instructor_id = i.instructor_id;";
+            string query = @"SELECT i.*, oa.*
+                             FROM instructors AS i
+                               LEFT JOIN office_assignments AS oa 
+                               ON oa.instructor_id = i.id;";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -41,12 +44,13 @@ namespace DapperUniversity.Controllers
                     {
                         instructor.OfficeAssignment = assignment;
                         return instructor;
-                    }));
+                    }), splitOn: "instructor_id");
             }
 
             viewModel.Instructors.ToList().ForEach(i =>
             {
                 GetInstructorCourse(i.Id).ToList().ForEach(i.AddCourse);
+
             });
 
             if (id != null)
@@ -57,9 +61,9 @@ namespace DapperUniversity.Controllers
                           FROM courses AS c 
                             INNER JOIN departments AS d 
                             ON d.department_id = c.department_id 
-                            INNER JOIN instructors AS ci 
-                            ON ci.course_id = c.id 
-                          WHERE ci.instructor_id = @id";
+                            INNER JOIN course_assignments AS ca 
+                            ON ca.course_id = c.id 
+                          WHERE ca.instructor_id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -94,6 +98,8 @@ namespace DapperUniversity.Controllers
                     new { courseId });
             }
             }
+
+
             return View(viewModel);
         }
 
@@ -173,19 +179,22 @@ namespace DapperUniversity.Controllers
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
 
+            _logger.LogInformation ("inside GetInstructorCourseGet");
+
             string query =@"SELECT c.* 
                             FROM courses c
-                              INNER JOIN instructors ci 
-                              ON ci.course_id = c.Id
-                            WHERE ci.instructor_id = @id";
+                              INNER JOIN course_assignments ca 
+                              ON ca.course_id = c.Id
+                            WHERE ca.instructor_id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
                 courses = _context.GetConnection().Query<Course, CourseAssignment, Course> (query,
                     ((course, courseAssignment) => course), 
-                    new { id }); 
+                    new { id },
+                    splitOn: "department_id");
+                    _logger.LogInformation ("inside GetInstructorCourseGet {courses}",courses);
              }
-
             return courses;
 
         }
