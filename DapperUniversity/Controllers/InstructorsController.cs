@@ -60,7 +60,7 @@ namespace DapperUniversity.Controllers
                 query = @"SELECT c.id, c.title, d.*
                           FROM courses AS c 
                             INNER JOIN departments AS d 
-                            ON d.department_id = c.department_id 
+                            ON d.id = c.department_id 
                             INNER JOIN course_assignments AS ca 
                             ON ca.course_id = c.id 
                           WHERE ca.instructor_id = @id";
@@ -110,22 +110,41 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var instructor = new Instructor() { };
+            instructor.CourseAssignments = new List<CourseAssignment>();
+            await PopulateAssignedCourseData(instructor);
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create ([Bind("LastName,FirstName,HireDate")] Instructor instructor)
+        public async Task<IActionResult> Create([Bind("FirstName,HireDate,LastName,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
+            if (selectedCourses != null)
+            {
+                instructor.CourseAssignments = new List<CourseAssignment>();
+                foreach (var course in selectedCourses)
+                {
+                    var courseToAdd = new CourseAssignment { InstructorId = instructor.Id, CourseId = int.Parse(course) };
+                    instructor.CourseAssignments.Add(courseToAdd);
+                }
+            }
+
             string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
                                VALUES(@LastName, @FirstName, @HireDate)";
 
-            using (DbContext _context = new DbContext(_connectionString))
+            if (ModelState.IsValid)
             {
-                await _context.GetConnection().ExecuteAsync(command, instructor);
+                using (DbContext _context = new DbContext(_connectionString))
+                {
+                    await _context.GetConnection().ExecuteAsync(command, instructor);
+                    return RedirectToAction("Index");
+                }
             }
-            return RedirectToAction("Index");
+
+            await PopulateAssignedCourseData(instructor);
+            return View(instructor);
         }
 
         [HttpGet]
@@ -217,8 +236,8 @@ namespace DapperUniversity.Controllers
             IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();
 
             string query = @"SELECT i.*, oa.*
-                             FROM instructor AS i 
-                               LEFT JOIN office_assignment AS oa 
+                             FROM instructors AS i 
+                               LEFT JOIN office_assignments AS oa 
                                ON i.id = oa.instructor_id 
                              WHERE i.id = @id";
 
@@ -230,7 +249,8 @@ namespace DapperUniversity.Controllers
                         instructorItem.OfficeAssignment = assignment;
                         return instructorItem;
                     }),
-                    new { id });
+                    new { id },
+                    splitOn: "location");
             }
 
             return instructors.First();
@@ -245,14 +265,15 @@ namespace DapperUniversity.Controllers
                 allCourses = await _context.GetConnection().GetAllAsync<Course>();
             }
 
-            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(s => s.CourseId));
+            /* var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(s => s.CourseId)); */
             var viewModel = allCourses.Select(course => new AssignedCourseData
             {
                 CourseId = course.Id,
                 Title = course.Title,
-                Assigned = instructorCourses.Contains(course.Id)
+                /* Assigned = instructorCourses.Contains(course.Id) */
             }).ToList();
-            ViewBag.AssignedCourses = viewModel;
+
+            ViewData["Courses"] = viewModel;
         }
     }
 }

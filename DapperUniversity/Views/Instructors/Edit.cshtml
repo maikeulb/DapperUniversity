@@ -1,15 +1,17 @@
 @model DapperUniversity.Models.Instructor
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-<form asp-action="Create">
+<form asp-action="Edit">
     <div class="form-horizontal">
         <h4>Instructor</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
         <div class="form-group">
             <label asp-for="LastName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -18,10 +20,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+            <label asp-for="FirstMidName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <input asp-for="FirstMidName" class="form-control" />
+                <span asp-validation-for="FirstMidName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -44,7 +46,7 @@
                     <tr>
                         @{ 
                             int cnt = 0;
-                            List<DapperUniversity.Models.AssignedCourseData> courses = ViewBag.Courses;
+                            List<ContosoUniversity.Models.SchoolViewModels.AssignedCourseData> courses = ViewBag.Courses;
                             foreach (var course in courses)
                             {
                                 if (cnt++ % 3 == 0)
@@ -52,10 +54,8 @@
                                     @:</tr><tr>
                                 }
                                 @:<td>
-                                    <input type="checkbox"
-                                    name="selectedCourses"
-                                    value="@course.CourseId" @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
-                                    @course.CourseId @: @course.Title
+                                    <input type="checkbox" name="selectedCourses" value="@course.CourseID" @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                                    @course.CourseID @: @course.Title
                                 @:</td>
                             }
                             @:</tr>
@@ -65,7 +65,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -74,3 +74,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
