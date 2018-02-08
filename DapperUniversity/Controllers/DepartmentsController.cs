@@ -28,7 +28,7 @@ namespace DapperUniversity.Controllers
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
             IEnumerable<Department> departments = Enumerable.Empty<Department>();
 
-            string query = @"SELECT d.*, i.first_name, i.last_name 
+            string query = @"SELECT d.*, i.*
                              FROM departments d
                                INNER JOIN instructors i 
                                ON i.id = d.instructor_id";

@@ -20,6 +20,7 @@ namespace DapperUniversity.Controllers
         public StudentsController()
         {
             _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }
 
         [HttpGet]
@@ -150,12 +151,12 @@ namespace DapperUniversity.Controllers
                                SET enrollment_date = @EnrollmentDate, 
                                    first_name = @FirstName,
                                    last_name = @LastName
-                               WHERE id = @id";
+                               WHERE id = '3'";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
                 student = await _context.GetConnection().GetAsync<Student>(id);
-                await _context.GetConnection().ExecuteAsync(command, new {student, id});
+                await _context.GetConnection().ExecuteAsync(command, student);
                 return RedirectToAction("Index");
             }
             return View(student); 

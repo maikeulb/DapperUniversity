@@ -17,21 +17,21 @@ namespace DapperUniversity.Controllers
     {
         private readonly string _connectionString;
 
-        public InstructorsController(string connectionString)
+        public InstructorsController()
         {
-            _connectionString = connectionString;
+            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
         [HttpGet]
-        public async Task<InstructorIndexData> Index(int? id, int? courseId)
+        public async Task<ActionResult> Index(int? id, int? courseId)
         {
             string query = string.Empty;
 
             InstructorIndexData viewModel = new InstructorIndexData();
 
-            query = @"SELECT i.* oa.location 
-                      FROM instuctor AS i
-                        LEFT JOIN office_assignment AS oa 
+            query = @"SELECT i.* oa.*
+                      FROM instructors AS i
+                        LEFT JOIN office_assignments AS oa 
                         ON oa.instructor_id = i.instructor_id;";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -41,7 +41,7 @@ namespace DapperUniversity.Controllers
                     {
                         instructor.OfficeAssignment = assignment;
                         return instructor;
-                    }), splitOn: "id");
+                    }));
             }
 
             viewModel.Instructors.ToList().ForEach(i =>
@@ -53,11 +53,11 @@ namespace DapperUniversity.Controllers
             {
                 ViewBag.InstructorId = id.Value;
 
-                query = @"SELECT c.id, c.title, d.name 
-                          FROM course AS c 
-                            INNER JOIN department AS d 
+                query = @"SELECT c.id, c.title, d.*
+                          FROM courses AS c 
+                            INNER JOIN departments AS d 
                             ON d.department_id = c.department_id 
-                            INNER JOIN course_instructor AS ci 
+                            INNER JOIN instructors AS ci 
                             ON ci.course_id = c.id 
                           WHERE ci.instructor_id = @id";
 
@@ -69,8 +69,7 @@ namespace DapperUniversity.Controllers
                         course.Department = department;
                         return course;
                     }),
-                    new { id },
-                    splitOn: "id");
+                    new { id });
             }
             }
 
@@ -78,9 +77,9 @@ namespace DapperUniversity.Controllers
             {
                 ViewBag.CourseId = courseId.Value;
 
-                query = @"SELECT e.grade, s.last_name, s.first_name 
-                          FROM enrollment AS e 
-                            INNER JOIN student AS s 
+                query = @"SELECT e.grade, s.*
+                          FROM enrollments AS e 
+                            INNER JOIN students AS s 
                             ON s.id = e.student_id 
                           WHERE e.course_id = @courseId";
 
@@ -92,12 +91,10 @@ namespace DapperUniversity.Controllers
                         enrollment.Student = student;
                         return enrollment;
                     }),
-                    new { courseId },
-                    splitOn: "id");
+                    new { courseId });
             }
             }
-
-            return viewModel;
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -107,28 +104,30 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public void Create()
+        public ActionResult Create()
         {
-            return;
+            return View();
         }
 
         [HttpPost]
-        public async Task Create ([Bind("LastName,FirstName,HireDate")] Instructor instructor)
+        public async Task<ActionResult> Create ([Bind("LastName,FirstName,HireDate")] Instructor instructor)
         {
+            string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
+                               VALUES(@LastName, @FirstName, @HireDate)";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-                await _context.GetConnection().InsertAsync(instructor);
+                await _context.GetConnection().ExecuteAsync(command, instructor);
             }
-            return; 
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<Instructor> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             var instructors = await GetInstructor(id);
             await PopulateAssignedCourseData(instructors);
-            return instructors;
+            return View(instructors);
         }
 
         [HttpPost]
@@ -175,8 +174,8 @@ namespace DapperUniversity.Controllers
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
 
             string query =@"SELECT c.* 
-                            FROM course c
-                              INNER JOIN course_instructor ci 
+                            FROM courses c
+                              INNER JOIN instructors ci 
                               ON ci.course_id = c.Id
                             WHERE ci.instructor_id = @id";
 
@@ -184,8 +183,7 @@ namespace DapperUniversity.Controllers
             {
                 courses = _context.GetConnection().Query<Course, CourseAssignment, Course> (query,
                     ((course, courseAssignment) => course), 
-                    new { id }, 
-                    splitOn: "id");
+                    new { id }); 
              }
 
             return courses;
@@ -209,7 +207,7 @@ namespace DapperUniversity.Controllers
         {
             IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();
 
-            string query = @"SELECT i.*, oa.location 
+            string query = @"SELECT i.*, oa.*
                              FROM instructor AS i 
                                LEFT JOIN office_assignment AS oa 
                                ON i.id = oa.instructor_id 
@@ -223,8 +221,7 @@ namespace DapperUniversity.Controllers
                         instructorItem.OfficeAssignment = assignment;
                         return instructorItem;
                     }),
-                    new { id },
-                    splitOn: "id");
+                    new { id });
             }
 
             return instructors.First();

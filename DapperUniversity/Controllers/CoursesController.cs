@@ -28,7 +28,7 @@ namespace DapperUniversity.Controllers
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
 
-            var query = @"SELECT c.*, d.name 
+            var query = @"SELECT c.*, d.*
                           FROM courses AS c 
                             INNER JOIN departments AS d
                             ON d.id = c.department_id;";
@@ -64,9 +64,12 @@ namespace DapperUniversity.Controllers
         [HttpPost]
         public async Task Create ([Bind("Id, Title, Credits, DepartmentId")]Course course)
         {
+            string command = @"INSERT INTO courses (id, title, credits, department_id) 
+                               VALUES(@Id, @Title, @Credits, @DepartmentId)";
+
             using (DbContext _context = new DbContext(_connectionString))
             {
-                await _context.GetConnection().InsertAsync(course);
+                await _context.GetConnection().ExecuteAsync(command, course);
             }
             return; 
         }
@@ -85,15 +88,22 @@ namespace DapperUniversity.Controllers
 
         [HttpPost]
         public async Task EditPost(int? id)
-
         {  
+            string command = @"UPDATE courses
+                               SET id = @Id,
+                                   title = @Title,
+                                   credits = @Credits,
+                                   department_id = @DepartmentId
+                               WHERE id = @id";
+
             CourseEditViewModel model = new CourseEditViewModel();
+
             using (DbContext _context = new DbContext(_connectionString))
             {
                var _connection = _context.GetConnection();
                _connection.Open();
                model.Course = await _connection.GetAsync<Course>(id);
-               await _connection.UpdateAsync(model.Course);
+               await _connection.ExecuteAsync(command, new {model.Course, id});
             }
         }
 
@@ -142,9 +152,12 @@ namespace DapperUniversity.Controllers
         private async Task<Course> GetCourseDepartment(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
-            var query = @"SELECT c.*, d.name FROM course c
-                      INNER JOIN department d ON d.id = c.departmentId
-                      WHERE c.id = @id";
+
+            string query = @"SELECT c.*, d.*
+                             FROM courses c
+                               INNER JOIN departments d 
+                               ON d.id = c.departmentId
+                               WHERE c.id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -154,8 +167,7 @@ namespace DapperUniversity.Controllers
                         course.Department = department;
                         return course;
                     }),
-                    new { id },
-                    splitOn: "id");
+                    new { id });
             }
             return courses.First();
         }
