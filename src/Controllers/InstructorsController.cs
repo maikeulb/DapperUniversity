@@ -131,15 +131,16 @@ namespace DapperUniversity.Controllers
                 }
             }
 
-            string commandInstructor = @"INSERT INTO instructors (last_name, first_name, hire_date) 
-                                         VALUES(@LastName, @FirstName, @HireDate);
-                                         INSERT INTO office_assignments (instructor_id, location)
-                                         VALUES (currval('instructors_id_seq'), @Location)";
+            string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
+                               VALUES(@LastName, @FirstName, @HireDate);
+                               INSERT INTO office_assignments (instructor_id, location)
+                               VALUES (currval('instructors_id_seq'), @Location)";
+
             if (ModelState.IsValid)
             {
                 using (DbContext _context = new DbContext(_connectionString))
                 {
-                    await _context.GetConnection().ExecuteAsync(commandInstructor, new{ 
+                    await _context.GetConnection().ExecuteAsync(command, new{ 
                             instructor.LastName, 
                             instructor.FirstName, 
                             instructor.HireDate, 
@@ -156,7 +157,7 @@ namespace DapperUniversity.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             var instructors = await GetInstructor(id);
-            await PopulateAssignedCourseData(instructors);
+            /* await PopulateAssignedCourseData(instructors); */
             return View(instructors);
         }
 
@@ -175,7 +176,10 @@ namespace DapperUniversity.Controllers
                                SET first_name = @FirstName, 
                                    last_name = @LastName,
                                    hire_date = @HireDate
-                               WHERE id = @Id";
+                               WHERE id = @Id;
+                               UPDATE office_assignments
+                               SET location = @Location
+                               WHERE instructor_id = @Id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -184,10 +188,13 @@ namespace DapperUniversity.Controllers
                     "",
                     i => i.FirstName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
                 {
-
-                    instructorToUpdate.UpdateInstructorCourses(selectedCourses, courses.ToList());
-                    await _context.GetConnection().ExecuteAsync(command, instructorToUpdate);
-                    return RedirectToAction(nameof(Index));
+                    await _context.GetConnection().ExecuteAsync(command, new{ 
+                            instructorToUpdate.Id,
+                            instructorToUpdate.LastName, 
+                            instructorToUpdate.FirstName, 
+                            instructorToUpdate.HireDate, 
+                            instructorToUpdate.OfficeAssignment.Location});
+                    return RedirectToAction("Index");
                 }
                 PopulateAssignedCourseData(instructorToUpdate);
                 return View(instructorToUpdate);
