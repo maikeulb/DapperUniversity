@@ -105,12 +105,32 @@ namespace DapperUniversity.Controllers
             return View(department);
         }
 
-        [HttpPost]
-        public void EditPost (int? id)
+        [HttpPost, ActionName("Edit")]
+        public async Task<ActionResult> EditPost (int id)
         {
-            throw new NotImplementedException(); 
-        }
+            Department department = new Department();
 
+            string command = @"UPDATE departments 
+                               SET instructor_id = @InstructorId, 
+                                   name = @Name,
+                                   budget = @Budget,
+                                   start_date = @StartDate
+                               WHERE id = @Id";
+
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                department  = await _context.GetConnection().GetAsync<Department>(id);
+                if (await TryUpdateModelAsync<Department>(
+                    department,
+                    "",
+                    s => s.Name, s => s.StartDate, s => s.Budget, s => s.InstructorId))
+                {
+                    await _context.GetConnection().ExecuteAsync(command, department);
+                }
+                return RedirectToAction("Index");
+            }
+            return View(department); 
+        }
 
         [HttpGet]
         public async Task<ActionResult> Delete (int? id)

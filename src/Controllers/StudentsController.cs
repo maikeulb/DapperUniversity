@@ -173,7 +173,6 @@ namespace DapperUniversity.Controllers
                 }
                 return RedirectToAction("Index");
             }
-
             return View(student); 
         }
 
