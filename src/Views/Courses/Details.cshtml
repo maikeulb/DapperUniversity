@@ -1,5 +1,4 @@
 ﻿@model DapperUniversity.Models.Course
-
 @{
     ViewBag.Title = "Course";
 }
@@ -7,43 +6,37 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Course</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Department
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(s => s.Department.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(s => s.Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(s=>s.Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Credits)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Credits)
-        </dd>
-    </dl>
+  <h4>Course</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      Department
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Department.Name)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Title)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Title)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Credits)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Credits)
+    </dd>
+  </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+</div>

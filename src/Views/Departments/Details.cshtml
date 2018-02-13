@@ -6,38 +6,43 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Department</h4>
-    <hr />
-    <dl class="dl-horizontal">
-      <dt>
-        @Html.DisplayNameFor(model => model.Name)
-      </dt>
-      <dd>
-        @Html.DisplayFor(model => model.Name)
-      </dd>
-      <dt>
-        @Html.DisplayNameFor(model => model.Budget)
-      </dt>
-      <dd>
-        @Html.DisplayFor(model => model.Budget)
-      </dd>
-      <dt>
-        @Html.DisplayNameFor(model => model.InstructorId)
-      </dt>
-      <dd>
-        @Html.DisplayFor(model => model.InstructorId)
-      </dd>
-      <dt>
-        @Html.DisplayNameFor(model => model.StartDate)
-      </dt>
-      <dd>
-        @Html.DisplayFor(model => model.StartDate)
-      </dd>
-      <dt>
-        @Html.DisplayNameFor(s => s.Instructor)
-      </dt>
-      <dd>
-        @Html.DisplayFor(s=>s.Instructor.FullName)
-      </dd>
-    </dl>
+  <h4>Department</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Budget)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Budget)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.InstructorId)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.InstructorId)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.StartDate)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.StartDate)
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Instructor)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Instructor.FullName)
+    </dd>
+  </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
 </div>
