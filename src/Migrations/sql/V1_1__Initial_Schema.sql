@@ -34,7 +34,7 @@ CREATE TABLE instructors (
 );
 
 CREATE TABLE office_assignments (
-  instructor_id serial PRIMARY KEY,
+  instructor_id integer PRIMARY KEY,
   location varchar(50) NULL
 );
 
@@ -84,4 +84,5 @@ ALTER TABLE enrollments
 ALTER TABLE office_assignments
   ADD CONSTRAINT fk_office_assignment_instructor
   FOREIGN KEY (instructor_id) 
-  REFERENCES instructors(id);
+  REFERENCES instructors(id)
+  ON DELETE CASCADE;

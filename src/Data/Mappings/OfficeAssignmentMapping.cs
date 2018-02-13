@@ -8,7 +8,7 @@ namespace DapperUniversity.Data
         public OfficeAssignmentMap()
         {
             Map(oa => oa.InstructorId)
-                .ToColumn("id");
+                .ToColumn("instructor_id");
             Map(oa => oa.Location)
                 .ToColumn("location");
         }

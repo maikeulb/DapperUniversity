@@ -15,6 +15,8 @@ namespace DapperUniversity.Data
                 .ToColumn("last_name");
             Map(i => i.HireDate)
                 .ToColumn("hire_date");
+            Map(i => i.OfficeAssignment)
+                .Ignore();
         }
     }
 }

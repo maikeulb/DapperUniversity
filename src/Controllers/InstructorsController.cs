@@ -119,7 +119,7 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FirstName,HireDate,LastName,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
+        public async Task<IActionResult> Create([Bind(" FirstName,HireDate,LastName,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
             if (selectedCourses != null)
             {
@@ -131,14 +131,19 @@ namespace DapperUniversity.Controllers
                 }
             }
 
-            string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
-                               VALUES(@LastName, @FirstName, @HireDate)";
-
+            string commandInstructor = @"INSERT INTO instructors (last_name, first_name, hire_date) 
+                                         VALUES(@LastName, @FirstName, @HireDate);
+                                         INSERT INTO office_assignments (instructor_id, location)
+                                         VALUES (currval('instructors_id_seq'), @Location)";
             if (ModelState.IsValid)
             {
                 using (DbContext _context = new DbContext(_connectionString))
                 {
-                    await _context.GetConnection().ExecuteAsync(command, instructor);
+                    await _context.GetConnection().ExecuteAsync(commandInstructor, new{ 
+                            instructor.LastName, 
+                            instructor.FirstName, 
+                            instructor.HireDate, 
+                            instructor.OfficeAssignment.Location});
                     return RedirectToAction("Index");
                 }
             }
@@ -212,7 +217,6 @@ namespace DapperUniversity.Controllers
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
 
-            _logger.LogInformation ("inside GetInstructorCourseGet");
 
             string query =@"SELECT c.* 
                             FROM courses c
@@ -226,7 +230,6 @@ namespace DapperUniversity.Controllers
                     ((course, courseAssignment) => course), 
                     new { id },
                     splitOn: "department_id");
-                    _logger.LogInformation ("inside GetInstructorCourseGet {courses}",courses);
              }
             return courses;
 
@@ -260,8 +263,6 @@ namespace DapperUniversity.Controllers
                 instructors = await _context.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
                     ((instructorItem, assignment) =>
                     {
-                        _logger.LogInformation ("{0}", instructorItem);
-                        _logger.LogInformation ("{0}", assignment);
                         instructorItem.OfficeAssignment = assignment;
                         return instructorItem;
                     }),
@@ -269,10 +270,6 @@ namespace DapperUniversity.Controllers
                     splitOn: "location");
             }
 
-            _logger.LogInformation ("************************");
-            _logger.LogInformation ("{0}", instructors.First());
-            _logger.LogInformation ("{0}", instructors.First().OfficeAssignment);
-            _logger.LogInformation ("{0}", instructors.First().OfficeAssignment);
             return instructors.First();
         }
 
@@ -285,12 +282,12 @@ namespace DapperUniversity.Controllers
                 allCourses = await _context.GetConnection().GetAllAsync<Course>();
             }
 
-            /* var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(s => s.CourseId)); */
+            var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(s => s.CourseId));
             var viewModel = allCourses.Select(course => new AssignedCourseData
             {
                 CourseId = course.Id,
                 Title = course.Title,
-                /* Assigned = instructorCourses.Contains(course.Id) */
+                Assigned = instructorCourses.Contains(course.Id)
             }).ToList();
 
             ViewData["Courses"] = viewModel;
