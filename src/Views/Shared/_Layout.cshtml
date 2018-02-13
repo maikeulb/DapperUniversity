@@ -1,41 +1,54 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DapperUniversity</title>
-    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - DapperUniversity</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    .site-content {
+      flex: 1;
+    }
+  </style>
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">DapperUniversity</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - DapperUniversity</p>
-        </footer>
-    </div>
 
-    @RenderSection("Scripts", required: false)
+<body>
+
+  <header class="navbar">
+    <div class="container">
+      <section class="navbar-section">
+        <a asp-controller="Home" asp-action="Index" class="btn-btn-link">Home</a>
+        <a asp-controller="Students" asp-action="Index"
+          class="btn btn-link">Students</a>
+        <a asp-controller="Courses" asp-action="Index"
+          class="btn btn-link">Courses</a>
+        <a asp-controller="Departments" asp-action="Index"
+          class="btn btn-link">Departments</a>
+        <a asp-controller="Instructors" asp-action="Index"
+          class="btn btn-link">Instructors</a>
+        @await Html.PartialAsync("_LoginPartial")
+      </section>
+    </div>
+  </header>
+
+  <div class="container site-content" style="margin-top:40px;">
+    <div class="column col-12 col-md-12 centered">
+      @RenderBody()
+      <hr />
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2018 - DapperUniversity</p>
+  </footer>
+
+  @RenderSection("Scripts", required: false)
 </body>
 </html>

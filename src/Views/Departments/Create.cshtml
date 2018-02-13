@@ -5,55 +5,48 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Department</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<h4>Department</h4>
+<hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Budget, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Budget, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="columns">
+  <div class="column col-md-12 col-6">
+    <form asp-action="Create">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.StartDate, "", new {@class = "text-danger"})
-            </div>
-        </div>
+      <div class="form-group">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-input" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+      </div>
 
+      <div class="form-group">
+        <label asp-for="Budget" class="form-label"></label>
+        <input asp-for="Budget" class="form-input" />
+        <span asp-validation-for="Budget" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="InstructorId">Instructor</label>
-            <div class="col-md-10">
-                @Html.DropDownListFor(s=>s.InstructorId,(SelectList)ViewBag.InstructorId, new {@class="form-control"})
-                @Html.ValidationMessageFor(s => s.InstructorId, "", new {@class = "text-danger"})
-            </div>
-        </div>
+      <div class="form-group">
+        <label asp-for="StartDate" class="form-label"></label>
+        <input asp-for="StartDate" class="form-input" type="date"/>
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+      <div class="form-group">
+        <label asp-for="InstructorId" class="form-label"></label>
+        <select asp-for="InstructorId" class ="form-select"
+          asp-items="(SelectList)ViewBag.InstructorId">
+          <option value="">-- Select Instructor --</option>
+        </select>
+        <span asp-validation-for="InstructorId" class="text-danger" />
+       </div>
+
+      <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-default" />
+      </div>
+    </form>
+  </div>
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+  <a asp-action="Index" class="btn btn-link">Back to List</a>
 </div>

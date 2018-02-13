@@ -5,56 +5,45 @@
 }
 <h2>Create</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<h4>Course</h4>
+<hr />
 
-    <div class="form-horizontal">
-        <h4>Course</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="columns">
+  <div class="column col-md-12 col-6">
+    <form asp-action="Create">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="form-group">
+        <label asp-for="Course.Id" class="form-label"></label>
+        <input asp-for="Course.Id" class="form-input" />
+        <span asp-validation-for="Course.Id" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Course.Title" class="form-label"></label>
+        <input asp-for="Course.Title" class="form-input" />
+        <span asp-validation-for="Course.Title" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Course.Credits" class="form-label"></label>
+        <input asp-for="Course.Credits" class="form-input" />
+        <span asp-validation-for="Course.Credits" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            @Html.LabelFor(s => s.Course.Id, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(s => s.Course.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(s => s.Course.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
+      <div class="form-group">
+        <label asp-for="Course.DepartmentId" class="form-label"></label>
+        <select asp-for="Course.DepartmentId" class ="form-select"
+          asp-items="Model.Department">
+          <option value="">-- Select Department --</option>
+        </select>
+        <span asp-validation-for="Course.DepartmentId" class="text-danger" />
+       </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Course.Title, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Course.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Course.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Course.Credits, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Course.Credits, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Course.Credits, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="DepartmentId">Department</label>
-            <div class="col-md-10">
-                @*@Html.DropDownList("DepartmentId", null, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownListFor(n => n.Course.DepartmentId, Model.Department, "--------", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Course.DepartmentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+      <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-default" />
+      </div>
+    </form>
+  </div>
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
 </div>

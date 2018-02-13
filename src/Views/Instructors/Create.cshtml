@@ -5,72 +5,67 @@
 
 <h2>Create</h2>
 
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Instructor</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="LastName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="FirstName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="HireDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="HireDate" class="form-control" />
-                <span asp-validation-for="HireDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfficeAssignment.Location" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="OfficeAssignment.Location" class="form-control" />
-                <span asp-validation-for="OfficeAssignment.Location" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <table>
-                    <tr>
-                        @{ 
-                            int cnt = 0;
-                            List<DapperUniversity.Models.AssignedCourseData> courses = ViewBag.Courses;
-                            foreach (var course in courses)
-                            {
-                                if (cnt++ % 3 == 0)
-                                {
-                                    @:</tr><tr>
-                                }
-                                @:<td>
-                                    <input type="checkbox"
-                                    name="selectedCourses"
-                                    value="@course.CourseId" @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
-                                    @course.CourseId @: @course.Title
-                                @:</td>
-                            }
-                            @:</tr>
-                        }
-                </table>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+<h4>Instructor</h4>
+<hr />
+
+<div class="columns">
+  <div class="column col-md-12 col-6">
+    <form asp-action="Create">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+      <div class="form-group">
+        <label asp-for="LastName" class="form-label"></label>
+        <input asp-for="LastName" class="form-input" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <label asp-for="FirstName" class="form-label"></label>
+        <input asp-for="FirstName" class="form-input" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <label asp-for="HireDate" class="form-label"></label>
+        <input asp-for="HireDate" class="form-input" type="date"/>
+        <span asp-validation-for="HireDate" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <label asp-for="OfficeAssignment.Location" class="form-label"></label>
+        <input asp-for="OfficeAssignment.Location" class="form-input" />
+        <span asp-validation-for="OfficeAssignment.Location" class="text-danger" />
+      </div>
+
+    <div class="form-group">
+        <table>
+          <tr>
+            @{ 
+              int cnt = 0;
+              List<DapperUniversity.Models.AssignedCourseData> courses = ViewBag.Courses;
+              foreach (var course in courses)
+              {
+                  if (cnt++ % 3 == 0)
+                  {
+                    @:</tr><tr>
+                  }
+                  @:<td>
+                  <input type="checkbox"
+                    name="selectedCourses"
+                    value="@course.CourseId" @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                    @course.CourseId @: @course.Title
+                  @:</td>
+            }
+              @:</tr>
+            }
+        </table>
     </div>
+    <div class="form-group">
+      <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+  </div>
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+  <a asp-action="Index" class="btn btn-link">Back to List</a>
 </div>
