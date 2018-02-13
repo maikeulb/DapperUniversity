@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using DapperUniversity.Models;
-using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using DapperUniversity.Data;
+using DapperUniversity.Models;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 
 namespace DapperUniversity.Controllers
@@ -16,44 +16,44 @@ namespace DapperUniversity.Controllers
     {
         public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
 
-        public IActionResult Index()
+        public IActionResult Index ()
         {
-            return View();
+            return View ();
         }
 
         [HttpGet]
-        public async Task<IEnumerable<EnrollmentDateGroup>> About()
+        public async Task<IEnumerable<EnrollmentDateGroup>> About ()
         {
 
-            IEnumerable<EnrollmentDateGroup> result = Enumerable.Empty<EnrollmentDateGroup>();
+            IEnumerable<EnrollmentDateGroup> result = Enumerable.Empty<EnrollmentDateGroup> ();
 
-            var students = Enumerable.Empty<Student>();
+            var students = Enumerable.Empty<Student> ();
 
-            using (DbContext _context = new DbContext(DatabaseConnectionString))
+            using (DbContext _context = new DbContext (DatabaseConnectionString))
             {
-                students = await _context.GetConnection().GetAllAsync<Student>();
+                students = await _context.GetConnection ().GetAllAsync<Student> ();
             }
 
-            result = students.GroupBy(s => s.EnrollmentDate)
-                .Select(x => new EnrollmentDateGroup
+            result = students.GroupBy (s => s.EnrollmentDate)
+                .Select (x => new EnrollmentDateGroup
                 {
                     EnrollmentDate = x.Key,
-                    StudentCount = x.Count()
+                        StudentCount = x.Count ()
                 });
 
             return result;
         }
 
-        public IActionResult Contact()
+        public IActionResult Contact ()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return View ();
         }
 
-        public IActionResult Error()
+        public IActionResult Error ()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View (new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
