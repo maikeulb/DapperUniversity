@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using DapperUniversity.Models;
 using DapperUniversity.Data;
 using Dapper;
@@ -17,10 +18,14 @@ namespace DapperUniversity.Controllers
     public class CoursesController : Controller
     {
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
-        public CoursesController()
+        public CoursesController(
+            ILogger<InstructorsController> logger
+                )
         {
             _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
+            _logger = logger;
         }
 
         [HttpGet]
@@ -72,6 +77,8 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 await _context.GetConnection().ExecuteAsync(command, course);
+                _logger.LogInformation("*******************");
+                _logger.LogInformation("{0}", course.DepartmentId);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -81,9 +88,17 @@ namespace DapperUniversity.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             var model = new CourseEditViewModel();
+
+            string query  = @"SELECT * 
+                              FROM courses
+                                WHERE id = @id";
+
             using (DbContext _context = new DbContext(_connectionString))
             {
-                model.Course = await _context.GetConnection().GetAsync<Course>(id);
+                model.Course  = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
+                _logger.LogInformation("*******************");
+                _logger.LogInformation("{0}", model.Course.DepartmentId);
+                _logger.LogInformation("{0}", model.Course.Title);
             }
             PopulateDropDownList(model);
             return View(model);
@@ -93,24 +108,36 @@ namespace DapperUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditPost(int id)
         {  
+            CourseEditViewModel model = new CourseEditViewModel();
+ 
+            Course course = new Course();
+
+            string query  = @"SELECT * 
+                              FROM courses
+                                WHERE id = @id";
+
             string command = @"UPDATE courses
-                               SET id = @Id,
-                                   title = @Title,
+                               SET title = @Title,
                                    credits = @Credits,
                                    department_id = @DepartmentId
                                WHERE id = @Id";
 
-            CourseEditViewModel model = new CourseEditViewModel();
-
             using (DbContext _context = new DbContext(_connectionString))
             {
-               var _connection = _context.GetConnection();
-               _connection.Open();
-               model.Course = await _connection.GetAsync<Course>(id);
-               model.Course.Id = id;
-               await _connection.ExecuteAsync(command, new {model.Course.Id, model.Course.Title, model.Course.Credits, model.Course.DepartmentId});
-               return RedirectToAction("Index");
+                course = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
+                _logger.LogInformation("{0}", course.DepartmentId);
+                _logger.LogInformation("{0}", course.Title);
+                course.Id = id;
+                if (await TryUpdateModelAsync<Course>(
+                    course,
+                    "",
+                    s => s.Title, s => s.Credits, s => s.DepartmentId))
+                {
+                    await _context.GetConnection().ExecuteAsync(command, course);
+                }
+                return RedirectToAction("Index");
             }
+            model.Course = course;
             PopulateDropDownList(model);
             return View(model);
         }
@@ -192,5 +219,4 @@ namespace DapperUniversity.Models
         public SelectList Department { get; set; }
         public Course Course { get; set; }
     }
-
 }

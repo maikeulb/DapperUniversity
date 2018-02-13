@@ -10,17 +10,24 @@ using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Npgsql;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DapperUniversity.Controllers
 {
     public class StudentsController : Controller
     {
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
-        public StudentsController()
+        public StudentsController(
+            ILogger<InstructorsController> logger
+                )
         {
             _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -157,9 +164,16 @@ namespace DapperUniversity.Controllers
             {
                 student = await _context.GetConnection().GetAsync<Student>(id);
                 student.Id = id;
-                await _context.GetConnection().ExecuteAsync(command, student);
+                if (await TryUpdateModelAsync<Student>(
+                    student,
+                    "",
+                    s => s.FirstName, s => s.LastName, s => s.EnrollmentDate))
+                {
+                    await _context.GetConnection().ExecuteAsync(command, student);
+                }
                 return RedirectToAction("Index");
             }
+
             return View(student); 
         }
 

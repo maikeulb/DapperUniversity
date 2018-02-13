@@ -13503,11 +13503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity/DapperUniversity.csproj",
+      "projectUniqueName": "/home/michael/Projects-DotNet/DapperUniversity/src/DapperUniversity.csproj",
       "projectName": "DapperUniversity",
-      "projectPath": "/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity/DapperUniversity.csproj",
+      "projectPath": "/home/michael/Projects-DotNet/DapperUniversity/src/DapperUniversity.csproj",
       "packagesPath": "/home/michael/.nuget/packages/",
-      "outputPath": "/home/michael/Projects-DotNet/DapperUniversity/DapperUniversity/obj/",
+      "outputPath": "/home/michael/Projects-DotNet/DapperUniversity/src/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"

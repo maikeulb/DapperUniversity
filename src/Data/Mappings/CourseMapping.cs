@@ -13,6 +13,8 @@ namespace DapperUniversity.Data
                 .ToColumn("title");
             Map(c => c.Credits)
                 .ToColumn("credits");
+            Map(c => c.DepartmentId)
+                .ToColumn("department_id");
         }
     }
 }
