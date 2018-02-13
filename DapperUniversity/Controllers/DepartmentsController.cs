@@ -91,7 +91,7 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<Department> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             Department department = new Department();
 
@@ -102,7 +102,7 @@ namespace DapperUniversity.Controllers
 
             PopulateInstructorDepartmentList(department.Id);
 
-            return department;
+            return View(department);
         }
 
         [HttpPost]

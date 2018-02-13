@@ -11,7 +11,7 @@
         <h4>Instructor</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ID" />
+    <input type="hidden" asp-for="Id" />
         <div class="form-group">
             <label asp-for="LastName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="FirstMidName" class="col-md-2 control-label"></label>
+            <label asp-for="FirstName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="FirstMidName" class="form-control" />
-                <span asp-validation-for="FirstMidName" class="text-danger"></span>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -46,7 +46,7 @@
                     <tr>
                         @{ 
                             int cnt = 0;
-                            List<ContosoUniversity.Models.SchoolViewModels.AssignedCourseData> courses = ViewBag.Courses;
+                            List<DapperUniversity.Models.AssignedCourseData> courses = ViewBag.Courses;
                             foreach (var course in courses)
                             {
                                 if (cnt++ % 3 == 0)
@@ -54,8 +54,10 @@
                                     @:</tr><tr>
                                 }
                                 @:<td>
-                                    <input type="checkbox" name="selectedCourses" value="@course.CourseID" @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
-                                    @course.CourseID @: @course.Title
+                                    <input type="checkbox"
+                                    name="selectedCourses"
+                                    value="@course.CourseId" @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                                    @course.CourseId @: @course.Title
                                 @:</td>
                             }
                             @:</tr>

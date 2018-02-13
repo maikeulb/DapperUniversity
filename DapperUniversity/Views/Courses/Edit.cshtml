@@ -14,7 +14,7 @@
         <h4>Course</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(s=>s.Course.CourseId)
+        @Html.HiddenFor(s=>s.Course.Id)
         @*<div class="form-group">
             @Html.LabelFor(model => model.SelectedItemId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -26,9 +26,9 @@
         @*@Html.DropDownListFor(n=>n.SelectedItemId, Model.Department,"--------")*@
 
         <div class="form-group">
-            @Html.LabelFor(s => s.Course.CourseId, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(s => s.Course.Id, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DisplayFor(s => s.Course.CourseId, new {@class = "form-control-static"})
+                @Html.DisplayFor(s => s.Course.Id, new {@class = "form-control-static"})
             </div>
         </div>
 
@@ -68,7 +68,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

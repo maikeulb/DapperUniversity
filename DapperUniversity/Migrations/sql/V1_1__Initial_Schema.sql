@@ -1,6 +1,6 @@
 CREATE TABLE courses (
   id integer PRIMARY KEY,
-  title varchar(50) NOT NULL,
+  title varchar(50) NULL,
   credits integer NOT NULL,
   department_id integer NOT NULL
 );
@@ -13,36 +13,36 @@ CREATE TABLE course_assignments (
 
 CREATE TABLE departments (
   id serial PRIMARY KEY,
-  name varchar(50) NOT NULL,
+  name varchar(50) NULL,
   budget money NOT NULL,
   start_date timestamp NOT NULL,
-  instructor_id integer NOT NULL 
+  instructor_id integer NULL 
 );
 
 CREATE TABLE enrollments (
   id serial PRIMARY KEY,
   course_id integer NOT NULL,
   student_id integer NOT NULL,
-  grade integer NOT NULL
+  grade integer NULL
 );
 
 CREATE TABLE instructors (
   id serial PRIMARY KEY,
   last_name varchar(50) NOT NULL,
   first_name varchar(50) NOT NULL,
-  hire_date timestamp NOT NULL
+  hire_date timestamp NULL
 );
 
 CREATE TABLE office_assignments (
   instructor_id serial PRIMARY KEY,
-  location varchar(50) NOT NULL
+  location varchar(50) NULL
 );
 
 CREATE TABLE students (
   id serial PRIMARY KEY,
   last_name varchar(50) NOT NULL,
   first_name varchar(50) NOT NULL,
-  enrollment_date timestamp NOT NULL
+  enrollment_date timestamp NULL
 );
 
 ALTER TABLE courses

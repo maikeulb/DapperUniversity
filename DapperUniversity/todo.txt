@@ -1,0 +1,9 @@
+instructors Edit, not working
+instructors Delete, not implimented
+instructors Index (missing course assignment)
+
+students - Edit-POST, not working
+courses - Edit-POST, not working
+
+departments - index-sloppy,
+departments - edit,not working (null for instructor and course)

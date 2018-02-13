@@ -143,7 +143,7 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public async Task<ActionResult> EditPost (int? id)
+        public async Task<ActionResult> EditPost (int id)
         {
             Student student = new Student();
 
@@ -151,11 +151,12 @@ namespace DapperUniversity.Controllers
                                SET enrollment_date = @EnrollmentDate, 
                                    first_name = @FirstName,
                                    last_name = @LastName
-                               WHERE id = '3'";
+                               WHERE id = @Id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
                 student = await _context.GetConnection().GetAsync<Student>(id);
+                student.Id = id;
                 await _context.GetConnection().ExecuteAsync(command, student);
                 return RedirectToAction("Index");
             }

@@ -46,9 +46,10 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<Course> Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
-            return await GetCourseDepartment(id);
+            var courses =  await GetCourseDepartment(id);
+            return View(courses);
         }
 
         [HttpGet]
@@ -62,7 +63,8 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpPost]
-        public async Task Create ([Bind("Id, Title, Credits, DepartmentId")]Course course)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create ([Bind("Id, Title, Credits, DepartmentId")]Course course)
         {
             string command = @"INSERT INTO courses (id, title, credits, department_id) 
                                VALUES(@Id, @Title, @Credits, @DepartmentId)";
@@ -70,12 +72,13 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 await _context.GetConnection().ExecuteAsync(command, course);
+                return RedirectToAction("Index");
             }
-            return; 
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<CourseEditViewModel> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             var model = new CourseEditViewModel();
             using (DbContext _context = new DbContext(_connectionString))
@@ -83,18 +86,19 @@ namespace DapperUniversity.Controllers
                 model.Course = await _context.GetConnection().GetAsync<Course>(id);
             }
             PopulateDropDownList(model);
-            return model;
+            return View(model);
         }
 
-        [HttpPost]
-        public async Task EditPost(int? id)
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPost(int id)
         {  
             string command = @"UPDATE courses
                                SET id = @Id,
                                    title = @Title,
                                    credits = @Credits,
                                    department_id = @DepartmentId
-                               WHERE id = @id";
+                               WHERE id = @Id";
 
             CourseEditViewModel model = new CourseEditViewModel();
 
@@ -103,12 +107,16 @@ namespace DapperUniversity.Controllers
                var _connection = _context.GetConnection();
                _connection.Open();
                model.Course = await _connection.GetAsync<Course>(id);
-               await _connection.ExecuteAsync(command, new {model.Course, id});
+               model.Course.Id = id;
+               await _connection.ExecuteAsync(command, new {model.Course.Id, model.Course.Title, model.Course.Credits, model.Course.DepartmentId});
+               return RedirectToAction("Index");
             }
+            PopulateDropDownList(model);
+            return View(model);
         }
 
         [HttpGet]
-        public async Task<Course> Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             Course course = new Course();
 
@@ -116,21 +124,22 @@ namespace DapperUniversity.Controllers
             {
                 course = await GetCourseDepartment(id);
             }
-            return course;
+            return View(course);
         }
 
         [HttpPost]
-        public async Task Delete(int id)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(int id)
         {
             using (DbContext _context = new DbContext(_connectionString))
             {
                 var _connection = _context.GetConnection();
-                /* await _connection.OpenAsync(); */
                 _connection.Open();
                 var courseToDelete = await _connection.GetAsync<Course>(id);
                 await _connection.DeleteAsync(courseToDelete);
+                return RedirectToAction("Index");
             }
-            return; 
+            return RedirectToAction("Index");
         }
 
         private void PopulateDropDownList(CourseEditViewModel model)
@@ -156,7 +165,7 @@ namespace DapperUniversity.Controllers
             string query = @"SELECT c.*, d.*
                              FROM courses c
                                INNER JOIN departments d 
-                               ON d.id = c.departmentId
+                               ON d.id = c.department_id
                                WHERE c.id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
