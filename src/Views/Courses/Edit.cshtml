@@ -1,70 +1,48 @@
 ﻿@model DapperUniversity.Models.CourseEditViewModel
-
 @{
     ViewBag.Title = "Course";
 }
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Course</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(s=>s.Course.Id)
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.SelectedItemId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SelectedItemId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SelectedItemId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+<h4>Course</h4>
+<hr />
 
-        <div class="form-group">
-            @Html.LabelFor(s => s.Course.Id, new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DisplayFor(s => s.Course.Id, new {@class = "form-control-static"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Course.Title, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Course.Title, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Course.Title, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Model.Course.Credits
-            @Html.LabelFor(model => model.Course.Credits, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Course.Credits, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Course.Credits, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Model.Course.DepartmentId
-            @Html.LabelFor(model => model.Course.DepartmentId, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Course.DepartmentId, Model.Department, "--------", new {@class="form-control"})
-                @Html.ValidationMessageFor(model => model.Course.DepartmentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+<div class="columns">
+  <div class="column col-md-12 col-6">
+    <form asp-action="Edit">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <input asp-for="Course.Id" value="@Model.Course.Id" hidden>
+      <div class="form-group">
+        <label asp-for="Course.Id" class="form-label"></label>
+        @Html.DisplayFor(s => s.Course.Id, new {@class = "form-control-static"})
+        <span asp-validation-for="Course.Id" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Course.Title" class="form-label"></label>
+        <input asp-for="Course.Title" class="form-input" />
+        <span asp-validation-for="Course.Title" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Course.Credits" class="form-label"></label>
+        <input asp-for="Course.Credits" class="form-input" />
+        <span asp-validation-for="Course.Credits" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Course.DepartmentId" class="form-label"></label>
+        <select asp-for="Course.DepartmentId" class ="form-select"
+          asp-items="Model.Department">
+          <option value="">-- Select Department --</option>
+        </select>
+        <span asp-validation-for="Course.DepartmentId" class="text-danger" />
+       </div>
+      <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+      </div>
+    </form>
+  </div>
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
 </div>

@@ -113,15 +113,27 @@ namespace DapperUniversity.Controllers
 
 
         [HttpGet]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete (int? id)
         {
-            return;
+            Department department = new Department();
+
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                department = await _context.GetConnection().GetAsync<Department>(id);
+            }
+
+            return View(department);
         }
 
-        [HttpPost]
-        public void DeletePost(int id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeletePost (int? id)
         {
-            throw new NotImplementedException(); 
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                var departmentToDelete = await _context.GetConnection().GetAsync<Department>(id);
+                await _context.GetConnection().DeleteAsync(departmentToDelete);
+            }
+            return RedirectToAction("Index"); 
         }
 
         private void PopulateInstructorDepartmentList(object selectedInstructor = null)
