@@ -99,14 +99,14 @@ namespace DapperUniversity.Controllers
             }
             }
 
-
             return View(viewModel);
         }
 
         [HttpGet]
-        public async Task<Instructor> Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
-            return await GetInstructorWithCourse(id);
+            Instructor instructor = await GetInstructorWithCourse(id);
+            return View(instructor);
         }
 
         [HttpGet]
@@ -155,43 +155,57 @@ namespace DapperUniversity.Controllers
             return View(instructors);
         }
 
-        [HttpPost]
-        public async Task EditPost(int? id, string[] selectedCourses)
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPost(int? id, string[] selectedCourses)
         {
-            var instructorToUpdate = await GetInstructor(id);
+            Instructor instructorToUpdate = new Instructor();
 
+            instructorToUpdate = await GetInstructor(id);
             var courses = GetInstructorCourse(id);
-
             courses.ToList().ForEach(instructorToUpdate.AddCourse);
-
             instructorToUpdate.OfficeAssignment.InstructorId = instructorToUpdate.Id;
+
+            string command = @"UPDATE instructors 
+                               SET first_name = @FirstName, 
+                                   last_name = @LastName,
+                                   hire_date = @HireDate
+                               WHERE id = @Id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-                var checkOffice =await  _context.GetConnection().GetAsync<OfficeAssignment>(id);
-                if (checkOffice != null)
+                if (await TryUpdateModelAsync<Instructor>(
+                    instructorToUpdate,
+                    "",
+                    i => i.FirstName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
                 {
-                    await _context.GetConnection().UpdateAsync(instructorToUpdate.OfficeAssignment);
-                }
-                else
-                {
-                    await _context.GetConnection().InsertAsync(instructorToUpdate.OfficeAssignment);
-                }
 
-                instructorToUpdate.UpdateInstructorCourses(selectedCourses, courses.ToList());
-                await _context.GetConnection().UpdateAsync(instructorToUpdate);
+                    instructorToUpdate.UpdateInstructorCourses(selectedCourses, courses.ToList());
+                    await _context.GetConnection().ExecuteAsync(command, instructorToUpdate);
+                    return RedirectToAction(nameof(Index));
+                }
+                PopulateAssignedCourseData(instructorToUpdate);
+                return View(instructorToUpdate);
             }
         }
 
-        public async Task<Instructor> Delete(int? id)
+        [HttpGet]
+        public async Task<ActionResult> Delete (int? id)
         {
-            return await GetInstructorWithCourse(id);
+            Instructor instructor = await GetInstructorWithCourse(id);
+
+            return View(instructor);
         }
 
-        [HttpPost]
-        public void Delete(int id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeletePost (int? id)
         {
-            throw new NotImplementedException(); 
+            using (DbContext _context = new DbContext(_connectionString))
+            {
+                var instructorToDelete = await _context.GetConnection().GetAsync<Instructor>(id);
+                await _context.GetConnection().DeleteAsync(instructorToDelete);
+            }
+            return RedirectToAction("Index"); 
         } 
 
         private IEnumerable<Course> GetInstructorCourse(int? id)
@@ -246,6 +260,8 @@ namespace DapperUniversity.Controllers
                 instructors = await _context.GetConnection().QueryAsync<Instructor, OfficeAssignment, Instructor> (query,
                     ((instructorItem, assignment) =>
                     {
+                        _logger.LogInformation ("{0}", instructorItem);
+                        _logger.LogInformation ("{0}", assignment);
                         instructorItem.OfficeAssignment = assignment;
                         return instructorItem;
                     }),
@@ -253,6 +269,10 @@ namespace DapperUniversity.Controllers
                     splitOn: "location");
             }
 
+            _logger.LogInformation ("************************");
+            _logger.LogInformation ("{0}", instructors.First());
+            _logger.LogInformation ("{0}", instructors.First().OfficeAssignment);
+            _logger.LogInformation ("{0}", instructors.First().OfficeAssignment);
             return instructors.First();
         }
 

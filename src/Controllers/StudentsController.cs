@@ -163,7 +163,6 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 student = await _context.GetConnection().GetAsync<Student>(id);
-                student.Id = id;
                 if (await TryUpdateModelAsync<Student>(
                     student,
                     "",
