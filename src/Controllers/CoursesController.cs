@@ -77,8 +77,6 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 await _context.GetConnection().ExecuteAsync(command, course);
-                _logger.LogInformation("*******************");
-                _logger.LogInformation("{0}", course.DepartmentId);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -96,9 +94,6 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 model.Course  = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
-                _logger.LogInformation("*******************");
-                _logger.LogInformation("{0}", model.Course.DepartmentId);
-                _logger.LogInformation("{0}", model.Course.Title);
             }
             PopulateDropDownList(model);
             return View(model);
@@ -125,9 +120,6 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 course = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
-                _logger.LogInformation("{0}", course.DepartmentId);
-                _logger.LogInformation("{0}", course.Title);
-                course.Id = id;
                 if (await TryUpdateModelAsync<Course>(
                     course,
                     "",

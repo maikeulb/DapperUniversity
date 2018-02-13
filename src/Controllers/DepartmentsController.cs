@@ -51,7 +51,7 @@ namespace DapperUniversity.Controllers
 
         public async Task<ActionResult> Details(int? id)
         {
-            string query = @"SELECT d.*, i.last_name, i.first_name 
+            string query = @"SELECT d.*, i.*
                              FROM departments d
                              INNER JOIN instructors i 
                                ON i.id = d.instructor_id
@@ -65,7 +65,8 @@ namespace DapperUniversity.Controllers
                 {
                     department.Instructor = instructor;
                     return department;
-                }));
+                }),
+                new { id });
             }
 
             return View(departments.FirstOrDefault());
