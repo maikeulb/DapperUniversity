@@ -3,13 +3,14 @@
     ViewBag.Title = "Course";
 }
 
-<h2>Courses</h2>
+<div style="margin-bottom:10px;">
+  <h1 class="is-size-3">Courses</h1>
+  <p>
+    <a asp-action="Create" class="btn is-link">Create New</a>
+  </p>
+</div>
 
-<p>
-  <a asp-action="Create" class="btn btn-link">Create New</a>
-</p>
-
-<table class="table table-striped">
+<table class="table is-striped is-fullwidth is-hoverable">
 
   <thead>
     <tr>

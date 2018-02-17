@@ -4,9 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@ViewData["Title"] - DapperUniversity</title>
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/sandstone/bulmaswatch.min.css">
   <style>
     body {
       display: flex;
@@ -22,31 +20,67 @@
 <body>
 
   <header class="navbar">
-    <div class="container">
-      <section class="navbar-section">
-        <a asp-controller="Home" asp-action="Index" class="btn-btn-link">Home</a>
-        <a asp-controller="Students" asp-action="Index"
-          class="btn btn-link">Students</a>
-        <a asp-controller="Courses" asp-action="Index"
-          class="btn btn-link">Courses</a>
-        <a asp-controller="Departments" asp-action="Index"
-          class="btn btn-link">Departments</a>
-        <a asp-controller="Instructors" asp-action="Index"
-          class="btn btn-link">Instructors</a>
-      </section>
-    </div>
+    <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a asp-controller="Home" asp-action="Index" 
+            class="navbar-item">Dapper University</a>
+        <div class="navbar-burger burger" data-target="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <a asp-controller="Students" asp-action="Index"
+            class="navbar-item">Students</a>
+          <a asp-controller="Courses" asp-action="Index"
+            class="navbar-item">Courses</a>
+          <a asp-controller="Departments" asp-action="Index"
+            class="navbar-item">Departments</a>
+          <a asp-controller="Instructors" asp-action="Index"
+            class="navbar-item">Instructors</a>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <div class="container site-content" style="margin-top:40px;">
+  <div class="container is-fluid site-content" style="margin-top:40px;">
     <div class="column col-12 col-md-12 centered">
       @RenderBody()
-      <hr />
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2018 - DapperUniversity</p>
+    <div class="container">
+      <div class="has-text-centered">
+        <p>&copy; 2018 - DapperUniversity</p>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      if ($navbarBurgers.length > 0) {
+
+        $navbarBurgers.forEach(function ($el) {
+          $el.addEventListener('click', function () {
+
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
+
+            $el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+          });
+        });
+      }
+
+      });
+  </script>
 
   @RenderSection("Scripts", required: false)
 </body>
