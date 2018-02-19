@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "45c07d74ad9cd99aff433b8de7186eadec7506af"
+    "signature": "9e79941527d35844248e19818a2046416edd15e2"
   },
   "compilationOptions": {
     "defines": [
@@ -38,6 +38,8 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "2.0.0",
           "OdeToCode.AddFeatureFolders": "1.0.8",
+          "X.PagedList": "7.2.2",
+          "X.PagedList.Mvc.Core": "7.2.0",
           "MediatR": "4.0.1",
           "Npgsql": "3.2.6"
         },
@@ -4231,6 +4233,34 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "X.PagedList/7.2.2": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Linq.Queryable": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.2/X.PagedList.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.2/X.PagedList.dll": {}
+        }
+      },
+      "X.PagedList.Mvc.Core/7.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.0.2",
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.0.2",
+          "X.PagedList": "7.2.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/X.PagedList.Mvc.Common.dll": {},
+          "lib/netstandard2.0/X.PagedList.Mvc.Core.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/X.PagedList.Mvc.Common.dll": {},
+          "lib/netstandard2.0/X.PagedList.Mvc.Core.dll": {}
+        }
+      },
       "Microsoft.NETCore.App/2.0.0": {
         "dependencies": {
           "Microsoft.NETCore.DotNetHostPolicy": "2.0.0",
@@ -6633,6 +6663,20 @@
       "sha512": "sha512-W6ZZ0/o7+3Qb77mRAQyLjPudHG3OMeeQ4p9yY13PUdJArmRCx2cLMm5F4tpIjJXxzHC0ew0oK7DMDGILMdfCnw==",
       "path": "windowsazure.storage/8.1.4",
       "hashPath": "windowsazure.storage.8.1.4.nupkg.sha512"
+    },
+    "X.PagedList/7.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1XjBmNNE6S6l5wv+j0Io52lPz1JXbiCnb6IX8q8bmfd/BobwLTsffk0dzujT169Bb6XfjHSKuefjvItNR65BHQ==",
+      "path": "x.pagedlist/7.2.2",
+      "hashPath": "x.pagedlist.7.2.2.nupkg.sha512"
+    },
+    "X.PagedList.Mvc.Core/7.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O8zcK5dDhIOMFSKylbqS9skHu02UFz5eQOOMuZEx8abpmsE0575MU0qdPSA3dUOVkcdpEEIZIMrGy9CJ0sn43g==",
+      "path": "x.pagedlist.mvc.core/7.2.0",
+      "hashPath": "x.pagedlist.mvc.core.7.2.0.nupkg.sha512"
     },
     "Microsoft.NETCore.App/2.0.0": {
       "type": "package",

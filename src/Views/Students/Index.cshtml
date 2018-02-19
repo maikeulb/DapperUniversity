@@ -1,7 +1,10 @@
-@model IEnumerable<DapperUniversity.Models.Student>
+@using DapperUniversity
 @{
     ViewBag.Title = "Student";
+    IEnumerable<DapperUniversity.Models.Student> students = ViewBag.OnePageOfStudents;
 }
+@using X.PagedList.Mvc.Core; 
+@using X.PagedList;
 
 <div style="margin-bottom:10px;">
   <h1 class="is-size-3">Students</h1>
@@ -11,25 +14,23 @@
 </div>
 
 <table class="table is-striped is-fullwidth is-hoverable">
-
   <thead>
     <tr>
       <th>
-        @Html.DisplayNameFor(model => model.LastName)
+        Last Name
       </th>
       <th>
-        @Html.DisplayNameFor(model => model.FirstName)
+        First Name
       </th>
       <th>
-        @Html.DisplayNameFor(model => model.EnrollmentDate)
+        Enrollment Datee
       </th>
       <th></th>
     </tr>
   </thead>
-
   <tbody>
 
-  @foreach (var item in Model) {
+  @foreach (var item in students) {
     <tr>
       <td>
         @Html.DisplayFor(modelItem => item.LastName)
@@ -49,3 +50,5 @@
    }
   </tbody>
 </table>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfStudents, page => Url.Action("Index", new { page }))

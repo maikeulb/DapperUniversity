@@ -9,7 +9,7 @@ using DapperUniversity.Models;
 using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using Npgsql;
+using X.PagedList;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -78,7 +78,13 @@ namespace DapperUniversity.Controllers
                     break;
             }
 
-            return View(students);
+            var pageNumber = (page ?? 1);
+            const int pageSize = 5;
+
+            var onePageOfStudents = students.ToPagedList(pageNumber, pageSize);
+            ViewBag.OnePageOfStudents = onePageOfStudents;
+
+            return View(onePageOfStudents);
         }
 
         [HttpGet]
