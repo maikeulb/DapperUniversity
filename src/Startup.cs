@@ -9,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
 using DapperUniversity.Models.Validators;
 using DapperUniversity.Services;
+using DapperUniversity.Middlewares;
 using Dapper.FluentMap;
 using MediatR;
 using FluentValidation.AspNetCore;
@@ -65,8 +67,10 @@ namespace DapperUniversity
               throw new ArgumentNullException("Connection string cannot be null");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory factory)
         {
+            app.UseMiddleware<ErrorLoggingMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

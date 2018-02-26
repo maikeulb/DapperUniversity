@@ -28,6 +28,7 @@ namespace DapperUniversity.Controllers
 
         public IActionResult Index ()
         {
+            throw new Exception("Some error yo");
             return View ();
         }
 
