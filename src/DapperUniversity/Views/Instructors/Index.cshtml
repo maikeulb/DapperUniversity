@@ -3,102 +3,117 @@
     ViewData["Title"] = "Instructors";
 }
 
-<div style="margin-bottom:10px;">
-  <h1 class="is-size-3">Instructors</h1>
-  <p>
-    <a asp-action="Create" class="btn is-link">Create New</a>
-  </p>
-</div>
 
-<table class="table is-striped is-fullwidth is-hoverable">
-
-  <thead>
-    <tr>
-      <th>Last Name</th>
-      <th>First Name</th>
-      <th>Hire Date</th>
-      <th>Office</th>
-      <th>Courses</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    @foreach (var item in Model.Instructors)
-    {
-      string selectedRow = "";
-      if (item.Id == (int?)ViewData["InstructorId"])
-      {
-          selectedRow = "success";
-      }
-      <tr class="@selectedRow">
-        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-        <td>@Html.DisplayFor(modelItem => item.HireDate)</td>
-        <td>
-          @if (item.OfficeAssignment != null)
-          {
-            @item.OfficeAssignment.Location
-          }
-        </td>
-        <td>
-          <a asp-action="Index" asp-route-id="@item.Id" class="btn
-            btn-link">Select</a> |
-          <a asp-action="Edit" asp-route-id="@item.Id" class="btn
-            btn-link">Edit</a> |
-          <a asp-action="Details" asp-route-id="@item.Id" class="btn
-            btn-link">Details</a> |
-          <a asp-action="Delete" asp-route-id="@item.Id" class="btn
-            btn-link">Delete</a>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
-
-@if (Model.Courses != null)
-{
-    <h3>Courses Taught by Selected Instructor</h3>
-    <table class="table table-striped">
+<main class="container">
+  <h2>Instructors</h2>
+  <a asp-action="Create" class="btn is-link mb-2">Create New</a>
+  <table class="table" cellspacing="0" width="100%">
+    <thead>
       <tr>
+        <th>
+          <span class="text-dark"><strong>Last Name</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>First Name</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>Hire Date</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>Office</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>Courses</strong></span>
+        </th>
         <th></th>
-        <th>Number</th>
-        <th>Title</th>
-        <th>Department</th>
       </tr>
+    </thead>
 
-      @foreach (var item in Model.Courses)
+    <tbody>
+      @foreach (var item in Model.Instructors)
       {
         string selectedRow = "";
-        if (item.Id == (int?)ViewData["CourseId"])
+        if (item.Id == (int?)ViewData["InstructorId"])
         {
             selectedRow = "success";
         }
         <tr class="@selectedRow">
-          <td>@Html.ActionLink("Select", "Index", new { courseId = item.Id })</td>
-          <td>@item.Id</td>
-          <td>@item.Title</td>
-          <td>@item.Department.Name</td>
+          <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+          <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+          <td>@Html.DisplayFor(modelItem => item.HireDate)</td>
+          <td>
+            @if (item.OfficeAssignment != null)
+            {
+              @item.OfficeAssignment.Location
+            }
+          </td>
+          <td>
+            <a asp-action="Index" asp-route-id="@item.Id" class="btn
+              btn-link">Select</a> |
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn
+              btn-link">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn
+              btn-link">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id" class="btn
+              btn-link">Delete</a>
+          </td>
         </tr>
       }
-    </table>
-}
+    </tbody>
+  </table>
 
-@if (Model.Enrollments != null)
-{
-    <h3>Students Enrolled in Selected Course</h3>
-    <table class="table table-striped">
-      <tr>
-        <th>Name</th>
-        <th>Grade</th>
-      </tr>
-      @foreach (var item in Model.Enrollments)
-      {
+  @if (Model.Courses != null)
+  {
+      <h3>Courses Taught by Selected Instructor</h3>
+      <table class="table table-striped">
         <tr>
-          <td>@item.Student.FullName</td>
-          <td>@Html.DisplayFor(modelItem => item.Grade)</td>
-         </tr>
+          <th></th>
+          <th>
+            <span class="text-dark"><strong>Number</strong></span>
+          </th>
+          <th>
+            <span class="text-dark"><strong>Title</strong></span>
+          </th>
+          <th>
+            <span class="text-dark"><strong>Department</strong></span>
+          </th>
+        </tr>
+        @foreach (var item in Model.Courses)
+        {
+          string selectedRow = "";
+          if (item.Id == (int?)ViewData["CourseId"])
+          {
+              selectedRow = "success";
+          }
+          <tr class="@selectedRow">
+            <td>@Html.ActionLink("Select", "Index", new { courseId = item.Id })</td>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>@item.Department.Name</td>
+          </tr>
         }
-    </table>
-}
+      </table>
+  }
+
+  @if (Model.Enrollments != null)
+  {
+      <h3>Students Enrolled in Selected Course</h3>
+      <table class="table table-striped">
+        <tr>
+          <th>
+            <span class="text-dark"><strong>Name</strong></span>
+          </th>
+          <th>
+            <span class="text-dark"><strong>Grade</strong></span>
+          </th>
+        </tr>
+        @foreach (var item in Model.Enrollments)
+        {
+          <tr>
+            <td>@item.Student.FullName</td>
+            <td>@Html.DisplayFor(modelItem => item.Grade)</td>
+           </tr>
+          }
+      </table>
+  }
+</main>

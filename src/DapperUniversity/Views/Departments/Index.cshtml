@@ -3,34 +3,31 @@
     ViewData["Title"] = "Departments";
 }
 
-<div style="margin-bottom:10px;">
-  <h1 class="is-size-3">Departments</h1>
-  <p>
-    <a asp-action="Create" class="btn is-link">Create New</a>
-  </p>
-</div>
-
-<table class="table is-striped is-fullwidth is-hoverable">
-
-  <thead>
-    <tr>
-      <th>
-        @Html.DisplayNameFor(model => model.Name)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Budget)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.StartDate)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Instructor)
-      </th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<main class="container">
+  <h2>Departments</h2>
+  <a asp-action="Create" class="btn is-link mb-2">Create New</a>
+  <table class="table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>
+          <span class="text-dark"><strong>@Html.DisplayNameFor(model=>
+              model.Name)</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>@Html.DisplayNameFor(model =>
+              model.Budget)</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>@Html.DisplayNameFor(model =>
+              model.StartDate)</strong></span>
+        </th>
+        <th>
+          <span class="text-dark"><strong>@Html.DisplayNameFor(model =>
+              model.Instructor)</strong></span>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
     @foreach (var item in Model) {
       <tr>
         <td>
@@ -52,5 +49,5 @@
         </td>
       </tr>
     }
-  </tbody>
-</table>
+  </table>
+</main>

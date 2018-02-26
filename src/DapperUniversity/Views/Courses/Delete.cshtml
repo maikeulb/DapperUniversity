@@ -35,16 +35,16 @@
           @Html.DisplayFor(model => model.Credits)
       </dd>
     </dl>
-      <form asp-action="Delete">
-        <div class="d-flex flex-row mt-4">
-          <div class="form-group">
+    <form asp-action="Delete">
+      <div class="d-flex flex-row mt-4">
+        <div class="form-group">
           <input type="hidden" asp-for="Id" />
           <input type="submit" value="Delete" class="btn btn-default" /> 
-          </div>
-          <div>
-          <a asp-action="Index" class="btn btn-link">Back to List</a>
-          </div>
         </div>
-      </form>
+        <div>
+          <a asp-action="Index" class="btn btn-link">Back to List</a>
+        </div>
+      </div>
+    </form>
   </div>
 </main>

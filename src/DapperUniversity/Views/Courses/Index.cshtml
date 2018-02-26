@@ -10,13 +10,17 @@
     <thead>
       <tr>
         <th>
-          <span class="text-dark"><strong>@Html.DisplayNameFor(c=>c.Id)</strong>
+          <span
+            class="text-dark"><strong>@Html.DisplayNameFor(model =>
+              model.Id)</strong></span>
         </th>
         <th>
-          <span class="text-dark"><strong>@Html.DisplayNameFor(model => model.Title)</strong>
+          <span class="text-dark"><strong>@Html.DisplayNameFor(model =>
+              model.Title)</strong></span>
         </th>
         <th>
-          <span class="text-dark"><strong>@Html.DisplayNameFor(model => model.Credits)</strong>
+          <span class="text-dark"><strong>@Html.DisplayNameFor(model =>
+              model.Credits)</strong></span>
         </th>
         <th>
           <span class="text-dark"><strong>Department</strong></span>
@@ -24,11 +28,10 @@
         <th></th>
       </tr>
     </thead>
-
     @foreach (var item in Model) {
       <tr>
         <td>
-          @Html.DisplayFor(s=> item.Id)
+          @Html.DisplayFor(modelItem => item.Id)
         </td>
         <td>
           @Html.DisplayFor(modelItem => item.Title)

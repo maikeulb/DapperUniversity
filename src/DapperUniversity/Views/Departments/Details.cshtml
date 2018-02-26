@@ -3,10 +3,9 @@
     ViewData["Title"] = "Departments";
 }
 
-<h2>Details</h2>
-
-<div>
-  <h4>Department</h4>
+<main>
+  <div class="col-lg-6 col-sm-12">
+  <h2 class="mb-3">Department Details</h2>
   <hr />
   <dl class="dl-horizontal">
     <dt>
@@ -40,9 +39,8 @@
       @Html.DisplayFor(model => model.Instructor.FullName)
     </dd>
   </dl>
-</div>
-
-<div>
+  <div>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
     <a asp-action="Index" class="btn btn-link">Back to List</a>
+  </div>
 </div>
