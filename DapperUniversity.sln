@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperUniversity", "src\DapperUniversity.csproj", "{2C3EB22E-29B1-4DB0-81BD-144D96A93B69}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2378398B-29AD-427E-8FF1-BDF6E074CFAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperUniversity.Tests", "src\DapperUniversity.Tests\DapperUniversity.Tests.csproj", "{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,20 @@ Global
 		{2C3EB22E-29B1-4DB0-81BD-144D96A93B69}.Release|x64.Build.0 = Release|x64
 		{2C3EB22E-29B1-4DB0-81BD-144D96A93B69}.Release|x86.ActiveCfg = Release|x86
 		{2C3EB22E-29B1-4DB0-81BD-144D96A93B69}.Release|x86.Build.0 = Release|x86
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Debug|x64.ActiveCfg = Debug|x64
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Debug|x64.Build.0 = Debug|x64
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Debug|x86.ActiveCfg = Debug|x86
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Debug|x86.Build.0 = Debug|x86
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Release|x64.ActiveCfg = Release|x64
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Release|x64.Build.0 = Release|x64
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Release|x86.ActiveCfg = Release|x86
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DBC5A9B5-7A90-4076-879A-B358D8CFDB52} = {2378398B-29AD-427E-8FF1-BDF6E074CFAA}
 	EndGlobalSection
 EndGlobal
