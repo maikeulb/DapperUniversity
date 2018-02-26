@@ -42,8 +42,7 @@
           <tr>
             @{ 
               int cnt = 0;
-              List<DapperUniversity.Models.AssignedCourseDataViewModel> courses =
-                ViewData["Courses"];
+              List<DapperUniversity.ViewModels.AssignedCourseDataViewModel> courses = ViewBag.Courses;
               foreach (var course in courses)
               {
                   if (cnt++ % 3 == 0)

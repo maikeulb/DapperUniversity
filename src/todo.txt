@@ -4,3 +4,12 @@ instructors Index (missing course assignment)
 
 departments - index-sloppy,
 departments - edit,not working (null for instructor and course)
+
+---
+
+add about template
+add sort, etc. to first
+add fluent validation
+add error pages (not found)
+bugs: FV submits
+bugs: number only 

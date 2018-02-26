@@ -8,10 +8,10 @@ namespace DapperUniversity.Models.Validators
         public StudentValidator()
         {
             RuleFor(x => x.FirstName)
-                .Length(50)
+                .Length(1, 50)
                 .WithMessage("Please limit first name to 50 characters.");
             RuleFor(x => x.LastName)
-                .Length(50)
+                .Length(1, 50)
                 .WithMessage("Please limit last name to 50 characters.");
         }
     }
