@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "9e79941527d35844248e19818a2046416edd15e2"
+    "signature": "6b1574547e413aa2f84adedcaac15a4b561792b0"
   },
   "compilationOptions": {
     "defines": [
@@ -28,6 +28,7 @@
           "Dapper": "1.50.4",
           "Dapper.Contrib": "1.50.4",
           "Dapper.FluentMap": "1.6.0",
+          "Ensure.That": "7.2.1",
           "FluentValidation.AspNetCore": "7.2.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "4.0.0",
           "Microsoft.AspNetCore.All": "2.0.5",
@@ -120,6 +121,14 @@
         },
         "compile": {
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        }
+      },
+      "Ensure.That/7.2.1": {
+        "runtime": {
+          "lib/netstandard2.0/Ensure.That.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/Ensure.That.dll": {}
         }
       },
       "FluentValidation/7.2.1": {
@@ -4479,6 +4488,13 @@
       "sha512": "sha512-niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
       "path": "dapper.fluentmap/1.6.0",
       "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
+    },
+    "Ensure.That/7.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lK01JxaJ9AgADW8lHfiUkqxVrh5UZSa+qv8MKddKt2Esmko/jFcM3C50WvC7CEhuYhUQJbhoeNc3HksJyOAZww==",
+      "path": "ensure.that/7.2.1",
+      "hashPath": "ensure.that.7.2.1.nupkg.sha512"
     },
     "FluentValidation/7.2.1": {
       "type": "package",

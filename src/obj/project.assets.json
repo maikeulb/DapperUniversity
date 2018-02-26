@@ -79,6 +79,15 @@
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
         }
       },
+      "Ensure.That/7.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Ensure.That.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ensure.That.dll": {}
+        }
+      },
       "FluentValidation/7.2.1": {
         "type": "package",
         "dependencies": {
@@ -5310,6 +5319,21 @@
         "lib/net451/Dapper.FluentMap.xml",
         "lib/netstandard1.3/Dapper.FluentMap.dll",
         "lib/netstandard1.3/Dapper.FluentMap.xml"
+      ]
+    },
+    "Ensure.That/7.2.1": {
+      "sha512": "lK01JxaJ9AgADW8lHfiUkqxVrh5UZSa+qv8MKddKt2Esmko/jFcM3C50WvC7CEhuYhUQJbhoeNc3HksJyOAZww==",
+      "type": "package",
+      "path": "ensure.that/7.2.1",
+      "files": [
+        "ensure.that.7.2.1.nupkg.sha512",
+        "ensure.that.nuspec",
+        "lib/net451/Ensure.That.dll",
+        "lib/net451/Ensure.That.xml",
+        "lib/netstandard1.1/Ensure.That.dll",
+        "lib/netstandard1.1/Ensure.That.xml",
+        "lib/netstandard2.0/Ensure.That.dll",
+        "lib/netstandard2.0/Ensure.That.xml"
       ]
     },
     "FluentValidation/7.2.1": {
@@ -13535,6 +13559,7 @@
       "Dapper >= 1.50.4",
       "Dapper.Contrib >= 1.50.4",
       "Dapper.FluentMap >= 1.6.0",
+      "Ensure.That >= 7.2.1",
       "FluentValidation.AspNetCore >= 7.2.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 4.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
@@ -13609,6 +13634,10 @@
           "Dapper.FluentMap": {
             "target": "Package",
             "version": "[1.6.0, )"
+          },
+          "Ensure.That": {
+            "target": "Package",
+            "version": "[7.2.1, )"
           },
           "FluentValidation.AspNetCore": {
             "target": "Package",

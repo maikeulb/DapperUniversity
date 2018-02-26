@@ -27,7 +27,6 @@ namespace DapperUniversity.Controllers
             _connectionString = configuration.GetConnectionString ("DapperUniversity");
         }
 
-        [HttpGet]
         public async Task<ActionResult> Index()
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>(); 
@@ -50,7 +49,6 @@ namespace DapperUniversity.Controllers
             return View(courses);
         }
 
-        [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -64,7 +62,6 @@ namespace DapperUniversity.Controllers
             return View(course);
         }
 
-        [HttpGet]
         public ActionResult Create()
         {
             CourseEditViewModel model = new CourseEditViewModel();
@@ -78,18 +75,23 @@ namespace DapperUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create ([Bind("Id, Title, Credits, DepartmentId")]Course course)
         {
-            string command = @"INSERT INTO courses (id, title, credits, department_id) 
-                               VALUES(@Id, @Title, @Credits, @DepartmentId)";
-
-            using (DbContext _context = new DbContext(_connectionString))
+            if (ModelState.IsValid)
             {
-                await _context.GetConnection().ExecuteAsync(command, course);
+
+                string command = @"INSERT INTO courses (id, title, credits, department_id) 
+                                   VALUES(@Id, @Title, @Credits, @DepartmentId)";
+
+                using (DbContext _context = new DbContext(_connectionString))
+                {
+                    await _context.GetConnection().ExecuteAsync(command, course);
+                }
+
+                return RedirectToAction ("Index");
             }
 
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -105,7 +107,12 @@ namespace DapperUniversity.Controllers
             {
                 model.Course  = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
             }
+
+            if (model.Course == null)
+                return NotFound();
+
             PopulateDepartmentsDropDownList(model);
+
             return View(model);
         }
 
@@ -149,7 +156,6 @@ namespace DapperUniversity.Controllers
             return View(model);
         }
 
-        [HttpGet]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -170,7 +176,7 @@ namespace DapperUniversity.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeletePost(int id)
         {
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -179,6 +185,7 @@ namespace DapperUniversity.Controllers
                 var courseToDelete = await _connection.GetAsync<Course>(id);
                 await _connection.DeleteAsync(courseToDelete);
             }
+
             return RedirectToAction("Index");
         }
 
@@ -218,8 +225,8 @@ namespace DapperUniversity.Controllers
                     }),
                     new { id });
             }
+
             return courses.First();
         }
-
     }
 }

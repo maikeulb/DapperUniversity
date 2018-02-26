@@ -56,6 +56,9 @@ namespace DapperUniversity.Controllers
 
         public async Task<ActionResult> Details (int? id)
         {
+            if (id == null)
+                return NotFound();
+
             string query = @"SELECT d.*, i.*
                              FROM departments d
                              INNER JOIN instructors i
@@ -74,37 +77,54 @@ namespace DapperUniversity.Controllers
                     new { id });
             }
 
+            if (departments == null)
+                return NotFound();
+
             return View (departments.FirstOrDefault ());
         }
 
         public ActionResult Create ()
         {
             PopulateInstructorDepartmentList ();
+
             return View ();
         }
 
         [HttpPost]
         public async Task<ActionResult> Create ([Bind ("Name, Budget, InstructorId, StartDate")] Department department)
         {
-            string command = @"INSERT INTO departments (name, budget, instructor_id, start_date)
+            if (ModelState.IsValid)
+            {
+                string command = @"INSERT INTO departments (name, budget, instructor_id, start_date)
                                VALUES(@Name, @Budget, @InstructorId, @StartDate)";
 
-            using (DbContext _context = new DbContext (_connectionString))
-            {
-                await _context.GetConnection ().ExecuteAsync (command, department);
+                using (DbContext _context = new DbContext (_connectionString))
+                {
+                    await _context.GetConnection().ExecuteAsync (command, department);
+                }
+
+                return RedirectToAction ("Index");
             }
-            return RedirectToAction ("Index");
+
+            PopulateInstructorDepartmentList (department.Id);
+
+            return View ();
         }
 
-        [HttpGet]
         public async Task<ActionResult> Edit (int? id)
         {
+            if (id == null)
+                return NotFound();
+
             Department department = new Department ();
 
             using (DbContext _context = new DbContext (_connectionString))
             {
                 department = await _context.GetConnection ().GetAsync<Department> (id);
             }
+
+            if (department == null)
+                return NotFound();
 
             PopulateInstructorDepartmentList (department.Id);
 
@@ -114,7 +134,10 @@ namespace DapperUniversity.Controllers
         [HttpPost, ActionName ("Edit")]
         public async Task<ActionResult> EditPost (int id)
         {
-            Department department = new Department ();
+            if (id == null)
+                return NotFound();
+
+            Department departmentToUpdate = new Department ();
 
             string command = @"UPDATE departments
                                SET instructor_id = @InstructorId,
@@ -125,28 +148,35 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext (_connectionString))
             {
-                department = await _context.GetConnection ().GetAsync<Department> (id);
+                departmentToUpdate = await _context.GetConnection ().GetAsync<Department> (id);
                 if (await TryUpdateModelAsync<Department> (
-                        department,
-                        "",
-                        s => s.Name, s => s.StartDate, s => s.Budget, s => s.InstructorId))
+                    departmentToUpdate,
+                    "",
+                    s => s.Name, s => s.StartDate, s => s.Budget, s => s.InstructorId))
                 {
-                    await _context.GetConnection ().ExecuteAsync (command, department);
+                    await _context.GetConnection ().ExecuteAsync (command, departmentToUpdate);
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction ("Index");
             }
-            return View (department);
+
+            PopulateInstructorDepartmentList (departmentToUpdate.Id);
+            return View (departmentToUpdate);
         }
 
-        [HttpGet]
         public async Task<ActionResult> Delete (int? id)
         {
+            if (id == null)
+                return NotFound();
+
             Department department = new Department ();
 
             using (DbContext _context = new DbContext (_connectionString))
             {
                 department = await _context.GetConnection ().GetAsync<Department> (id);
             }
+
+            if (department == null)
+                return NotFound();
 
             return View (department);
         }
@@ -169,7 +199,7 @@ namespace DapperUniversity.Controllers
             {
                 instructors = _context.GetConnection ().GetAll<Instructor> ().OrderBy (s => s.LastName).Select (s => s);
             }
-            ViewBag.InstructorId = new SelectList (instructors, "Id", "FullName", selectedInstructor);
+            ViewData["InstructorId"] = new SelectList (instructors, "Id", "FullName", selectedInstructor);
         }
     }
 }

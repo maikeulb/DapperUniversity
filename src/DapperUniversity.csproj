@@ -14,6 +14,7 @@
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
     <PackageReference Include="Dapper.FluentMap" Version="1.6.0" />
+    <PackageReference Include="Ensure.That" Version="7.2.1" />
     <PackageReference Include="mediatr" Version="4.0.1" />
     <PackageReference Include="npgsql" Version="3.2.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />
