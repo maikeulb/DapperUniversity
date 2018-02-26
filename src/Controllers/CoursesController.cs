@@ -83,16 +83,7 @@ namespace DapperUniversity.Controllers
 
                 using (DbContext _context = new DbContext(_connectionString))
                 {
-                    try
-                    {
-                        await _context.GetConnection().ExecuteAsync(command, course);
-                    }
-                    catch (e)
-                    {
-                        _logger.LogError("Database Save Exception Occured:: {0}", e);
-                        ModelState.AddModelError("", "Unable to save changes");
-                        throw;
-                    }
+                    await _context.GetConnection().ExecuteAsync(command, course);
                 }
 
                 return RedirectToAction ("Index");
@@ -152,18 +143,9 @@ namespace DapperUniversity.Controllers
 
                 if (await TryUpdateModelAsync<Course>(courseToUpdate, "",
                     s => s.Title, s => s.Credits, s => s.DepartmentId))
-                {
-                    try
-                    {
-                        await _context.GetConnection().ExecuteAsync(command, courseToUpdate);
-                        return RedirectToAction("Index");
-                    }
-                    catch (e)
-                    {
-                        _logger.LogError("Database Update Exception Occured:: {0}", e);
-                        ModelState.AddModelError("", "Unable to update course");
-                        throw;
-                    }
+               {
+                    await _context.GetConnection().ExecuteAsync(command, courseToUpdate);
+                    return RedirectToAction("Index");
                 }
             }
             model.Course = courseToUpdate;
@@ -196,19 +178,10 @@ namespace DapperUniversity.Controllers
         {
             using (DbContext _context = new DbContext(_connectionString))
             {
-                try
-                {
-                    var _connection = _context.GetConnection();
-                    _connection.Open();
-                    var courseToDelete = await _connection.GetAsync<Course>(id);
-                    await _connection.DeleteAsync(courseToDelete);
-                }
-                catch (e)
-                {
-                    _logger.LogError("Database Delete Exception Occured:: {0}", e);
-                    ModelState.AddModelError("", "Unable to delete course");
-                    throw;
-                }
+                var _connection = _context.GetConnection();
+                _connection.Open();
+                var courseToDelete = await _connection.GetAsync<Course>(id);
+                await _connection.DeleteAsync(courseToDelete);
             }
 
             return RedirectToAction("Index");
