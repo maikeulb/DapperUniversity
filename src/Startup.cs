@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +15,6 @@ using DapperUniversity.Models.Validators;
 using DapperUniversity.Services;
 using DapperUniversity.Middlewares;
 using Dapper.FluentMap;
-using MediatR;
 using FluentValidation.AspNetCore;
 
 namespace DapperUniversity
@@ -40,8 +38,6 @@ namespace DapperUniversity
             /*     .AddEntityFrameworkStores<ApplicationDbContext>() */
             /*     .AddDefaultTokenProviders(); */
 
-            services.AddAutoMapper();
-
             FluentMapper.Initialize(config =>
                 {
                    config.AddMap(new StudentMap());
@@ -52,8 +48,6 @@ namespace DapperUniversity
                    config.AddMap(new InstructorMap());
                    config.AddMap(new OfficeAssignmentMap());
                 });
-
-            services.AddMediatR();
 
             services.AddMvc()
                 .AddFluentValidation(fv => {

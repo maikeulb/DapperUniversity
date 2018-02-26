@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "6b1574547e413aa2f84adedcaac15a4b561792b0"
+    "signature": "01f42142653d829cb98e696854b47b580370132a"
   },
   "compilationOptions": {
     "defines": [
@@ -23,25 +23,20 @@
     ".NETCoreApp,Version=v2.0": {
       "DapperUniversity/1.0.0": {
         "dependencies": {
-          "AutoMapper": "6.2.1",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "3.2.0",
           "Dapper": "1.50.4",
           "Dapper.Contrib": "1.50.4",
           "Dapper.FluentMap": "1.6.0",
-          "Ensure.That": "7.2.1",
           "FluentValidation.AspNetCore": "7.2.1",
-          "MediatR.Extensions.Microsoft.DependencyInjection": "4.0.0",
           "Microsoft.AspNetCore.All": "2.0.5",
           "Microsoft.DotNet.Watcher.Tools": "2.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "2.0.1",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
+          "NLog.Web.AspNetCore": "4.5.0-beta04",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "2.0.0",
-          "OdeToCode.AddFeatureFolders": "1.0.8",
           "X.PagedList": "7.2.2",
           "X.PagedList.Mvc.Core": "7.2.0",
-          "MediatR": "4.0.1",
           "Npgsql": "3.2.6"
         },
         "runtime": {
@@ -49,40 +44,6 @@
         },
         "compile": {
           "DapperUniversity.dll": {}
-        }
-      },
-      "AutoMapper/6.2.1": {
-        "dependencies": {
-          "Microsoft.CSharp": "4.4.0",
-          "NETStandard.Library": "2.0.0",
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Collections.Specialized": "4.3.0",
-          "System.ComponentModel.TypeConverter": "4.3.0",
-          "System.Dynamic.Runtime": "4.3.0",
-          "System.Linq.Queryable": "4.3.0",
-          "System.Reflection.Emit": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.Text.RegularExpressions": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/AutoMapper.dll": {}
-        },
-        "compile": {
-          "lib/netstandard1.3/AutoMapper.dll": {}
-        }
-      },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/3.2.0": {
-        "dependencies": {
-          "AutoMapper": "6.2.1",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
-          "Microsoft.Extensions.DependencyModel": "2.0.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        },
-        "compile": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Dapper/1.50.4": {
@@ -121,14 +82,6 @@
         },
         "compile": {
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
-        }
-      },
-      "Ensure.That/7.2.1": {
-        "runtime": {
-          "lib/netstandard2.0/Ensure.That.dll": {}
-        },
-        "compile": {
-          "lib/netstandard2.0/Ensure.That.dll": {}
         }
       },
       "FluentValidation/7.2.1": {
@@ -192,29 +145,6 @@
             "rid": "win-x86",
             "assetType": "native"
           }
-        }
-      },
-      "MediatR/4.0.1": {
-        "dependencies": {
-          "NETStandard.Library": "2.0.0"
-        },
-        "runtime": {
-          "lib/netstandard1.1/MediatR.dll": {}
-        },
-        "compile": {
-          "lib/netstandard1.1/MediatR.dll": {}
-        }
-      },
-      "MediatR.Extensions.Microsoft.DependencyInjection/4.0.0": {
-        "dependencies": {
-          "MediatR": "4.0.1",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
-        },
-        "compile": {
-          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/2.4.0": {
@@ -2646,6 +2576,50 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "NLog/4.5.0-beta07": {
+        "dependencies": {
+          "System.Security.Principal.Windows": "4.4.0",
+          "System.ServiceModel.Duplex": "4.4.0",
+          "System.ServiceModel.NetTcp": "4.4.0",
+          "System.ServiceModel.Primitives": "4.4.0",
+          "System.ServiceModel.Security": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {}
+        }
+      },
+      "NLog.Extensions.Logging/1.0.0-rtm-rc2": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "2.0.0",
+          "NLog": "4.5.0-beta07",
+          "System.AppContext": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.Extensions.Logging.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.Extensions.Logging.dll": {}
+        }
+      },
+      "NLog.Web.AspNetCore/4.5.0-beta04": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting.Abstractions": "2.0.1",
+          "Microsoft.AspNetCore.Http": "2.0.1",
+          "Microsoft.AspNetCore.Http.Extensions": "2.0.1",
+          "Microsoft.AspNetCore.Routing.Abstractions": "2.0.1",
+          "NLog.Extensions.Logging": "1.0.0-rtm-rc2",
+          "System.ValueTuple": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {}
+        }
+      },
       "Npgsql/3.2.6": {
         "dependencies": {
           "System.Threading.Tasks.Extensions": "4.4.0"
@@ -2681,19 +2655,6 @@
         },
         "compile": {
           "lib/netstandard1.3/NuGet.Frameworks.dll": {}
-        }
-      },
-      "OdeToCode.AddFeatureFolders/1.0.8": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc.Razor": "2.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
-          "NETStandard.Library": "2.0.0"
-        },
-        "runtime": {
-          "lib/netstandard1.6/OdeToCode.AddFeatureFolders.dll": {}
-        },
-        "compile": {
-          "lib/netstandard1.6/OdeToCode.AddFeatureFolders.dll": {}
         }
       },
       "Remotion.Linq/2.1.1": {
@@ -3490,6 +3451,17 @@
           }
         }
       },
+      "System.Net.Http.WinHttpHandler/4.4.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Net.Http.WinHttpHandler.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.Net.Http.WinHttpHandler.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
       "System.Net.NameResolution/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0",
@@ -3616,6 +3588,24 @@
           "System.Xml.XmlSerializer": "4.0.11"
         }
       },
+      "System.Private.ServiceModel/4.4.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0",
+          "System.Net.Http.WinHttpHandler": "4.4.0",
+          "System.Reflection.DispatchProxy": "4.4.0",
+          "System.Security.Principal.Windows": "4.4.0"
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard2.0/System.Private.ServiceModel.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win7/lib/netstandard2.0/System.Private.ServiceModel.dll": {
+            "rid": "win7",
+            "assetType": "runtime"
+          }
+        }
+      },
       "System.Reflection/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0",
@@ -3625,6 +3615,7 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "System.Reflection.DispatchProxy/4.4.0": {},
       "System.Reflection.Emit/4.3.0": {
         "dependencies": {
           "System.IO": "4.3.0",
@@ -4006,6 +3997,53 @@
         },
         "compile": {
           "ref/netstandard2.0/System.Security.Principal.Windows.dll": {}
+        }
+      },
+      "System.ServiceModel.Duplex/4.4.0": {
+        "dependencies": {
+          "System.Private.ServiceModel": "4.4.0",
+          "System.ServiceModel.Primitives": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.ServiceModel.Duplex.dll": {}
+        },
+        "compile": {
+          "ref/netstandard2.0/System.ServiceModel.Duplex.dll": {}
+        }
+      },
+      "System.ServiceModel.NetTcp/4.4.0": {
+        "dependencies": {
+          "System.Private.ServiceModel": "4.4.0",
+          "System.ServiceModel.Primitives": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.ServiceModel.NetTcp.dll": {}
+        },
+        "compile": {
+          "ref/netstandard2.0/System.ServiceModel.NetTcp.dll": {}
+        }
+      },
+      "System.ServiceModel.Primitives/4.4.0": {
+        "dependencies": {
+          "System.Private.ServiceModel": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.ServiceModel.Primitives.dll": {}
+        },
+        "compile": {
+          "ref/netstandard2.0/System.ServiceModel.Primitives.dll": {}
+        }
+      },
+      "System.ServiceModel.Security/4.4.0": {
+        "dependencies": {
+          "System.Private.ServiceModel": "4.4.0",
+          "System.ServiceModel.Primitives": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.ServiceModel.Security.dll": {}
+        },
+        "compile": {
+          "ref/netstandard2.0/System.ServiceModel.Security.dll": {}
         }
       },
       "System.Spatial/5.8.2": {
@@ -4454,20 +4492,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoMapper/6.2.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZD9he/2wsNQbfnZJMc7Ijvz0hf2Lc6R8Tk97k8Q741flowTHd/YPxG8d5P0BVOJAPLVXjjX6IZ8l0u0A2l+K2g==",
-      "path": "automapper/6.2.1",
-      "hashPath": "automapper.6.2.1.nupkg.sha512"
-    },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/3.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-528nEpAwniNn8Z6Ae9qTiM/kN4f0BxmWE9mDMEkqKKGxbuElmv6Kj9DVvTXECJkIt6ARerb9+vYbOifNpcwvXQ==",
-      "path": "automapper.extensions.microsoft.dependencyinjection/3.2.0",
-      "hashPath": "automapper.extensions.microsoft.dependencyinjection.3.2.0.nupkg.sha512"
-    },
     "Dapper/1.50.4": {
       "type": "package",
       "serviceable": true,
@@ -4489,13 +4513,6 @@
       "path": "dapper.fluentmap/1.6.0",
       "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
     },
-    "Ensure.That/7.2.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-lK01JxaJ9AgADW8lHfiUkqxVrh5UZSa+qv8MKddKt2Esmko/jFcM3C50WvC7CEhuYhUQJbhoeNc3HksJyOAZww==",
-      "path": "ensure.that/7.2.1",
-      "hashPath": "ensure.that.7.2.1.nupkg.sha512"
-    },
     "FluentValidation/7.2.1": {
       "type": "package",
       "serviceable": true,
@@ -4516,20 +4533,6 @@
       "sha512": "sha512-GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "path": "libuv/1.10.0",
       "hashPath": "libuv.1.10.0.nupkg.sha512"
-    },
-    "MediatR/4.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-nIgiOuD10aSrariE29T3/NdWKfwqOfyJhuuqdSD6RJa8vvYUxLAsWZ64UwYm7pF7yPIjM36M+3W0hpyPTAj4Gg==",
-      "path": "mediatr/4.0.1",
-      "hashPath": "mediatr.4.0.1.nupkg.sha512"
-    },
-    "MediatR.Extensions.Microsoft.DependencyInjection/4.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GKll1eMzYdLw3GbIQcnHqRO4CLpvFwpiL3r8e2KhxL6K+s/xcjmGCbtIrltbTnBDj1ZXBQoNJa9eAX4UrhZ6iA==",
-      "path": "mediatr.extensions.microsoft.dependencyinjection/4.0.0",
-      "hashPath": "mediatr.extensions.microsoft.dependencyinjection.4.0.0.nupkg.sha512"
     },
     "Microsoft.ApplicationInsights/2.4.0": {
       "type": "package",
@@ -5749,6 +5752,27 @@
       "path": "newtonsoft.json.bson/1.0.1",
       "hashPath": "newtonsoft.json.bson.1.0.1.nupkg.sha512"
     },
+    "NLog/4.5.0-beta07": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MFfOfhT/BKNkEbb+6HreLIaWTFGxInbwP/ldAdSWGeCgsff2o91+4zObvyAg3ipmE28cAmIo7UpgTtcr7nL+A==",
+      "path": "nlog/4.5.0-beta07",
+      "hashPath": "nlog.4.5.0-beta07.nupkg.sha512"
+    },
+    "NLog.Extensions.Logging/1.0.0-rtm-rc2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Tt53Si/Vg6AHxZjkDPy6biqr0DSu2tc6p+dDQAnLLvLjrHz1IlEWfIzu/2hYAaKND5b3SMkw9JSUz5tou2cb3A==",
+      "path": "nlog.extensions.logging/1.0.0-rtm-rc2",
+      "hashPath": "nlog.extensions.logging.1.0.0-rtm-rc2.nupkg.sha512"
+    },
+    "NLog.Web.AspNetCore/4.5.0-beta04": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-83Ejc6+LBebgVoPQRRMb24sNUNP9K7NnfUt4UaR105mjZ1akBoG9EOp3uBPeS4gKOAisHXOZbXklqfZk0Rauow==",
+      "path": "nlog.web.aspnetcore/4.5.0-beta04",
+      "hashPath": "nlog.web.aspnetcore.4.5.0-beta04.nupkg.sha512"
+    },
     "Npgsql/3.2.6": {
       "type": "package",
       "serviceable": true,
@@ -5769,13 +5793,6 @@
       "sha512": "sha512-WCkN68c8q+USG+Ot1MmBDH+9DUo5dk7UB0QDMiwCYhrH7ZoFLKFGGNzJ8C3LTR1DvB1LW9BOxKeznnZznKiCTA==",
       "path": "nuget.frameworks/4.0.0",
       "hashPath": "nuget.frameworks.4.0.0.nupkg.sha512"
-    },
-    "OdeToCode.AddFeatureFolders/1.0.8": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-EgOJkfVM2vbTm9x8ZtR3M+cr60B/BVNF6MtSe/FrE2GHKCIFp9Z0omqyQOGwb0qtfBkcJlMf0f0p03fgLIG0Ig==",
-      "path": "odetocode.addfeaturefolders/1.0.8",
-      "hashPath": "odetocode.addfeaturefolders.1.0.8.nupkg.sha512"
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",
@@ -6267,6 +6284,13 @@
       "path": "system.net.http/4.3.0",
       "hashPath": "system.net.http.4.3.0.nupkg.sha512"
     },
+    "System.Net.Http.WinHttpHandler/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZmsFZIZ4PL2UfUlfj4KCzzAGGE2SF39ENIqtvfgu0bwMEAe3J3CqZr765E2W6eQQtNK08/8DpHcsA0sAKZdEtA==",
+      "path": "system.net.http.winhttphandler/4.4.0",
+      "hashPath": "system.net.http.winhttphandler.4.4.0.nupkg.sha512"
+    },
     "System.Net.NameResolution/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -6316,12 +6340,26 @@
       "path": "system.private.datacontractserialization/4.1.1",
       "hashPath": "system.private.datacontractserialization.4.1.1.nupkg.sha512"
     },
+    "System.Private.ServiceModel/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lED0s9Lfo2TdniGlFY2rdK1wygFJ7dPRaTHR2Z409nGWfFG1YMuAlrfMhSeYFJ5pbffAlOBxb8hvoYxP3LJ6mg==",
+      "path": "system.private.servicemodel/4.4.0",
+      "hashPath": "system.private.servicemodel.4.4.0.nupkg.sha512"
+    },
     "System.Reflection/4.3.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-oFRZJwSaNlHU1brDPI+oz242PoOOrgeQJnR4KacfT/tcULDJ4COGnmgdSG8kElwnjStHKinRKe07jpGfyf5Gxg==",
       "path": "system.reflection/4.3.0",
       "hashPath": "system.reflection.4.3.0.nupkg.sha512"
+    },
+    "System.Reflection.DispatchProxy/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xK6JE0mpsBD+T0qu3V6dmVRa06PxAvIIM/zSjouqP7Sk6X+FQj+9XFRz9GmZk9aJGMU1LX6AgTZIlsYZ64QKsw==",
+      "path": "system.reflection.dispatchproxy/4.4.0",
+      "hashPath": "system.reflection.dispatchproxy.4.4.0.nupkg.sha512"
     },
     "System.Reflection.Emit/4.3.0": {
       "type": "package",
@@ -6532,6 +6570,34 @@
       "sha512": "sha512-pP+AOzt1o3jESOuLmf52YQTF7H3Ng9hTnrOESQiqsnl2IbBh1HInsAMHYtoh75iUYV0OIkHmjvveraYB6zM97w==",
       "path": "system.security.principal.windows/4.4.0",
       "hashPath": "system.security.principal.windows.4.4.0.nupkg.sha512"
+    },
+    "System.ServiceModel.Duplex/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VloAauzIXfr1cB+ljWLQJ5c3gQSmiVRm2o1SBgDYb+j/Sm8RTuVRIsV9J4NKBsgryZ21eynuGNGV1irllmPEGw==",
+      "path": "system.servicemodel.duplex/4.4.0",
+      "hashPath": "system.servicemodel.duplex.4.4.0.nupkg.sha512"
+    },
+    "System.ServiceModel.NetTcp/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B/DYZRLvvnmGSidx30RwbUVuXX83Uc2n+Y4m82lfPkiEh46jSuqGpX1nb0gHJhQIr5IqP4xbr+ucbYHzVNnywg==",
+      "path": "system.servicemodel.nettcp/4.4.0",
+      "hashPath": "system.servicemodel.nettcp.4.4.0.nupkg.sha512"
+    },
+    "System.ServiceModel.Primitives/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6rATyMUeeOPVY7XzoneoyzGKVCc62gGl/A6SKrlY0dX0bnMprIrXZF1AXy9Y8ne49JU/2RGGeldFbATYONc/XQ==",
+      "path": "system.servicemodel.primitives/4.4.0",
+      "hashPath": "system.servicemodel.primitives.4.4.0.nupkg.sha512"
+    },
+    "System.ServiceModel.Security/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-01NCvqN/hcYS3VhT0FSlYYJkQacFCbM5kc5rAEo8w9WSd8OWr8cQMFjVOKvFzErMeesbO30bBXJD+dTVRqzfMQ==",
+      "path": "system.servicemodel.security/4.4.0",
+      "hashPath": "system.servicemodel.security.4.4.0.nupkg.sha512"
     },
     "System.Spatial/5.8.2": {
       "type": "package",

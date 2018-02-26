@@ -20,3 +20,4 @@
 /home/michael/Projects-DotNet/DapperUniversity/src/obj/Debug/netcoreapp2.0/DapperUniversity.AssemblyInfo.cs
 /home/michael/Projects-DotNet/DapperUniversity/src/obj/Debug/netcoreapp2.0/DapperUniversity.dll
 /home/michael/Projects-DotNet/DapperUniversity/src/obj/Debug/netcoreapp2.0/DapperUniversity.pdb
+/home/michael/Projects-DotNet/DapperUniversity/src/bin/Debug/netcoreapp2.0/nlog.config
