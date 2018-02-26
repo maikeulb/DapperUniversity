@@ -55,5 +55,6 @@ namespace DapperUniversity.Models
                     }
                 }
             }
-        }   }
+        }
+    }  
 }

@@ -52,7 +52,8 @@ namespace DapperUniversity
 
             services.AddMediatR();
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddFluentValidation (cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup> (); });
 
             string connectionString = Configuration.GetConnectionString ("DapperUniversity");
 
