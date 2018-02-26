@@ -46,14 +46,22 @@ namespace DapperUniversity.Controllers
                         return courseItem;
                     });
             }
+
             return View(courses);
         }
 
         [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
-            var courses =  await GetCourseDepartment(id);
-            return View(courses);
+            if (id == null)
+                return NotFound();
+
+            var course =  await GetCourseDepartment(id);
+
+            if (course == null)
+                return NotFound();
+
+            return View(course);
         }
 
         [HttpGet]
@@ -61,7 +69,7 @@ namespace DapperUniversity.Controllers
         {
             CourseEditViewModel model = new CourseEditViewModel();
 
-            PopulateDropDownList(model);
+            PopulateDepartmentsDropDownList(model);
 
             return View(model);
         }
@@ -76,14 +84,17 @@ namespace DapperUniversity.Controllers
             using (DbContext _context = new DbContext(_connectionString))
             {
                 await _context.GetConnection().ExecuteAsync(command, course);
-                return RedirectToAction("Index");
             }
+
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             var model = new CourseEditViewModel();
 
             string query  = @"SELECT * 
@@ -94,17 +105,22 @@ namespace DapperUniversity.Controllers
             {
                 model.Course  = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
             }
-            PopulateDropDownList(model);
+            PopulateDepartmentsDropDownList(model);
             return View(model);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditPost(int id)
+        public async Task<ActionResult> EditPost(int? id)
         {  
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             CourseEditViewModel model = new CourseEditViewModel();
  
-            Course course = new Course();
+            Course courseToUpdate = new Course();
 
             string query  = @"SELECT * 
                               FROM courses
@@ -118,34 +134,41 @@ namespace DapperUniversity.Controllers
 
             using (DbContext _context = new DbContext(_connectionString))
             {
-                course = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
-                if (await TryUpdateModelAsync<Course>(
-                    course,
-                    "",
+                courseToUpdate = await _context.GetConnection().QueryFirstAsync<Course> (query, new {id});
+
+                if (await TryUpdateModelAsync<Course>(courseToUpdate, "",
                     s => s.Title, s => s.Credits, s => s.DepartmentId))
-                {
-                    await _context.GetConnection().ExecuteAsync(command, course);
+               {
+                    await _context.GetConnection().ExecuteAsync(command, courseToUpdate);
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
             }
-            model.Course = course;
-            PopulateDropDownList(model);
+            model.Course = courseToUpdate;
+            PopulateDepartmentsDropDownList(model);
+
             return View(model);
         }
 
         [HttpGet]
         public async Task<ActionResult> Delete(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             Course course = new Course();
 
             using (DbContext _context = new DbContext(_connectionString))
             {
                 course = await GetCourseDepartment(id);
             }
+
+            if (course == null)
+                return NotFound();
+
             return View(course);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id)
         {
@@ -155,12 +178,11 @@ namespace DapperUniversity.Controllers
                 _connection.Open();
                 var courseToDelete = await _connection.GetAsync<Course>(id);
                 await _connection.DeleteAsync(courseToDelete);
-                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
 
-        private void PopulateDropDownList(CourseEditViewModel model)
+        private void PopulateDepartmentsDropDownList(CourseEditViewModel model)
         {
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -201,13 +223,3 @@ namespace DapperUniversity.Controllers
 
     }
 }
-
-/* namespace DapperUniversity.Models */
-/* { */
-/*     public class CourseEditViewModel */
-/*     { */
-/*         public int? SelectedItemId { get; set; } */
-/*         public SelectList Department { get; set; } */
-/*         public Course Course { get; set; } */
-/*     } */
-/* } */
