@@ -62,7 +62,7 @@ namespace DapperUniversity.Controllers
             return View(course);
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             CourseEditViewModel model = new CourseEditViewModel();
 
@@ -121,9 +121,7 @@ namespace DapperUniversity.Controllers
         public async Task<ActionResult> EditPost(int? id)
         {  
             if (id == null)
-            {
                 return NotFound();
-            }
 
             CourseEditViewModel model = new CourseEditViewModel();
  
