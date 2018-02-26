@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Dapper.Contrib.Extensions;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
 using DapperUniversity.ViewModels;
