@@ -8,13 +8,23 @@ using Dapper.Contrib.Extensions;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace DapperUniversity.Controllers
 {
     public class HomeController : Controller
     {
-        public const string DatabaseConnectionString = "host=172.17.0.2;port=5432;username=postgres;password=P@ssw0rd!;database=DapperUniversity;";
+        private readonly string _connectionString;
+        private readonly ILogger _logger;
+
+        public HomeController(ILogger<HomeController> logger,
+                IConfiguration configuration)
+        {
+            _logger = logger;
+            _connectionString = configuration.GetConnectionString ("DapperUniversity");
+        }
+
 
         public IActionResult Index ()
         {
@@ -29,7 +39,7 @@ namespace DapperUniversity.Controllers
 
             var students = Enumerable.Empty<Student> ();
 
-            using (DbContext _context = new DbContext (DatabaseConnectionString))
+            using (DbContext _context = new DbContext(_connectionString))
             {
                 students = await _context.GetConnection ().GetAllAsync<Student> ();
             }

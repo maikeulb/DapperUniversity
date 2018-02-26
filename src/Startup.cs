@@ -29,12 +29,13 @@ namespace DapperUniversity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql (Configuration.GetConnectionString ("Identity")));
+            // Will incorporate Dapper provider
+            /* services.AddDbContext<ApplicationDbContext>(options => */
+            /*     options.UseNpgsql (Configuration.GetConnectionString ("Identity"))); */
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            /* services.AddIdentity<ApplicationUser, IdentityRole>() */
+            /*     .AddEntityFrameworkStores<ApplicationDbContext>() */
+            /*     .AddDefaultTokenProviders(); */
 
             services.AddAutoMapper();
 
@@ -57,7 +58,6 @@ namespace DapperUniversity
 
             if (connectionString == null)
               throw new ArgumentNullException("Connection string cannot be null");
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -73,8 +73,6 @@ namespace DapperUniversity
             }
 
             app.UseStaticFiles();
-
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

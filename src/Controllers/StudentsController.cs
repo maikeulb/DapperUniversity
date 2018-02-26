@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using DapperUniversity.Models;
-using DapperUniversity.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using X.PagedList;
-using Microsoft.Extensions.Logging;
+using DapperUniversity.Models;
+using DapperUniversity.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using X.PagedList;
 
 namespace DapperUniversity.Controllers
 {
@@ -21,13 +22,11 @@ namespace DapperUniversity.Controllers
         private readonly string _connectionString;
         private readonly ILogger _logger;
 
-        public StudentsController(
-            ILogger<InstructorsController> logger
-                )
+        public StudentsController(ILogger<StudentsController> logger,
+                IConfiguration configuration)
         {
-            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             _logger = logger;
+            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
         }
 
         [HttpGet]

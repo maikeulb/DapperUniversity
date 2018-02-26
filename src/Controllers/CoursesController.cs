@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
+using Dapper.Contrib.Extensions;
+using DapperUniversity.Models;
+using DapperUniversity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using DapperUniversity.Models;
-using DapperUniversity.Data;
-using Dapper;
-using Dapper.Contrib.Extensions;
-using Npgsql;
-using MediatR;
+using Microsoft.Extensions.Configuration;
 
 namespace DapperUniversity.Controllers
 {
@@ -20,12 +19,11 @@ namespace DapperUniversity.Controllers
         private readonly string _connectionString;
         private readonly ILogger _logger;
 
-        public CoursesController(
-            ILogger<InstructorsController> logger
-                )
+        public CoursesController(ILogger<CoursesController> logger,
+                IConfiguration configuration)
         {
-            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
             _logger = logger;
+            _connectionString = configuration.GetConnectionString ("DapperUniversity");
         }
 
         [HttpGet]

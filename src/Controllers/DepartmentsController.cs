@@ -9,17 +9,21 @@ using DapperUniversity.Data;
 using DapperUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Npgsql;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace DapperUniversity.Controllers
 {
     public class DepartmentsController : Controller
     {
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
-        public DepartmentsController ()
+        public DepartmentsController(ILogger<DepartmentsController> logger,
+                IConfiguration configuration)
         {
-            _connectionString = "Server=172.17.0.2;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;";
+             _logger = logger;
+             _connectionString = configuration.GetConnectionString ("DapperUniversity");
         }
 
         public async Task<ActionResult> Index ()
