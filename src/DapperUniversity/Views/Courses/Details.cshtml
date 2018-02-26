@@ -3,40 +3,39 @@
     ViewData["Title"] = "Course";
 }
 
-<h2>Details</h2>
-
-<div>
-  <h4>Course</h4>
+<main>
+  <div class="col-lg-6 col-sm-12">
+  <h2 class="mb-3"> Course Details</h2>
   <hr />
-  <dl class="dl-horizontal">
-    <dt>
-      Department
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Department.Name)
-    </dd>
-    <dt>
-      @Html.DisplayNameFor(model => model.Id)
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Id)
-    </dd>
-    <dt>
-      @Html.DisplayNameFor(model => model.Title)
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Title)
-    </dd>
-    <dt>
-      @Html.DisplayNameFor(model => model.Credits)
-    </dt>
-    <dd>
-      @Html.DisplayFor(model => model.Credits)
-    </dd>
-  </dl>
-</div>
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
-    <a asp-action="Index" class="btn btn-link">Back to List</a>
-</div>
+    <dl class="dl-horizontal">
+      <dt>
+        Department
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.Department.Name)
+      </dd>
+      <dt>
+        @Html.DisplayNameFor(model => model.Id)
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.Id)
+      </dd>
+      <dt>
+        @Html.DisplayNameFor(model => model.Title)
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.Title)
+      </dd>
+      <dt>
+        @Html.DisplayNameFor(model => model.Credits)
+      </dt>
+      <dd>
+        @Html.DisplayFor(model => model.Credits)
+      </dd>
+    </dl>
+    <div>
+      <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
+      <a asp-action="Index" class="btn btn-link">Back to List</a>
+    </div>
+  </div>
+</main>
