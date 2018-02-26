@@ -24,13 +24,15 @@ namespace DapperUniversity.Controllers
                 IConfiguration configuration)
         {
             _logger = logger;
-             _connectionString = configuration.GetConnectionString ("DapperUniversity");
+            _connectionString = configuration.GetConnectionString ("DapperUniversity");
         }
 
-        [HttpGet]
         public async Task<ActionResult> Index(int? id, int? courseId)
         {
-            var viewModel = new InstructorIndexDataViewModel();
+            if (id == null)
+                return NotFound();
+
+            InstructorIndexDataViewModel  viewModel = new InstructorIndexDataViewModel();
 
             string query = @"SELECT i.*, oa.*
                              FROM instructors AS i
@@ -55,7 +57,7 @@ namespace DapperUniversity.Controllers
 
             if (id != null)
             {
-                ViewBag.InstructorId = id.Value;
+                ViewData["InstructorId"] = id.Value;
 
                 query = @"SELECT c.id, c.title, d.*
                           FROM courses AS c 
@@ -79,7 +81,7 @@ namespace DapperUniversity.Controllers
 
             if (courseId != null)
             {
-                ViewBag.CourseId = courseId.Value;
+                ViewData["CourseId"] = courseId.Value;
 
                 query = @"SELECT e.grade, s.*
                           FROM enrollments AS e 
@@ -102,63 +104,81 @@ namespace DapperUniversity.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             Instructor instructor = await GetInstructorWithCourse(id);
+
+            if (instructor == null)
+                return NotFound();
+
             return View(instructor);
         }
 
-        [HttpGet]
         public async Task<ActionResult> Create()
         {
-            var instructor = new Instructor() { };
+            Instructor instructor = new Instructor() { };
             instructor.CourseAssignments = new List<CourseAssignment>();
             await PopulateAssignedCourseData(instructor);
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([Bind(" FirstName,HireDate,LastName,OfficeAssignment")] Instructor instructor, string[] selectedCourses)
         {
-            if (selectedCourses != null)
-            {
-                instructor.CourseAssignments = new List<CourseAssignment>();
-                foreach (var course in selectedCourses)
-                {
-                    var courseToAdd = new CourseAssignment { InstructorId = instructor.Id, CourseId = int.Parse(course) };
-                    instructor.CourseAssignments.Add(courseToAdd);
-                }
-            }
-
-            string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
-                               VALUES(@LastName, @FirstName, @HireDate);
-                               INSERT INTO office_assignments (instructor_id, location)
-                               VALUES (currval('instructors_id_seq'), @Location)";
-
             if (ModelState.IsValid)
             {
-                using (DbContext _context = new DbContext(_connectionString))
+                if (selectedCourses != null)
                 {
-                    await _context.GetConnection().ExecuteAsync(command, new{ 
-                            instructor.LastName, 
-                            instructor.FirstName, 
-                            instructor.HireDate, 
-                            instructor.OfficeAssignment.Location});
-                    return RedirectToAction("Index");
+                    instructor.CourseAssignments = new List<CourseAssignment>();
+                    foreach (var course in selectedCourses)
+                    {
+                        var courseToAdd = new CourseAssignment { InstructorId = instructor.Id, CourseId = int.Parse(course) };
+                        instructor.CourseAssignments.Add(courseToAdd);
+                    }
                 }
+
+                string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
+                                   VALUES(@LastName, @FirstName, @HireDate);
+                                   INSERT INTO office_assignments (instructor_id, location)
+                                   VALUES (currval('instructors_id_seq'), @Location)";
+
+                if (ModelState.IsValid)
+                {
+                    using (DbContext _context = new DbContext(_connectionString))
+                    {
+                        await _context.GetConnection().ExecuteAsync(command, new{ 
+                                instructor.LastName, 
+                                instructor.FirstName, 
+                                instructor.HireDate, 
+                                instructor.OfficeAssignment.Location});
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                await PopulateAssignedCourseData(instructor);
+
+                return View(instructor);
             }
 
-            await PopulateAssignedCourseData(instructor);
-            return View(instructor);
+            return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
-            var instructors = await GetInstructor(id);
+            if (id == null)
+                return NotFound();
+
+            var instructor = await GetInstructor(id);
             /* await PopulateAssignedCourseData(instructors); */
-            return View(instructors);
+
+            if (instructor == null)
+                return NotFound();
+
+            return View(instructor);
         }
 
         [HttpPost, ActionName("Edit")]
@@ -197,14 +217,20 @@ namespace DapperUniversity.Controllers
                     return RedirectToAction("Index");
                 }
                 PopulateAssignedCourseData(instructorToUpdate);
+
                 return View(instructorToUpdate);
             }
         }
 
-        [HttpGet]
         public async Task<ActionResult> Delete (int? id)
         {
+            if (id == null)
+                return NotFound();
+
             Instructor instructor = await GetInstructorWithCourse(id);
+
+            if (instructor == null)
+                return NotFound();
 
             return View(instructor);
         }
@@ -212,18 +238,21 @@ namespace DapperUniversity.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeletePost (int? id)
         {
+            if (id == null)
+                return NotFound();
+
             using (DbContext _context = new DbContext(_connectionString))
             {
                 var instructorToDelete = await _context.GetConnection().GetAsync<Instructor>(id);
                 await _context.GetConnection().DeleteAsync(instructorToDelete);
             }
+
             return RedirectToAction("Index"); 
         } 
 
         private IEnumerable<Course> GetInstructorCourse(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
-
 
             string query =@"SELECT c.* 
                             FROM courses c
@@ -238,8 +267,8 @@ namespace DapperUniversity.Controllers
                     new { id },
                     splitOn: "department_id");
              }
-            return courses;
 
+            return courses;
         }
 
         private async Task<Instructor> GetInstructorWithCourse(int? id)
@@ -252,6 +281,7 @@ namespace DapperUniversity.Controllers
             {
                 instructor.AddCourse(s);
             });
+
             return instructor;
         }
 
@@ -282,7 +312,6 @@ namespace DapperUniversity.Controllers
 
         private async Task PopulateAssignedCourseData(Instructor instructor)
         {
-
             IEnumerable<Course> allCourses = Enumerable.Empty<Course>();
             using (DbContext _context = new DbContext(_connectionString))
             {
@@ -301,20 +330,3 @@ namespace DapperUniversity.Controllers
         }
     }
 }
-
-/* namespace DapperUniversity.Models */
-/* { */
-/*     public class InstructorIndexData */
-/*     { */
-/*         public IEnumerable<Instructor> Instructors { get; set; } */
-/*         public IEnumerable<Course> Courses { get; set; } */
-/*         public IEnumerable<Enrollment> Enrollments { get; set; } */
-/*     } */
-
-/*     public class AssignedCourseData */
-/*     { */
-/*         public int CourseId { get; set; } */
-/*         public string Title { get; set; } */
-/*         public bool Assigned { get; set; } */
-/*     } */
-/* } */
