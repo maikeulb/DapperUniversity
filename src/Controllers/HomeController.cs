@@ -33,10 +33,10 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<EnrollmentDateGroupViewModel>> About ()
+        public async Task<IActionResult> About()
         {
 
-            IEnumerable<EnrollmentDateGroupViewModel> result = Enumerable.Empty<EnrollmentDateGroupViewModel> ();
+            IEnumerable<EnrollmentDateGroupViewModel> groups = Enumerable.Empty<EnrollmentDateGroupViewModel> ();
 
             var students = Enumerable.Empty<Student> ();
 
@@ -45,14 +45,14 @@ namespace DapperUniversity.Controllers
                 students = await _context.GetConnection ().GetAllAsync<Student> ();
             }
 
-            result = students.GroupBy (s => s.EnrollmentDate)
+            groups = students.GroupBy (s => s.EnrollmentDate)
                 .Select (x => new EnrollmentDateGroupViewModel
                 {
                     EnrollmentDate = x.Key,
-                        StudentCount = x.Count ()
+                    StudentCount = x.Count ()
                 });
 
-            return result;
+            return View(groups);
         }
 
         public IActionResult Contact ()
@@ -68,12 +68,3 @@ namespace DapperUniversity.Controllers
         }
     }
 }
-
-/* namespace DapperUniversity.Models */
-/* { */
-/*     public class EnrollmentDateGroup */
-/*     { */
-/*         public DateTime? EnrollmentDate { get; set; } */
-/*         public int StudentCount { get; set; } */
-/*     } */
-/* } */
