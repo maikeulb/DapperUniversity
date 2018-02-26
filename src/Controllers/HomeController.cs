@@ -26,7 +26,6 @@ namespace DapperUniversity.Controllers
             _connectionString = configuration.GetConnectionString ("DapperUniversity");
         }
 
-
         public IActionResult Index ()
         {
             return View ();
@@ -35,7 +34,6 @@ namespace DapperUniversity.Controllers
         [HttpGet]
         public async Task<IActionResult> About()
         {
-
             IEnumerable<EnrollmentDateGroupViewModel> groups = Enumerable.Empty<EnrollmentDateGroupViewModel> ();
 
             var students = Enumerable.Empty<Student> ();

@@ -29,9 +29,6 @@ namespace DapperUniversity.Controllers
 
         public async Task<ActionResult> Index(int? id, int? courseId)
         {
-            if (id == null)
-                return NotFound();
-
             InstructorIndexDataViewModel  viewModel = new InstructorIndexDataViewModel();
 
             string query = @"SELECT i.*, oa.*
@@ -101,7 +98,7 @@ namespace DapperUniversity.Controllers
             }
             }
 
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
         public async Task<ActionResult> Details(int? id)

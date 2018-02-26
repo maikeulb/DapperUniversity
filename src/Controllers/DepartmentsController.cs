@@ -83,7 +83,6 @@ namespace DapperUniversity.Controllers
             return View (departments.FirstOrDefault ());
         }
 
-        [HttpGet]
         public IActionResult Create ()
         {
             PopulateInstructorDepartmentList ();
