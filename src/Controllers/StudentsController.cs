@@ -79,7 +79,7 @@ namespace DapperUniversity.Controllers
                     break;
             }
 
-             int pageSize = 5;
+             int pageSize = 10;
              int pageNumber = (page ?? 1);
 
             var onePageOfStudents = students.ToPagedList(pageNumber, pageSize);

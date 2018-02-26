@@ -13,17 +13,27 @@
   </p>
 </div>
 
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="searchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table is-striped is-fullwidth is-hoverable">
   <thead>
     <tr>
       <th>
-        Last Name
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
       </th>
       <th>
         First Name
       </th>
       <th>
-        Enrollment Datee
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Enrollment Date</a>
       </th>
       <th></th>
     </tr>
@@ -48,7 +58,58 @@
       </td>
      </tr>
    }
+
+</table>
+<br/>
+
+@*
+
+<table class="table is-striped is-fullwidth is-hoverable">
+
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Enrollment Date</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+  @foreach (var item in students) {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.EnrollmentDate)
+      </td>
+      <td>
+        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-link">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-link">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-link">Delete</a>
+      </td>
+     </tr>
+   }
+
   </tbody>
 </table>
+*@
 
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfStudents, page => Url.Action("Index", new { page }))
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfStudents, page =>
+    Url.Action("Index", new 
+    { 
+        page, sortOrder = ViewBag.CurrentSort, 
+        currentFilter = ViewBag.CurrentFilter
+    })
+)
+
