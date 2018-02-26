@@ -7,6 +7,7 @@ using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
+using DapperUniversity.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;

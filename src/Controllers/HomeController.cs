@@ -7,6 +7,7 @@ using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
+using DapperUniversity.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
@@ -32,10 +33,10 @@ namespace DapperUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<EnrollmentDateGroup>> About ()
+        public async Task<IEnumerable<EnrollmentDateGroupViewModel>> About ()
         {
 
-            IEnumerable<EnrollmentDateGroup> result = Enumerable.Empty<EnrollmentDateGroup> ();
+            IEnumerable<EnrollmentDateGroupViewModel> result = Enumerable.Empty<EnrollmentDateGroupViewModel> ();
 
             var students = Enumerable.Empty<Student> ();
 
@@ -45,7 +46,7 @@ namespace DapperUniversity.Controllers
             }
 
             result = students.GroupBy (s => s.EnrollmentDate)
-                .Select (x => new EnrollmentDateGroup
+                .Select (x => new EnrollmentDateGroupViewModel
                 {
                     EnrollmentDate = x.Key,
                         StudentCount = x.Count ()
@@ -68,12 +69,11 @@ namespace DapperUniversity.Controllers
     }
 }
 
-namespace DapperUniversity.Models
-{
-    public class EnrollmentDateGroup
-    {
-        public DateTime? EnrollmentDate { get; set; }
-
-        public int StudentCount { get; set; }
-    }
-}
+/* namespace DapperUniversity.Models */
+/* { */
+/*     public class EnrollmentDateGroup */
+/*     { */
+/*         public DateTime? EnrollmentDate { get; set; } */
+/*         public int StudentCount { get; set; } */
+/*     } */
+/* } */

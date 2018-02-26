@@ -7,6 +7,7 @@ using System.Text;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Models;
+using DapperUniversity.ViewModels;
 using DapperUniversity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,7 @@ namespace DapperUniversity.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int? id, int? courseId)
         {
-            InstructorIndexData viewModel = new InstructorIndexData();
+            var viewModel = new InstructorIndexDataViewModel();
 
             string query = @"SELECT i.*, oa.*
                              FROM instructors AS i
@@ -289,7 +290,7 @@ namespace DapperUniversity.Controllers
             }
 
             var instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(s => s.CourseId));
-            var viewModel = allCourses.Select(course => new AssignedCourseData
+            var viewModel = allCourses.Select(course => new AssignedCourseDataViewModel
             {
                 CourseId = course.Id,
                 Title = course.Title,
@@ -301,19 +302,19 @@ namespace DapperUniversity.Controllers
     }
 }
 
-namespace DapperUniversity.Models
-{
-    public class InstructorIndexData
-    {
-        public IEnumerable<Instructor> Instructors { get; set; }
-        public IEnumerable<Course> Courses { get; set; }
-        public IEnumerable<Enrollment> Enrollments { get; set; }
-    }
+/* namespace DapperUniversity.Models */
+/* { */
+/*     public class InstructorIndexData */
+/*     { */
+/*         public IEnumerable<Instructor> Instructors { get; set; } */
+/*         public IEnumerable<Course> Courses { get; set; } */
+/*         public IEnumerable<Enrollment> Enrollments { get; set; } */
+/*     } */
 
-    public class AssignedCourseData
-    {
-        public int CourseId { get; set; }
-        public string Title { get; set; }
-        public bool Assigned { get; set; }
-    }
-}
+/*     public class AssignedCourseData */
+/*     { */
+/*         public int CourseId { get; set; } */
+/*         public string Title { get; set; } */
+/*         public bool Assigned { get; set; } */
+/*     } */
+/* } */

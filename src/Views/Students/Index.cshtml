@@ -1,10 +1,10 @@
 @using DapperUniversity
+@using X.PagedList.Mvc.Core; 
+@using X.PagedList;
 @{
     ViewBag.Title = "Student";
     IEnumerable<DapperUniversity.Models.Student> students = ViewBag.OnePageOfStudents;
 }
-@using X.PagedList.Mvc.Core; 
-@using X.PagedList;
 
 <div style="margin-bottom:10px;">
   <h1 class="is-size-3">Students</h1>

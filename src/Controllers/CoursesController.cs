@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Models;
+using DapperUniversity.ViewModels;
 using DapperUniversity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -201,12 +202,12 @@ namespace DapperUniversity.Controllers
     }
 }
 
-namespace DapperUniversity.Models
-{
-    public class CourseEditViewModel
-    {
-        public int? SelectedItemId { get; set; }
-        public SelectList Department { get; set; }
-        public Course Course { get; set; }
-    }
-}
+/* namespace DapperUniversity.Models */
+/* { */
+/*     public class CourseEditViewModel */
+/*     { */
+/*         public int? SelectedItemId { get; set; } */
+/*         public SelectList Department { get; set; } */
+/*         public Course Course { get; set; } */
+/*     } */
+/* } */

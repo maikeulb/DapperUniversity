@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Models;
+using DapperUniversity.ViewModels;
 using DapperUniversity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;

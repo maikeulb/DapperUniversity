@@ -6,6 +6,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using DapperUniversity.Models;
 using DapperUniversity.Models.ManageViewModels;
+using DapperUniversity.ViewModels;
 using DapperUniversity.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
