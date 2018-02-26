@@ -8,7 +8,7 @@
     <div class="mb-4">
       <h2 class="mb-3">Edit Department</h2>
       <hr />
-      <form asp-action="Create" class="needs-validation" novalidate>
+      <form asp-action="Edit" class="needs-validation" novalidate>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
         <div class="form-group">
@@ -29,7 +29,8 @@
         </div>
         <div class="form-group">
           <label for="startdate-valid" asp-for="StartDate" class="control-label"></label>
-          <input id="valid-startdate" asp-for="StartDate" class="form-control" required/>
+          <input id="valid-startdate" asp-for="StartDate" class="form-control"
+          type="date" required/>
           <span asp-validation-for="StartDate" class="text-danger" required></span>
           <div class="invalid-feedback">
             Please enter the start date.
@@ -49,7 +50,7 @@
         </div>
         <div class="d-flex flex-row mt-4">
           <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Edit" class="btn btn-default" />
           </div>
           <div>
             <a asp-action="Index" class="btn btn-link">Back to List</a>

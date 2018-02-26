@@ -3,6 +3,7 @@ instructors Delete, not implimented
 instructors Index (missing course assignment)
 
 departments - index-sloppy,
+departments - course update
 departments - edit,not working (null for instructor and course)
 
 ---

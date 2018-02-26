@@ -3,37 +3,68 @@
     ViewData["Title"] = "Students";
 }
 
-<h2>Create</h2>
-
-<h4>Student</h4>
-<hr />
-
-<div class="columns">
-  <div class="column col-md-12 col-6">
-    <form asp-action="Create">
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-      <div class="form-group">
-        <label asp-for="LastName" class="form-label"></label>
-        <input asp-for="LastName" class="form-input" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-        <label asp-for="FirstName" class="form-label"></label>
-        <input asp-for="FirstName" class="form-input" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-        <label asp-for="EnrollmentDate" class="form-label"></label>
-        <input asp-for="EnrollmentDate" class="form-input" type="date"/>
-        <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-default" />
-      </div>
-    </form>
+<main>
+  <div class="col-lg-6 col-sm-12">
+    <div class="mb-4">
+      <h2 class="mb-3">Create Student</h2>
+      <hr />
+      <form asp-action="Create" class="needs-validation" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+          <label for="lastname-valid" asp-for="LastName" class="control-label"></label>
+          <input id="valid-lastname" asp-for="LastName" class="form-control" required/>
+          <span asp-validation-for="LastName" class="text-danger"></span>
+          <div class="invalid-feedback">
+            Please enter last name.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="firstname-valid" asp-for="FirstName" class="control-label"></label>
+          <input id="valid-firstname" asp-for="FirstName" class="form-control" required/>
+          <span asp-validation-for="FirstName" class="text-danger" required></span>
+          <div class="invalid-feedback">
+            Please enter first name.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="enrolldate-valid" asp-for="EnrollmentDate" class="control-label"></label>
+          <input id="valid-enrolldate" asp-for="EnrollmentDate"
+          class="form-control" type="date" required/>
+          <span asp-validation-for="EnrollmentDate" class="text-danger" required></span>
+          <div class="invalid-feedback">
+            Please enter the enrollment date.
+          </div>
+        </div>
+        <div class="d-flex flex-row mt-4">
+          <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+          </div>
+          <div>
+            <a asp-action="Index" class="btn btn-link">Back to List</a>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+</main>
 
-<div>
-    <a asp-action="Index" class="btn btn-link">Back to List</a>
-</div>
+@section scripts
+{
+  <script>
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
+}

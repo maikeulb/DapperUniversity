@@ -3,9 +3,9 @@
     ViewData["Title"] = "Student Body Statistics";
 }
 
+<main class="container">
 <h2>Student Body Statistics</h2>
-
-<table>
+  <table class="table" cellspacing="0" width="100%">
     <tr>
         <th>
             Enrollment Date
@@ -14,7 +14,6 @@
             Students
         </th>
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>
@@ -26,4 +25,5 @@
             </td>
         </tr>
     }
-</table>
+  </table>
+</main>

@@ -28,7 +28,8 @@
         </div>
         <div class="form-group">
           <label for="startdate-valid" asp-for="StartDate" class="control-label"></label>
-          <input id="valid-startdate" asp-for="StartDate" class="form-control" required/>
+          <input id="valid-startdate" asp-for="StartDate" class="form-control"
+          type="date" required/>
           <span asp-validation-for="StartDate" class="text-danger" required></span>
           <div class="invalid-feedback">
             Please enter the start date.

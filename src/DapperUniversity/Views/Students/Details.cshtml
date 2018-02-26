@@ -3,13 +3,11 @@
     ViewData["Title"] = "Students";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Student</h4>
-    <hr />
+<main>
+  <div class="col-lg-6 col-sm-12">
+  <h2 class="mb-3">Student Details</h2>
+  <hr />
     <dl class="dl-horizontal">
-
       <dt>
           @Html.DisplayNameFor(model => model.LastName)
       </dt>
@@ -50,10 +48,10 @@
           }
         </table>
       </dd>
-  </dl>
-</div>
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
-    <a asp-action="Index" class="btn btn-link">Back to List</a>
-</div>
+    </dl>
+    <div>
+      <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-link">Edit</a> |
+      <a asp-action="Index" class="btn btn-link">Back to List</a>
+    </div>
+  </div>
+</main>

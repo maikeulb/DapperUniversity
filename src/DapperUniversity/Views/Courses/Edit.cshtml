@@ -8,7 +8,7 @@
     <div class="mb-4">
       <h2 class="mb-3"> Edit Course</h2>
       <hr />
-      <form asp-action="Create" class="needs-validation" novalidate>
+      <form asp-action="Edit" class="needs-validation" novalidate>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="Course.Id" value="@Model.Course.Id" hidden>
         <div class="form-group">
@@ -59,7 +59,7 @@
         </div>
         <div class="d-flex flex-row mt-4">
           <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Edit" class="btn btn-default" />
           </div>
           <div>
             <a asp-action="Index" class="btn btn-link">Back to List</a>
