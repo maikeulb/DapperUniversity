@@ -83,7 +83,7 @@ namespace DapperUniversity.Controllers
              int pageNumber = (page ?? 1);
 
             var onePageOfStudents = students.ToPagedList(pageNumber, pageSize);
-            ViewData["OnePageOfStudents"] = onePageOfStudents;
+            ViewBag.OnePageOfStudents = onePageOfStudents;
 
             return View(onePageOfStudents);
         }

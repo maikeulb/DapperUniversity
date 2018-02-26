@@ -1,6 +1,6 @@
 @model DapperUniversity.Models.Department
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Departments";
 }
 
 <h2>Edit</h2>
@@ -35,7 +35,7 @@
       <div class="form-group">
         <label asp-for="InstructorId" class="form-label"></label>
         <select asp-for="InstructorId" class ="form-select"
-          asp-items="(SelectList)ViewBag.InstructorId">
+          asp-items="(SelectList)ViewData["InstructorId"]">
           <option value="">-- Select Instructor --</option>
         </select>
         <span asp-validation-for="InstructorId" class="text-danger" />

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
+using DapperUniversity.Models.Validators;
 using DapperUniversity.Services;
 using Dapper.FluentMap;
 using MediatR;
@@ -52,8 +53,9 @@ namespace DapperUniversity
 
             services.AddMediatR();
 
-            services.AddMvc()
-                .AddFluentValidation (cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup> (); });
+            services.AddMvc();
+            /*     .AddFluentValidation (cfg => */ 
+            /*             cfg.RegisterValidatorsFromAssemblyContaining<Startup> ()); */
 
             string connectionString = Configuration.GetConnectionString ("DapperUniversity");
 

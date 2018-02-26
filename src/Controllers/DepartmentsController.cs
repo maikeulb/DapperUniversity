@@ -83,6 +83,7 @@ namespace DapperUniversity.Controllers
             return View (departments.FirstOrDefault ());
         }
 
+        [HttpGet]
         public IActionResult Create ()
         {
             PopulateInstructorDepartmentList ();
@@ -199,7 +200,7 @@ namespace DapperUniversity.Controllers
             {
                 instructors = _context.GetConnection ().GetAll<Instructor> ().OrderBy (s => s.LastName).Select (s => s);
             }
-            ViewData["InstructorId"] = new SelectList (instructors, "Id", "FullName", selectedInstructor);
+            ViewBag.InstructorId = new SelectList (instructors, "Id", "FullName", selectedInstructor);
         }
     }
 }

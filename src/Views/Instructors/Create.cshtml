@@ -1,6 +1,6 @@
 @model DapperUniversity.Models.Instructor
 @{
-    ViewBag.Title = "Instructor";
+    ViewData["Title"] = "Instructors";
 }
 
 <h2>Create</h2>
@@ -42,7 +42,8 @@
           <tr>
             @{ 
               int cnt = 0;
-              List<DapperUniversity.Models.AssignedCourseData> courses = ViewBag.Courses;
+              List<DapperUniversity.Models.AssignedCourseData> courses =
+                ViewData["Courses"];
               foreach (var course in courses)
               {
                   if (cnt++ % 3 == 0)
