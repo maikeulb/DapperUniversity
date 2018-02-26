@@ -79,6 +79,8 @@ namespace DapperUniversity
 
             app.UseStaticFiles();
 
+            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
