@@ -9,3 +9,7 @@ departments - edit,not working (null for instructor and course)
 ---
 add logging,
 add localization
+add money (razor)
+add env variables
+add docker
+style pag)
