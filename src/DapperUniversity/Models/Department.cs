@@ -9,6 +9,7 @@ namespace DapperUniversity.Models
         public int Id { get; set; }
         public int? InstructorId { get; set; }
         public string Name { get; set; }
+       [DisplayFormat(DataFormatString = "{0:C0}")]
         public decimal Budget { get; set; } 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]
