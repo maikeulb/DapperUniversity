@@ -7,23 +7,23 @@
 <h2>Student Body Statistics</h2>
   <table class="table" cellspacing="0" width="100%">
     <tr>
-        <th>
-            Enrollment Date
-        </th>
-        <th>
-            Students
-        </th>
+      <th>
+        <span class="text-dark"><strong>Enrollment Date</strong></span>
+      </th>
+      <th>
+        <span class="text-dark"><strong>Students</strong></span>
+      </th>
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-                @item.StudentCount
-            </td>
-        </tr>
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.EnrollmentDate)
+        </td>
+        <td>
+          @item.StudentCount
+        </td>
+      </tr>
     }
   </table>
 </main>
