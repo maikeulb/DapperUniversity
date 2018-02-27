@@ -1,44 +1,15 @@
-﻿body {
-}
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
-/* Sitcky Footer */
+﻿/* Sitcky Footer */
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  padding-top: 50px;
-  padding-bottom: 20px;
 }
 .site-content {
   flex: 1;
+  padding-top:50px;
+  padding-bottom:20px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 /* Pagination */
 .pagination {
@@ -46,6 +17,11 @@ body {
   padding-left: 0;
   margin: 20px 0;
   border-radius: 4px;
+  padding: 0 !important;
+}
+.pagination-container {
+  padding:0;
+  margin:0;
 }
 .pagination > li {
   display: inline;
@@ -87,8 +63,8 @@ body {
   z-index: 2;
   color: #ffffff;
   cursor: default;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #ca42c0;
+  border-color: #ca42c0;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > a,
