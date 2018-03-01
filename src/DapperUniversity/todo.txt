@@ -10,3 +10,4 @@ departments - edit,not working (null for instructor and course)
 add localization
 add env variables
 add dockerfile
+add global exception handler
