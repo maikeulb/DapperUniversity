@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Text;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Models;
@@ -33,7 +30,7 @@ namespace DapperUniversity.Controllers
 
             string query = @"SELECT i.*, oa.*
                              FROM instructors AS i
-                               LEFT JOIN office_assignments AS oa 
+                               LEFT JOIN office_assignments AS oa
                                ON oa.instructor_id = i.id;";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -57,11 +54,11 @@ namespace DapperUniversity.Controllers
                 ViewData["InstructorId"] = id.Value;
 
                 query = @"SELECT c.id, c.title, d.*
-                          FROM courses AS c 
-                            INNER JOIN departments AS d 
-                            ON d.id = c.department_id 
-                            INNER JOIN course_assignments AS ca 
-                            ON ca.course_id = c.id 
+                          FROM courses AS c
+                            INNER JOIN departments AS d
+                            ON d.id = c.department_id
+                            INNER JOIN course_assignments AS ca
+                            ON ca.course_id = c.id
                           WHERE ca.instructor_id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -81,9 +78,9 @@ namespace DapperUniversity.Controllers
                 ViewData["CourseId"] = courseId.Value;
 
                 query = @"SELECT e.grade, s.*
-                          FROM enrollments AS e 
-                            INNER JOIN students AS s 
-                            ON s.id = e.student_id 
+                          FROM enrollments AS e
+                            INNER JOIN students AS s
+                            ON s.id = e.student_id
                           WHERE e.course_id = @courseId";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -138,7 +135,7 @@ namespace DapperUniversity.Controllers
                     }
                 }
 
-                string command = @"INSERT INTO instructors (last_name, first_name, hire_date) 
+                string command = @"INSERT INTO instructors (last_name, first_name, hire_date)
                                    VALUES(@LastName, @FirstName, @HireDate);
                                    INSERT INTO office_assignments (instructor_id, location)
                                    VALUES (currval('instructors_id_seq'), @Location)";
@@ -147,10 +144,10 @@ namespace DapperUniversity.Controllers
                 {
                     using (DbContext _context = new DbContext(_connectionString))
                     {
-                        await _context.GetConnection().ExecuteAsync(command, new{ 
-                                instructor.LastName, 
-                                instructor.FirstName, 
-                                instructor.HireDate, 
+                        await _context.GetConnection().ExecuteAsync(command, new{
+                                instructor.LastName,
+                                instructor.FirstName,
+                                instructor.HireDate,
                                 instructor.OfficeAssignment.Location});
                         return RedirectToAction("Index");
                     }
@@ -189,8 +186,8 @@ namespace DapperUniversity.Controllers
             courses.ToList().ForEach(instructorToUpdate.AddCourse);
             instructorToUpdate.OfficeAssignment.InstructorId = instructorToUpdate.Id;
 
-            string command = @"UPDATE instructors 
-                               SET first_name = @FirstName, 
+            string command = @"UPDATE instructors
+                               SET first_name = @FirstName,
                                    last_name = @LastName,
                                    hire_date = @HireDate
                                WHERE id = @Id;
@@ -205,11 +202,11 @@ namespace DapperUniversity.Controllers
                     "",
                     i => i.FirstName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
                 {
-                    await _context.GetConnection().ExecuteAsync(command, new{ 
+                    await _context.GetConnection().ExecuteAsync(command, new{
                             instructorToUpdate.Id,
-                            instructorToUpdate.LastName, 
-                            instructorToUpdate.FirstName, 
-                            instructorToUpdate.HireDate, 
+                            instructorToUpdate.LastName,
+                            instructorToUpdate.FirstName,
+                            instructorToUpdate.HireDate,
                             instructorToUpdate.OfficeAssignment.Location});
                     return RedirectToAction("Index");
                 }
@@ -244,23 +241,23 @@ namespace DapperUniversity.Controllers
                 await _context.GetConnection().DeleteAsync(instructorToDelete);
             }
 
-            return RedirectToAction("Index"); 
-        } 
+            return RedirectToAction("Index");
+        }
 
         private IEnumerable<Course> GetInstructorCourse(int? id)
         {
             IEnumerable<Course> courses = Enumerable.Empty<Course>();
 
-            string query =@"SELECT c.* 
+            string query =@"SELECT c.*
                             FROM courses c
-                              INNER JOIN course_assignments ca 
+                              INNER JOIN course_assignments ca
                               ON ca.course_id = c.Id
                             WHERE ca.instructor_id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))
             {
                 courses = _context.GetConnection().Query<Course, CourseAssignment, Course> (query,
-                    ((course, courseAssignment) => course), 
+                    ((course, courseAssignment) => course),
                     new { id },
                     splitOn: "department_id");
              }
@@ -272,7 +269,7 @@ namespace DapperUniversity.Controllers
         {
             Instructor instructor = await GetInstructor(id);
 
-            IEnumerable<Course> course = GetInstructorCourse(id); 
+            IEnumerable<Course> course = GetInstructorCourse(id);
 
             course.ToList().ForEach(s =>
             {
@@ -287,9 +284,9 @@ namespace DapperUniversity.Controllers
             IEnumerable<Instructor> instructors = Enumerable.Empty<Instructor>();
 
             string query = @"SELECT i.*, oa.*
-                             FROM instructors AS i 
-                               LEFT JOIN office_assignments AS oa 
-                               ON i.id = oa.instructor_id 
+                             FROM instructors AS i
+                               LEFT JOIN office_assignments AS oa
+                               ON i.id = oa.instructor_id
                              WHERE i.id = @id";
 
             using (DbContext _context = new DbContext(_connectionString))

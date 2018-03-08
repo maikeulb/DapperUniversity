@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Data;
 using DapperUniversity.Models;
-using DapperUniversity.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -29,7 +26,6 @@ namespace DapperUniversity.Controllers
 
         public async Task<ActionResult> Index ()
         {
-
             IEnumerable<Course> courses = Enumerable.Empty<Course> ();
             IEnumerable<Department> departments = Enumerable.Empty<Department> ();
 

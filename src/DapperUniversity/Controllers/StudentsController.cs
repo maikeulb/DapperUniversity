@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using DapperUniversity.Models;
-using DapperUniversity.ViewModels;
 using DapperUniversity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using X.PagedList;
@@ -31,12 +26,12 @@ namespace DapperUniversity.Controllers
         }
 
         public async Task<ActionResult> Index(
-            string sortOrder, 
+            string sortOrder,
             string currentFilter,
             string searchString,
             int? page)
         {
-            IEnumerable<Student> students = Enumerable.Empty<Student>(); 
+            IEnumerable<Student> students = Enumerable.Empty<Student>();
 
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -59,7 +54,7 @@ namespace DapperUniversity.Controllers
             }
 
             if (!String.IsNullOrEmpty(searchString))
-               students = students.Where(s => 
+               students = students.Where(s =>
                      s.LastName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0
                   || s.FirstName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >=0 );
 
@@ -95,18 +90,18 @@ namespace DapperUniversity.Controllers
 
             Student student = new Student();
 
-            string enrollmentQuery = @"SELECT * 
+            string enrollmentQuery = @"SELECT *
                                        FROM enrollments
-                                       WHERE student_id 
-                                       IN (SELECT id 
+                                       WHERE student_id
+                                       IN (SELECT id
                                          FROM students
                                          WHERE id = @id)";
 
-            string courseQuery = @"SELECT * 
+            string courseQuery = @"SELECT *
                                    FROM courses
-                                   WHERE id 
-                                   IN (SELECT course_id 
-                                     FROM enrollments 
+                                   WHERE id
+                                   IN (SELECT course_id
+                                     FROM enrollments
                                      WHERE student_id = @id)";
 
             using (DbContext _context = new DbContext(_connectionString))
@@ -115,8 +110,8 @@ namespace DapperUniversity.Controllers
                 student = await _context.GetConnection().GetAsync<Student>(id);
                 var enrollments = await _context.GetConnection().QueryAsync<Enrollment> (enrollmentQuery, new {id} );
                 var courses = await _context.GetConnection().QueryAsync<Course> (courseQuery, new {id} );
-  
-                student.Enrollments = enrollments.Where(e=>e.StudentId == student.Id).ToList();  
+
+                student.Enrollments = enrollments.Where(e=>e.StudentId == student.Id).ToList();
 
                 foreach (var enrollment in student.Enrollments)
                 {
@@ -140,7 +135,7 @@ namespace DapperUniversity.Controllers
         {
             if (ModelState.IsValid)
             {
-                string command = @"INSERT INTO students (enrollment_date, first_name, last_name) 
+                string command = @"INSERT INTO students (enrollment_date, first_name, last_name)
                                VALUES(@EnrollmentDate, @FirstName, @LastName)";
 
                 using (DbContext _context = new DbContext(_connectionString))
@@ -179,8 +174,8 @@ namespace DapperUniversity.Controllers
 
             Student studentToUpdate = new Student();
 
-            string command = @"UPDATE students 
-                               SET enrollment_date = @EnrollmentDate, 
+            string command = @"UPDATE students
+                               SET enrollment_date = @EnrollmentDate,
                                    first_name = @FirstName,
                                    last_name = @LastName
                                WHERE id = @Id";
@@ -198,7 +193,7 @@ namespace DapperUniversity.Controllers
                 }
             }
 
-            return View(studentToUpdate); 
+            return View(studentToUpdate);
         }
 
         public async Task<ActionResult> Delete (int? id)
@@ -216,7 +211,7 @@ namespace DapperUniversity.Controllers
             if (student == null)
                 return NotFound();
 
-            return View(student); 
+            return View(student);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -234,9 +229,9 @@ namespace DapperUniversity.Controllers
             }
 
             if (studentToDelete == null)
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
 
-            return RedirectToAction("Index"); 
+            return RedirectToAction("Index");
         }
     }
 }

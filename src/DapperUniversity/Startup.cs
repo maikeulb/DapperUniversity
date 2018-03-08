@@ -1,34 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Dapper.FluentMap;
+using DapperUniversity.Data;
+using DapperUniversity.Middlewares;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using DapperUniversity.Data;
-using DapperUniversity.Models;
-using DapperUniversity.Models.Validators;
-using DapperUniversity.Services;
-using DapperUniversity.Middlewares;
-using Dapper.FluentMap;
-using FluentValidation.AspNetCore;
 
 namespace DapperUniversity
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup (IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices (IServiceCollection services)
         {
             // Will incorporate Dapper provider
             /* services.AddDbContext<ApplicationDbContext>(options => */
@@ -38,50 +30,51 @@ namespace DapperUniversity
             /*     .AddEntityFrameworkStores<ApplicationDbContext>() */
             /*     .AddDefaultTokenProviders(); */
 
-            FluentMapper.Initialize(config =>
-                {
-                   config.AddMap(new StudentMap());
-                   config.AddMap(new CourseMap());
-                   config.AddMap(new CourseAssignmentMap());
-                   config.AddMap(new DepartmentMap());
-                   config.AddMap(new EnrollmentMap());
-                   config.AddMap(new InstructorMap());
-                   config.AddMap(new OfficeAssignmentMap());
-                });
+            FluentMapper.Initialize (config =>
+            {
+                config.AddMap (new StudentMap ());
+                config.AddMap (new CourseMap ());
+                config.AddMap (new CourseAssignmentMap ());
+                config.AddMap (new DepartmentMap ());
+                config.AddMap (new EnrollmentMap ());
+                config.AddMap (new InstructorMap ());
+                config.AddMap (new OfficeAssignmentMap ());
+            });
 
-            services.AddMvc()
-                .AddFluentValidation(fv => {
-                    fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-                    fv.ConfigureClientsideValidation(enabled: false);
+            services.AddMvc ()
+                .AddFluentValidation (fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<Startup> ();
+                    fv.ConfigureClientsideValidation (enabled: false);
                 });
 
             string connectionString = Configuration.GetConnectionString ("DapperUniversity");
 
             if (connectionString == null)
-              throw new ArgumentNullException("Connection string cannot be null");
+                throw new ArgumentNullException ("Connection string cannot be null");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory factory)
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory factory)
         {
-            app.UseMiddleware<ErrorLoggingMiddleware>();
+            app.UseMiddleware<ErrorLoggingMiddleware> ();
 
-            if (env.IsDevelopment())
+            if (env.IsDevelopment ())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage ();
+                app.UseDatabaseErrorPage ();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler ("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles ();
 
-            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
+            app.UseStatusCodePagesWithReExecute ("/StatusCode/{0}");
 
-            app.UseMvc(routes =>
+            app.UseMvc (routes =>
             {
-                routes.MapRoute(
+                routes.MapRoute (
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

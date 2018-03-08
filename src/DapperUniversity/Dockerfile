@@ -1,8 +1,8 @@
 FROM boxfuse/flyway
 COPY . /app
 WORKDIR /app
-RUN chmod +x ./Migrations/start.sh
-CMD /bin/bash ./Migrations/start.sh
+RUN chmod +x ./Migrations/entrypoint.sh
+CMD /bin/bash ./Migrations/entrypoint.sh
 
 FROM microsoft/aspnetcore-build:2.0
 COPY . /app

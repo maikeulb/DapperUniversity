@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using Dapper;
 using Npgsql;
 //
 //
@@ -22,7 +21,7 @@ namespace DapperUniversity.Data
         internal IDbConnection GetConnection()
         {
             return _connection;
-        }       
+        }
 
         public void Dispose()
         {
