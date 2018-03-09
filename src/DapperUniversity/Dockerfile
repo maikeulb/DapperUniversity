@@ -11,5 +11,6 @@ RUN ["dotnet", "restore"]
 RUN ["dotnet", "build"]
 EXPOSE 80/tcp
 ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ConnectionStrings__DapperUniversity="Server=db;Port=5432;Database=DapperUniversity;User ID=postgres;Password=P@ssw0rd!;"
 RUN chmod +x ./entrypoint.sh
 CMD /bin/bash ./entrypoint.sh

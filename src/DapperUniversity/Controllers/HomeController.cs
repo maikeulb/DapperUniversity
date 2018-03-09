@@ -28,7 +28,8 @@ namespace DapperUniversity.Controllers
             return View ();
         }
 
-        [HttpGet]
+        [HttpGet("Index")]
+        [HttpGet("")]
         public async Task<IActionResult> About()
         {
             IEnumerable<EnrollmentDateGroupViewModel> groups = Enumerable.Empty<EnrollmentDateGroupViewModel> ();

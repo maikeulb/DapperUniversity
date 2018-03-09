@@ -1,29 +1,29 @@
-INSERT INTO students (id, last_name, first_name, enrollment_date) VALUES
-  (1, 'Claw', 'Nik', '2017-01-01 10:23:54'),
-  (2, 'Lowe', 'Kim', '2016-01-01 10:23:54'),
-  (3, 'Chaparro', 'Amy', '2017-01-01 10:23:54'),
-  (4, 'Kimbrough', 'Marco', '2016-01-01 10:23:54'),
-  (5, 'Ramsburg', 'Jake', '2017-01-01 10:23:54'),
-  (6, 'Mathews', 'Alison', '2017-01-01 10:23:54'),
-  (7, 'Braun', 'Eva', '2016-01-01 10:23:54'),
-  (8, 'Hunger', 'Com', '2017-01-01 10:23:54'),
-  (9, 'Folwers', 'Eliezer', '2016-01-01 10:23:54'),
-  (10, 'Gross', 'Nylah', '2017-01-01 10:23:54'),
-  (11, 'Barber', 'Marissa', '2017-01-01 10:23:54'),
-  (12, 'Stanton', 'Cameron', '2016-01-01 10:23:54'),
-  (13, 'Mckinney', 'Andrea', '2017-01-01 10:23:54'),
-  (14, 'Craig', 'Justin', '2016-01-01 10:23:54'),
-  (15, 'Stone', 'Keon', '2017-01-01 10:23:54');
+INSERT INTO students (last_name, first_name, enrollment_date) VALUES
+  ('Claw', 'Nik', '2017-01-01 10:23:54'),
+  ('Lowe', 'Kim', '2016-01-01 10:23:54'),
+  ('Chaparro', 'Amy', '2017-01-01 10:23:54'),
+  ('Kimbrough', 'Marco', '2016-01-01 10:23:54'),
+  ('Ramsburg', 'Jake', '2017-01-01 10:23:54'),
+  ('Mathews', 'Alison', '2017-01-01 10:23:54'),
+  ('Braun', 'Eva', '2016-01-01 10:23:54'),
+  ('Hunger', 'Com', '2017-01-01 10:23:54'),
+  ('Folwers', 'Eliezer', '2016-01-01 10:23:54'),
+  ('Gross', 'Nylah', '2017-01-01 10:23:54'),
+  ('Barber', 'Marissa', '2017-01-01 10:23:54'),
+  ('Stanton', 'Cameron', '2016-01-01 10:23:54'),
+  ('Mckinney', 'Andrea', '2017-01-01 10:23:54'),
+  ('Craig', 'Justin', '2016-01-01 10:23:54'),
+  ('Stone', 'Keon', '2017-01-01 10:23:54');
 
-INSERT INTO instructors (id, last_name, first_name, hire_date) VALUES
-  (1, 'Dalton', 'Justine','1994-10-19 10:23:54'),
-  (2, 'Henderson', 'David','1984-02-10 10:23:54'),
-  (3, 'Cruz', 'James','2004-04-12 10:23:54'),
-  (4, 'Walker', 'Angela','2014-11-11 10:23:54');
+INSERT INTO instructors (last_name, first_name, hire_date) VALUES
+  ('Dalton', 'Justine','1994-10-19 10:23:54'),
+  ('Henderson', 'David','1984-02-10 10:23:54'),
+  ('Cruz', 'James','2004-04-12 10:23:54'),
+  ('Walker', 'Angela','2014-11-11 10:23:54');
 
-INSERT INTO departments (id, name, budget, start_date, instructor_id) VALUES
-  (1, 'Civil Engineering', 205000, '1904-10-19 10:23:54', 1),
-  (2, 'Mathematics', 195000, '1868-10-19 10:23:54', 2);
+INSERT INTO departments (name, budget, start_date, instructor_id) VALUES
+  ('Civil Engineering', 205000, '1904-10-19 10:23:54', 1),
+  ('Mathematics', 195000, '1868-10-19 10:23:54', 2);
 
 INSERT INTO courses (id, title, credits, department_id) VALUES
   (201, 'Structural Analysis', 3, 1),
