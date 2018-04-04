@@ -18,16 +18,16 @@ Screenshots
 ### About
 ![about](/screenshots/about.png?raw=true "About")
 
-### Students (Index)
+### Students - Index (pagination, sorting, and searching is supported)
 ![students](/screenshots/students.png?raw=true "Students")
 
-### Courses (Edit)
+### Courses - Edit
 ![courses](/screenshots/courses.png?raw=true "Courses")
 
-### Departments (Details)
+### Departments - Details
 ![departments](/screenshots/departments.png?raw=true "Departments")
 
-### Instructors (Index)
+### Instructors - Index (instructor features are in progress)
 ![instructors](/screenshots/instructors.png?raw=true "Instructors")
 
 Run
@@ -53,5 +53,5 @@ Go to http://localhost:5000
 
 TODO
 ----
-* Finish instructor feature
-* Implement Identity (using Dapper)
+Finish instructor feature  
+Implement Identity (using Dapper)
