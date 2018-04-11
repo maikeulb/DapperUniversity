@@ -37,9 +37,11 @@ Instructors are assigned to courses (office and course assignments are in progre
 
 Run
 ---
-If you have docker installed,
+
+With docker:
 ```
 docker-compose build
+docker-compose up -d db
 docker-compose up
 Go to http://localhost:5000
 ```
@@ -50,7 +52,6 @@ scripts (located in `./Migrations`), and edit `appsettings.json` so that the
 connection string points to your server. You can ignore the identity connection
 string (this feature is not yet implemented).
 
-After all that has been taken care of,
 ```
 dotnet restore
 dotnet run
